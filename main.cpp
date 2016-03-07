@@ -1,8 +1,6 @@
 #include <iostream>
-#define boardLayerWidth 3
-#define boardLayerHeight 3
-#define numOfLayers 3
 #include "include\board.h"
+#include "game.h"
 
 using namespace std;
 

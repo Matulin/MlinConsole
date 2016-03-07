@@ -30,14 +30,7 @@ struct position
     bool mlinStatus;
 };
 
-enum status
-{
-    placing,
-    moving,
-    blackWin,
-    whiteWin,
-    draw
-};
+
 
 struct pieces
 {
@@ -46,15 +39,7 @@ struct pieces
     int piecesTaken;
 };
 
-struct gameData
-{
-    enum status gameStatus;
-    struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];
-    struct pieces whitePieces;
-    struct pieces blackPieces;
-    int whiteMlins;
-    int blackMlins;
-};
+
 
 bool moveToken(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
 bool placePiece(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int lay, enum posColour newToken);
