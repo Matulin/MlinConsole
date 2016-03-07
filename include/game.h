@@ -2,16 +2,6 @@
 #define GAME_H
 #include "board.h"
 
-
-class game
-{
-    public:
-        game();
-        virtual ~game();
-    protected:
-    private:
-};
-
 enum status
 {
     placing,

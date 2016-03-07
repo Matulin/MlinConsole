@@ -7,12 +7,12 @@
 1457371211 source:c:\users\user\desktop\c++\mlin\src\board.cpp
 	"board.h"
 
-1457371313 c:\users\user\desktop\c++\mlin\include\board.h
+1457372772 c:\users\user\desktop\c++\mlin\include\board.h
 	<iostream>
 
-1457371338 c:\users\user\desktop\c++\mlin\include\game.h
+1457372187 c:\users\user\desktop\c++\mlin\include\game.h
 	"board.h"
 
-1457371339 source:c:\users\user\desktop\c++\mlin\src\game.cpp
+1457382481 source:c:\users\user\desktop\c++\mlin\src\game.cpp
 	"game.h"
 

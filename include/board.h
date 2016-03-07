@@ -27,7 +27,7 @@ struct position
 {
     posType type;
     posColour colour;
-    bool mlinStatus;
+    int mlinStatus;
 };
 
 
