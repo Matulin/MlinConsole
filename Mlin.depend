@@ -1,4 +1,11 @@
 # depslib dependency file v1.0
-1385316878 source:c:\users\user\desktop\c++\mlin\main.cpp
+1457360904 source:c:\users\user\desktop\c++\mlin\main.cpp
+	<iostream>
+	"include\board.h"
+
+1457360891 source:c:\users\user\desktop\c++\mlin\src\board.cpp
+	"board.h"
+
+1457359855 c:\users\user\desktop\c++\mlin\include\board.h
 	<iostream>
 

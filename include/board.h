@@ -7,7 +7,7 @@
 
 using namespace std;
 
-typedef enum posColour
+enum posColour
 {
     blackToken,
     whiteToken,
@@ -15,21 +15,26 @@ typedef enum posColour
     invalidToken
 };
 
-typedef enum posType
+enum posType
 {
     corner,
     intersection,
     centre
 };
 
-typedef struct position
+struct position
 {
     posType type;
     posColour colour;
 };
 
-typedef position boardLayer[boardLayerHeight][boardLayerWidth];
 
-typedef boardLayer totalBoard[numOfLayers];
+bool moveToken(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
+bool placePiece(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int lay, enum posColour newToken);
+void displayBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth]);
+bool valMove(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
+bool valPos(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int layerNum);
+bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth]);
+
 
 #endif // BOARD_H
