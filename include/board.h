@@ -3,6 +3,7 @@
 #define boardLayerWidth 3
 #define boardLayerHeight 3
 #define numOfLayers 3
+#define numPieces 9
 #include <iostream>
 
 using namespace std;
@@ -26,8 +27,34 @@ struct position
 {
     posType type;
     posColour colour;
+    bool mlinStatus;
 };
 
+enum status
+{
+    placing,
+    moving,
+    blackWin,
+    whiteWin,
+    draw
+};
+
+struct pieces
+{
+    int piecesOnBoard;
+    int piecesUnplaced;
+    int piecesTaken;
+};
+
+struct gameData
+{
+    enum status gameStatus;
+    struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];
+    struct pieces whitePieces;
+    struct pieces blackPieces;
+    int whiteMlins;
+    int blackMlins;
+};
 
 bool moveToken(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
 bool placePiece(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int lay, enum posColour newToken);
@@ -35,6 +62,7 @@ void displayBoard(struct position board[numOfLayers][boardLayerHeight][boardLaye
 bool valMove(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
 bool valPos(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int layerNum);
 bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth]);
+void initGame(struct gameData * gameData);
 
 
 #endif // BOARD_H

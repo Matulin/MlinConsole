@@ -21,6 +21,7 @@ bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
                     {
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = intersection;
+                        board[count][count2][count3].mlinStatus = 0;
                     }
 
                     // If the position is a corner...
@@ -28,6 +29,7 @@ bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
                     {
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = corner;
+                        board[count][count2][count3].mlinStatus = 0;
                     }
                     else
                     {
@@ -41,6 +43,7 @@ bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
                 {
                     board[count][count2][count3].colour = invalidToken;
                     board[count][count2][count3].type = centre;
+                    board[count][count2][count3].mlinStatus = 0;
                 }
                 else
                 {
@@ -54,6 +57,20 @@ bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
         }
     }
     return true;
+}
+
+void initGame(struct gameData * gameData)
+{
+    initBoard(gameData->board);
+    gameData->gameStatus = placing;
+    gameData->whiteMlins = 0;
+    gameData->blackMlins = 0;
+    gameData->blackPieces.piecesOnBoard = 0;
+    gameData->blackPieces.piecesUnplaced = numPieces;
+    gameData->blackPieces.piecesTaken = 0;
+    gameData->whitePieces.piecesOnBoard = 0;
+    gameData->whitePieces.piecesUnplaced = numPieces;
+    gameData->whitePieces.piecesTaken = 0;
 }
 
 // Validates that a position is a valid position on the board, and that it has no token on it.
@@ -172,6 +189,7 @@ bool placePiece(struct position board[numOfLayers][boardLayerHeight][boardLayerW
     {
         return false;
     }
+    board[lay][xcoord][ycoord].colour = newToken;
     return true;
 }
 
@@ -194,9 +212,49 @@ bool moveToken(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
     return true;
 }
 
-// First, this checks if there are any three tokens of the same type lined up. If so, that player wins.
-// If a player cannot move any pieces anywhere, they lose the game.
-void checkResult(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth])
+bool checkForNewMlin(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoor, int laynum)
 {
 
+}
+
+// First, this checks if there are any three tokens of the same type lined up. If so, that player gets a "mlin" and can choose to take a piece.
+// If a player cannot move any pieces anywhere, or they have less than two pieces left on the board (after having placed all their pieces), they lose the game.
+enum posColour checkForMlin(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth])
+{
+    // Checks for a mlin only in a single layer
+    for(unsigned int count = 0; count < numOfLayers; count++)
+    {
+        for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
+        {
+            if((board[count][count2][0].colour == board[count][count2][1].colour) && (board[count][count2][0].colour == board[count][count2][2].colour))
+            {
+                if(board[count][count2][0].colour != noToken)
+                {
+                    return board[count][count2][0].colour;
+                }
+            }
+            if((board[count][0][count2].colour == board[count][1][count2].colour) && (board[count][0][count2].colour == board[count][2][count2].colour))
+            {
+                if(board[count][count2][0].colour != noToken)
+                {
+                    return board[count][0][count2].colour;
+                }
+            }
+        }
+    }
+
+    // Checks for a mlin on the intersections between layers
+    for(unsigned int count = 0; count < boardLayerWidth; count++)
+    {
+        for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
+        {
+            if((board[0][count][count2].type == intersection) && (board[0][count][count2].colour != noToken))
+            {
+                if((board[0][count][count2].colour == board[1][count][count2].colour) && (board[0][count][count2].colour == board[2][count][count2].colour))
+                {
+                    return board[count][0][count2].colour;
+                }
+            }
+        }
+    }
 }
