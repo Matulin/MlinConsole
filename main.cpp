@@ -1,14 +1,17 @@
-#include <iostream>
-#include "include\board.h"
+#include "mainwindow.h"
+#include <QApplication>
+#include <QLabel>
+#include "board.h"
 #include "game.h"
 
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    // Tests the initialisation of the board
-    struct gameData gameData;
-    initGame(&gameData);
-    displayBoard(gameData.board);
-    return 0;
+    struct gameData data;
+    initGame(&data);
+    displayBoard(data.board);
+
+    QApplication app(argc, argv);
+    QLabel *label = new QLabel("This is a test!");
+    label->show();
+    return app.exec();
 }

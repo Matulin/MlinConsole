@@ -116,7 +116,7 @@ bool moveToken(struct gameData * data, int oldx, int oldy, int oldlay, int newx,
     data->board[newlay - 1][newx - 1][newy - 1].colour = newToken;
     return true;
 }
-int checkForNewMlin(struct gameData * data, int xcoord, int ycoord, int laynum, enum posColour newToken)
+int checkForNewMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
 {
     int mlin = 0; // It's possible for a single move to make 0, 1 or 2 mlins.
     // If the new position is a corner...
@@ -234,6 +234,7 @@ enum posColour checkForMlin(struct position board[numOfLayers][boardLayerHeight]
             }
         }
     }
+    return noToken;
 }
 
 // After a mlin, this takes a piece if allowed.
@@ -286,20 +287,20 @@ void removeMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
         {
             unsigned int adjx;
             unsigned int adjy;
-            if(xcoord = 0)
+            if(xcoord == 0)
             {
                 adjx = 2;
             }
-            else if(xcoord = 2)
+            else if(xcoord == 2)
             {
                 adjx = 0;
             }
 
-            if(ycoord = 0)
+            if(ycoord == 0)
             {
                 adjy = 2;
             }
-            else if(ycoord = 2)
+            else if(ycoord == 2)
             {
                 adjy = 0;
             }
