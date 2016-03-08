@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     struct gameData data;
     initGame(&data);
     displayBoard(data.board);
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
-    QApplication app(argc, argv);
-    QLabel *label = new QLabel("This is a test!");
-    label->show();
-    return app.exec();
+    return a.exec();
 }
