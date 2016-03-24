@@ -1,10 +1,9 @@
 # depslib dependency file v1.0
-1457371253 source:c:\users\user\desktop\c++\mlin\main.cpp
-	<iostream>
-	"include\board.h"
+1458402593 source:c:\users\user\desktop\c++\mlin\main.cpp
+	"board.h"
 	"game.h"
 
-1457371211 source:c:\users\user\desktop\c++\mlin\src\board.cpp
+1458401745 source:c:\users\user\desktop\c++\mlin\src\board.cpp
 	"board.h"
 
 1457372772 c:\users\user\desktop\c++\mlin\include\board.h
@@ -13,6 +12,20 @@
 1457372187 c:\users\user\desktop\c++\mlin\include\game.h
 	"board.h"
 
-1457382481 source:c:\users\user\desktop\c++\mlin\src\game.cpp
+1457439165 source:c:\users\user\desktop\c++\mlin\src\game.cpp
 	"game.h"
+
+1458398836 c:\users\user\desktop\c++\mlin\board.h
+	<iostream>
+
+1457372187 c:\users\user\desktop\c++\mlin\game.h
+	"board.h"
+
+1458398836 c:\users\user\desktop\c++\mlin\src\board.h
+	<iostream>
+
+1457372187 c:\users\user\desktop\c++\mlin\src\game.h
+	"board.h"
+
+1457446311 source:c:\users\user\desktop\c++\mlin\src\graphics.cpp
 

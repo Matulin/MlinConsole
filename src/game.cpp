@@ -1,26 +1,26 @@
 #include "game.h"
 
-
-void initGame(struct gameData * gameData)
+gameData::gameData()
 {
-    initBoard(gameData->board);
-    gameData->gameStatus = placing;
-    gameData->blackPieces.piecesOnBoard = 0;
-    gameData->blackPieces.piecesUnplaced = numPieces;
-    gameData->blackPieces.piecesTaken = 0;
-    gameData->whitePieces.piecesOnBoard = 0;
-    gameData->whitePieces.piecesUnplaced = numPieces;
-    gameData->whitePieces.piecesTaken = 0;
+    initBoard();
+    gameStatus = placing;
+    blackPieces.piecesOnBoard = 0;
+    blackPieces.piecesUnplaced = numPieces;
+    blackPieces.piecesTaken = 0;
+    whitePieces.piecesOnBoard = 0;
+    whitePieces.piecesUnplaced = numPieces;
+    whitePieces.piecesTaken = 0;
 }
 
-bool valMove(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
+bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
 {
+
     // Confirms that both positions exist.
-    if(valPos(board, oldx, oldy, oldlay) == false)
+    if(valPos(oldx, oldy, oldlay) == false)
     {
         return false;
     }
-    if(valPos(board, newx, newy, newlay) == false)
+    if(valPos(newx, newy, newlay) == false)
     {
         return false;
     }
@@ -73,27 +73,27 @@ bool valMove(struct position board[numOfLayers][boardLayerHeight][boardLayerWidt
     return false;
 }
 
-bool placePiece(struct gameData * data, int xcoord, int ycoord, int lay, enum posColour newToken)
+bool gameData::placePiece(int xcoord, int ycoord, int lay, enum posColour newToken)
 {
-    if(data->blackPieces.piecesUnplaced <= 0)
+    if(blackPieces.piecesUnplaced <= 0)
     {
         return false;
     }
-    if(valPos(data->board, xcoord, ycoord, lay) == false)
+    if(valPos(xcoord, ycoord, lay) == false)
     {
         return false;
     }
-    data->board[lay][xcoord][ycoord].colour = newToken;
+   board[lay][xcoord][ycoord].colour = newToken;
     if(newToken == blackToken)
     {
-        data->blackPieces.piecesOnBoard++;
-        data->blackPieces.piecesUnplaced--;
+        blackPieces.piecesOnBoard++;
+        blackPieces.piecesUnplaced--;
         return true;
     }
     else if(newToken == whiteToken)
     {
-        data->whitePieces.piecesOnBoard++;
-        data->whitePieces.piecesUnplaced--;
+        whitePieces.piecesOnBoard++;
+        whitePieces.piecesUnplaced--;
         return true;
     }
     return false;
@@ -103,24 +103,25 @@ bool placePiece(struct gameData * data, int xcoord, int ycoord, int lay, enum po
 // Attempting to move a token outside the size of the array from a middle-position will result in moving the piece to the next layer.
 // A player cannot of course move outwards from the outer-most layer, or inwards from the inner-most layer.
 // It is also impossible to move between layers from the corners of a layer.
-bool moveToken(struct gameData * data, int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken)
+bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken)
 {
 
-    if(valMove(data->board, oldx, oldy, oldlay, newx, newy, newlay) != true)
+    if(valMove(oldx, oldy, oldlay, newx, newy, newlay) != true)
     {
         return false;
     }
 
 
-    data->board[oldlay - 1][oldx - 1][oldy - 1].colour = noToken;
-    data->board[newlay - 1][newx - 1][newy - 1].colour = newToken;
+    board[oldlay - 1][oldx - 1][oldy - 1].colour = noToken;
+    board[newlay - 1][newx - 1][newy - 1].colour = newToken;
     return true;
 }
-int checkForNewMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
+
+int gameData::checkForNewMlin(int xcoord, int ycoord, int laynum)
 {
     int mlin = 0; // It's possible for a single move to make 0, 1 or 2 mlins.
     // If the new position is a corner...
-    if(data->board[laynum][xcoord][ycoord].type == corner)
+    if(board[laynum][xcoord][ycoord].type == corner)
     {
         unsigned int adjx;
         unsigned int adjy;
@@ -141,53 +142,53 @@ int checkForNewMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
         {
             adjy = 0;
         }
-        if((data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord][adjy].colour) && (data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord][1].colour))
+        if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][adjy].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][1].colour))
         {
-            data->board[laynum][xcoord][ycoord].mlinStatus++;
-            data->board[laynum][xcoord][adjy].mlinStatus++;
-            data->board[laynum][xcoord][1].mlinStatus++;
+            board[laynum][xcoord][ycoord].mlinStatus++;
+            board[laynum][xcoord][adjy].mlinStatus++;
+            board[laynum][xcoord][1].mlinStatus++;
             mlin++;
         }
 
-        if((data->board[laynum][xcoord][ycoord].colour == data->board[laynum][adjx][ycoord].colour) && (data->board[laynum][xcoord][ycoord].colour == data->board[laynum][1][ycoord].colour))
+        if((board[laynum][xcoord][ycoord].colour == board[laynum][adjx][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][1][ycoord].colour))
         {
-            data->board[laynum][xcoord][ycoord].mlinStatus++;
-            data->board[laynum][adjx][ycoord].mlinStatus++;
-            data->board[laynum][1][ycoord].mlinStatus++;
+            board[laynum][xcoord][ycoord].mlinStatus++;
+            board[laynum][adjx][ycoord].mlinStatus++;
+            board[laynum][1][ycoord].mlinStatus++;
             mlin++;
 
         }
     }
 
     // If the new position is an intersection
-    else if(data->board[laynum][xcoord][ycoord].type == intersection)
+    else if(board[laynum][xcoord][ycoord].type == intersection)
     {
         if(xcoord == 1)
         {
-            if((data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord][ycoord + 1].colour) && (data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord][ycoord - 1].colour))
+            if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][ycoord + 1].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][ycoord - 1].colour))
             {
-                data->board[laynum][xcoord][ycoord].mlinStatus++;
-                data->board[laynum][xcoord][ycoord + 1].mlinStatus++;
-                data->board[laynum][xcoord][ycoord - 1].mlinStatus++;
+                board[laynum][xcoord][ycoord].mlinStatus++;
+                board[laynum][xcoord][ycoord + 1].mlinStatus++;
+                board[laynum][xcoord][ycoord - 1].mlinStatus++;
                 mlin++;
             }
         }
 
         else if(ycoord == 1)
         {
-            if((data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord + 1][ycoord].colour) && (data->board[laynum][xcoord][ycoord].colour == data->board[laynum][xcoord - 1][ycoord].colour))
+            if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord + 1][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord - 1][ycoord].colour))
             {
-                data->board[laynum][xcoord][ycoord].mlinStatus++;
-                data->board[laynum][xcoord + 1][ycoord].mlinStatus++;
-                data->board[laynum][xcoord - 1][ycoord].mlinStatus++;
+                board[laynum][xcoord][ycoord].mlinStatus++;
+                board[laynum][xcoord + 1][ycoord].mlinStatus++;
+                board[laynum][xcoord - 1][ycoord].mlinStatus++;
                 mlin++;
             }
         }
-        if((data->board[0][xcoord][ycoord].colour == data->board[1][xcoord][ycoord].colour) && (data->board[laynum][xcoord][ycoord].colour == data->board[2][xcoord][ycoord].colour))
+        if((board[0][xcoord][ycoord].colour == board[1][xcoord][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[2][xcoord][ycoord].colour))
         {
-            data->board[laynum][xcoord][ycoord].mlinStatus++;
-            data->board[laynum][xcoord][ycoord].mlinStatus++;
-            data->board[laynum][xcoord][ycoord].mlinStatus++;
+            board[laynum][xcoord][ycoord].mlinStatus++;
+            board[laynum][xcoord][ycoord].mlinStatus++;
+            board[laynum][xcoord][ycoord].mlinStatus++;
             mlin++;
         }
     }
@@ -196,7 +197,7 @@ int checkForNewMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
 
 // First, this checks if there are any three tokens of the same type lined up. If so, that player gets a "mlin" and can choose to take a piece.
 // If a player cannot move any pieces anywhere, or they have less than two pieces left on the board (after having placed all their pieces), they lose the game.
-enum posColour checkForMlin(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth])
+enum posColour gameData::checkForMlin()
 {
     // Checks for a mlin only in a single layer
     for(unsigned int count = 0; count < numOfLayers; count++)
@@ -238,33 +239,33 @@ enum posColour checkForMlin(struct position board[numOfLayers][boardLayerHeight]
 }
 
 // After a mlin, this takes a piece if allowed.
-bool takeToken(struct gameData * data, int xcoord, int ycoord, int laynum, enum posColour token)
+bool gameData::takeToken(int xcoord, int ycoord, int laynum, enum posColour token)
 {
-    if(valPos(data->board, xcoord, ycoord, laynum) == 0)
+    if(valPos(xcoord, ycoord, laynum) == 0)
     {
         return false;
     }
-    if(data->board[laynum][xcoord][ycoord].mlinStatus > 0)
+    if(board[laynum][xcoord][ycoord].mlinStatus > 0)
     {
         return false;
     }
     if(token == blackToken)
     {
-        if(data->board[laynum][xcoord][ycoord].colour == whiteToken)
+        if(board[laynum][xcoord][ycoord].colour == whiteToken)
         {
-            data->board[laynum][xcoord][ycoord].colour = noToken;
-            data->whitePieces.piecesOnBoard--;
-            data->whitePieces.piecesTaken++;
+            board[laynum][xcoord][ycoord].colour = noToken;
+            whitePieces.piecesOnBoard--;
+            whitePieces.piecesTaken++;
             return true;
         }
     }
     else if(token == whiteToken)
     {
-        if(data->board[laynum][xcoord][ycoord].colour == blackToken)
+        if(board[laynum][xcoord][ycoord].colour == blackToken)
         {
-            data->board[laynum][xcoord][ycoord].colour = noToken;
-            data->blackPieces.piecesOnBoard--;
-            data->blackPieces.piecesTaken++;
+            board[laynum][xcoord][ycoord].colour = noToken;
+            blackPieces.piecesOnBoard--;
+            blackPieces.piecesTaken++;
             return true;
         }
     }
@@ -274,16 +275,16 @@ bool takeToken(struct gameData * data, int xcoord, int ycoord, int laynum, enum 
 // If a piece moves out of mlin, this function resets the mlinStatus of the appropriate positions
 // It's possible that adjacent positions are in another mlin
 // It's possible to move from one mlin into another, so this function must be used BEFORE checkForNewMlin()
-void removeMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
+void gameData::removeMlin(int xcoord, int ycoord, int laynum)
 {
-    if(data->board[laynum][xcoord][ycoord].mlinStatus == 0)
+    if(board[laynum][xcoord][ycoord].mlinStatus == 0)
     {
         return;
     }
-    else if(data->board[laynum][xcoord][ycoord].mlinStatus > 0)
+    else if(board[laynum][xcoord][ycoord].mlinStatus > 0)
     {
-        data->board[laynum][xcoord][ycoord].mlinStatus--;
-        if(data->board[laynum][xcoord][ycoord].type == corner)
+        board[laynum][xcoord][ycoord].mlinStatus--;
+        if(board[laynum][xcoord][ycoord].type == corner)
         {
             unsigned int adjx;
             unsigned int adjy;
@@ -304,62 +305,62 @@ void removeMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
             {
                 adjy = 0;
             }
-            if(data->board[laynum][xcoord][1].mlinStatus > 0)
+            if(board[laynum][xcoord][1].mlinStatus > 0)
             {
-                data->board[laynum][xcoord][1].mlinStatus--;
-                data->board[laynum][xcoord][adjy].mlinStatus--;
+                board[laynum][xcoord][1].mlinStatus--;
+                board[laynum][xcoord][adjy].mlinStatus--;
             }
-            else if(data->board[laynum][1][ycoord].mlinStatus > 0)
+            else if(board[laynum][1][ycoord].mlinStatus > 0)
             {
-                data->board[laynum][1][ycoord].mlinStatus--;
-                data->board[laynum][adjx][ycoord].mlinStatus--;
+                board[laynum][1][ycoord].mlinStatus--;
+                board[laynum][adjx][ycoord].mlinStatus--;
             }
         }
 
-        if(data->board[laynum][xcoord][ycoord].type == intersection)
+        if(board[laynum][xcoord][ycoord].type == intersection)
         {
             if(xcoord == 1)
             {
-                if((data->board[laynum][0][ycoord].mlinStatus > 0) && (data->board[laynum][2][ycoord].mlinStatus > 0))
+                if((board[laynum][0][ycoord].mlinStatus > 0) && (board[laynum][2][ycoord].mlinStatus > 0))
                 {
-                    data->board[laynum][0][ycoord].mlinStatus--;
-                    data->board[laynum][2][ycoord].mlinStatus--;
+                    board[laynum][0][ycoord].mlinStatus--;
+                    board[laynum][2][ycoord].mlinStatus--;
                 }
             }
 
             if(ycoord == 1)
             {
-                if((data->board[laynum][xcoord][0].mlinStatus > 0) && (data->board[laynum][xcoord][2].mlinStatus > 0))
+                if((board[laynum][xcoord][0].mlinStatus > 0) && (board[laynum][xcoord][2].mlinStatus > 0))
                 {
-                    data->board[laynum][xcoord][0].mlinStatus--;
-                    data->board[laynum][xcoord][2].mlinStatus--;
+                    board[laynum][xcoord][0].mlinStatus--;
+                    board[laynum][xcoord][2].mlinStatus--;
                 }
             }
 
             if(laynum == 0)
             {
-                if((data->board[1][xcoord][ycoord].mlinStatus > 0) && (data->board[2][xcoord][ycoord].mlinStatus > 0))
+                if((board[1][xcoord][ycoord].mlinStatus > 0) && (board[2][xcoord][ycoord].mlinStatus > 0))
                 {
-                    data->board[1][xcoord][ycoord].mlinStatus--;
-                    data->board[2][xcoord][ycoord].mlinStatus--;
+                    board[1][xcoord][ycoord].mlinStatus--;
+                    board[2][xcoord][ycoord].mlinStatus--;
                 }
             }
 
             if(laynum == 1)
             {
-                if((data->board[0][xcoord][ycoord].mlinStatus > 0) && (data->board[2][xcoord][ycoord].mlinStatus > 0))
+                if((board[0][xcoord][ycoord].mlinStatus > 0) && (board[2][xcoord][ycoord].mlinStatus > 0))
                 {
-                    data->board[0][xcoord][ycoord].mlinStatus--;
-                    data->board[2][xcoord][ycoord].mlinStatus--;
+                    board[0][xcoord][ycoord].mlinStatus--;
+                    board[2][xcoord][ycoord].mlinStatus--;
                 }
             }
 
             if(laynum == 2)
             {
-                if((data->board[1][xcoord][ycoord].mlinStatus > 0) && (data->board[0][xcoord][ycoord].mlinStatus > 0))
+                if((board[1][xcoord][ycoord].mlinStatus > 0) && (board[0][xcoord][ycoord].mlinStatus > 0))
                 {
-                    data->board[1][xcoord][ycoord].mlinStatus--;
-                    data->board[0][xcoord][ycoord].mlinStatus--;
+                    board[1][xcoord][ycoord].mlinStatus--;
+                    board[0][xcoord][ycoord].mlinStatus--;
                 }
             }
 
@@ -369,18 +370,18 @@ void removeMlin(struct gameData * data, int xcoord, int ycoord, int laynum)
 
 // The game is over if a player has less than three tokens left (after the placing stage)
 // ... or if they can't move their pieces anywhere.
-void checkForWin(struct gameData * data)
+void gameData::checkForWin()
 {
-    if(data->gameStatus == moving)
+    if(gameStatus == moving)
     {
-        if(data->whitePieces.piecesOnBoard < 3)
+        if(whitePieces.piecesOnBoard < 3)
         {
-            data->gameStatus = blackWin;
+            gameStatus = blackWin;
             return;
         }
-        else if(data->blackPieces.piecesOnBoard < 3)
+        else if(blackPieces.piecesOnBoard < 3)
         {
-            data->gameStatus = whiteWin;
+            gameStatus = whiteWin;
             return;
         }
 
@@ -393,18 +394,18 @@ void checkForWin(struct gameData * data)
             {
                 for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
                 {
-                    if((data->board[count][count2][count3].colour == blackToken) || (data->board[count][count2][count3].colour == whiteToken))
+                    if((board[count][count2][count3].colour == blackToken) || (board[count][count2][count3].colour == whiteToken))
                     {
                         // If the position is a corner...
-                        if(data->board[count][count2][count3].type == corner)
+                        if(board[count][count2][count3].type == corner)
                         {
-                            if((data->board[count][1][count3].colour != noToken) || (data->board[count][count2][1].colour != noToken))
+                            if((board[count][1][count3].colour != noToken) || (board[count][count2][1].colour != noToken))
                             {
-                                if(data->board[count][count2][count3].colour == blackToken)
+                                if(board[count][count2][count3].colour == blackToken)
                                 {
                                     blackMove = true;
                                 }
-                                if(data->board[count][count2][count3].colour == whiteToken)
+                                if(board[count][count2][count3].colour == whiteToken)
                                 {
                                     whiteMove = true;
                                 }
@@ -412,17 +413,17 @@ void checkForWin(struct gameData * data)
                         }
 
                         // If the position is an intersection
-                        else if(data->board[count][count2][count3].type == intersection)
+                        else if(board[count][count2][count3].type == intersection)
                         {
                             if((count2 == 0) || (count2 == 2))
                             {
-                                if((data->board[count][count2][0].colour == noToken) || (data->board[count][count2][2].colour == noToken))
+                                if((board[count][count2][0].colour == noToken) || (board[count][count2][2].colour == noToken))
                                 {
-                                    if(data->board[count][count2][count3].colour == blackToken)
+                                    if(board[count][count2][count3].colour == blackToken)
                                     {
                                         blackMove = true;
                                     }
-                                    if(data->board[count][count2][count3].colour == whiteToken)
+                                    if(board[count][count2][count3].colour == whiteToken)
                                     {
                                         whiteMove = true;
                                     }
@@ -430,13 +431,13 @@ void checkForWin(struct gameData * data)
                             }
                             if((count3 == 0) || (count3 == 2))
                             {
-                                if((data->board[count][0][count3].colour == noToken) || (data->board[count][2][count3].colour == noToken))
+                                if((board[count][0][count3].colour == noToken) || (board[count][2][count3].colour == noToken))
                                 {
-                                    if(data->board[count][count2][count3].colour == blackToken)
+                                    if(board[count][count2][count3].colour == blackToken)
                                     {
                                         blackMove = true;
                                     }
-                                    if(data->board[count][count2][count3].colour == whiteToken)
+                                    if(board[count][count2][count3].colour == whiteToken)
                                     {
                                         whiteMove = true;
                                     }
@@ -449,12 +450,12 @@ void checkForWin(struct gameData * data)
         }
         if(blackMove == false)
         {
-            data->gameStatus = whiteWin;
+            gameStatus = whiteWin;
             return;
         }
         else if(whiteMove == false)
         {
-            data->gameStatus = blackWin;
+            gameStatus = blackWin;
             return;
         }
         return;

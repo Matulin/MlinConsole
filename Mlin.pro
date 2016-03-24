@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-03-08T12:59:04
+# Project created by QtCreator 2016-03-20T13:28:11
 #
 #-------------------------------------------------
 
@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     src/board.cpp \
-    src/game.cpp
+    src/game.cpp \
+    src/graphics.cpp
 
 HEADERS  += mainwindow.h \
     board.h \

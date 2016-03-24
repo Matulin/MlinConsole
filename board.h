@@ -6,6 +6,7 @@
 #define numPieces 9
 #include <iostream>
 
+
 using namespace std;
 
 enum posColour
@@ -39,15 +40,39 @@ struct pieces
     int piecesTaken;
 };
 
+enum status
+{
+    placing,
+    moving,
+    blackWin,
+    whiteWin,
+    draw
+};
+
+class gameData
+{
+private:
+    enum status gameStatus;
+    struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];
+    struct pieces whitePieces;
+    struct pieces blackPieces;
+    bool valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
+
+public:
+    bool valPos(int xcoord, int ycoord, int layerNum);
+    void displayBoard();
+    bool placePiece(int xcoord, int ycoord, int lay, enum posColour newToken);
+    bool moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
+    bool initBoard();
+    gameData();
+    bool takeToken(int xcoord, int ycoord, int laynum, enum posColour token);
+    enum posColour checkForMlin();
+    void removeMlin(int xcoord, int ycoord, int laynum);
+    void checkForWin();
+    int checkForNewMlin(int xcoord, int ycoord, int laynum);
+};
 
 
-bool moveToken(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
-bool placePiece(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int lay, enum posColour newToken);
-void displayBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth]);
-bool valMove(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
-bool valPos(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int layerNum);
-bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth]);
-void initGame(struct gameData * gameData);
 
 
 #endif // BOARD_H

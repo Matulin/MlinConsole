@@ -2,8 +2,9 @@
 
 // Initalises the board
 // Each layer has 9 positions: 8 which will start out as empty, and 1 invalid one in the middle of each layer
-bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth])
+bool gameData::initBoard()
 {
+    /*struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];*/
     // For each layer...
     for(unsigned int count = 0; count < numOfLayers; count++)
     {
@@ -56,12 +57,13 @@ bool initBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWi
             }
         }
     }
+
     return true;
 }
 
 
 // Validates that a position is a valid position on the board, and that it has no token on it.
-bool valPos(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth], int xcoord, int ycoord, int layerNum)
+bool gameData::valPos(int xcoord, int ycoord, int layerNum)
 {
     if((0 > xcoord) || (boardLayerHeight <= xcoord))
     {
@@ -89,8 +91,9 @@ bool valPos(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth
 // This nstruct gameData * gameData
 
 
-// Displays the Board
-void displayBoard(struct position board[numOfLayers][boardLayerHeight][boardLayerWidth])
+// Displays the board in the command line for the purposes of testing.
+// This will eventually be displayed by a GUI.
+void gameData::displayBoard()
 {
     // This is just a placeholder to test that the board initialised correctly
         // For each layer...
