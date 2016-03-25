@@ -3,14 +3,17 @@
 #include <QtGui>
 #include <game.h>
 #include <board.h>
+#include <QHBoxLayout>
 
 int main(int argc, char *argv[])
 {
-    struct gameData data;
-    data.displayBoard();
-
     QApplication a(argc, argv);
-    MainWindow w;
+
+
+   MainWindow w;
+
+
+
     w.show();
 
     return a.exec();

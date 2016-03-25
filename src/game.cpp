@@ -10,6 +10,37 @@ gameData::gameData()
     whitePieces.piecesOnBoard = 0;
     whitePieces.piecesUnplaced = numPieces;
     whitePieces.piecesTaken = 0;
+    boardWidget = new QWidget;
+    QGridLayout * boardGrid = new QGridLayout;
+
+    boardGrid->addWidget(board[0][0][0].locImg, 0, 0);
+    boardGrid->addWidget(board[0][0][1].locImg, 0, 6);
+    boardGrid->addWidget(board[0][0][2].locImg, 0, 12);
+    boardGrid->addWidget(board[0][1][0].locImg, 7, 0);
+    boardGrid->addWidget(board[0][1][2].locImg, 7, 12);
+    boardGrid->addWidget(board[0][2][0].locImg, 14, 0);
+    boardGrid->addWidget(board[0][2][1].locImg, 14, 6);
+    boardGrid->addWidget(board[0][2][2].locImg, 14, 12);
+
+    boardGrid->addWidget(board[1][0][0].locImg, 2, 2);
+    boardGrid->addWidget(board[1][0][1].locImg, 2, 6);
+    boardGrid->addWidget(board[1][0][2].locImg, 2, 10);
+    boardGrid->addWidget(board[1][1][0].locImg, 7, 2);
+    boardGrid->addWidget(board[1][1][2].locImg, 7, 10);
+    boardGrid->addWidget(board[1][2][0].locImg, 12, 2);
+    boardGrid->addWidget(board[1][2][1].locImg, 12, 6);
+    boardGrid->addWidget(board[1][2][2].locImg, 12, 10);
+
+    boardGrid->addWidget(board[2][0][0].locImg, 4, 4);
+    boardGrid->addWidget(board[2][0][1].locImg, 4, 6);
+    boardGrid->addWidget(board[2][0][2].locImg, 4, 8);
+    boardGrid->addWidget(board[2][1][0].locImg, 7, 4);
+    boardGrid->addWidget(board[2][1][2].locImg, 7, 8);
+    boardGrid->addWidget(board[2][2][0].locImg, 10, 4);
+    boardGrid->addWidget(board[2][2][1].locImg, 10, 6);
+    boardGrid->addWidget(board[2][2][2].locImg, 10, 8);
+
+    boardWidget->setLayout(boardGrid);
 }
 
 bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)

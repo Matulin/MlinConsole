@@ -23,6 +23,7 @@ bool gameData::initBoard()
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = intersection;
                         board[count][count2][count3].mlinStatus = 0;
+                        board[count][count2][count3].locImg = new QLabel("0");
                     }
 
                     // If the position is a corner...
@@ -31,6 +32,7 @@ bool gameData::initBoard()
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = corner;
                         board[count][count2][count3].mlinStatus = 0;
+                        board[count][count2][count3].locImg = new QLabel("0");
                     }
                     else
                     {
@@ -45,6 +47,7 @@ bool gameData::initBoard()
                     board[count][count2][count3].colour = invalidToken;
                     board[count][count2][count3].type = centre;
                     board[count][count2][count3].mlinStatus = 0;
+                    board[count][count2][count3].locImg = new QLabel("-1");
                 }
                 else
                 {

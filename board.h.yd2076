@@ -4,15 +4,12 @@
 #define boardLayerHeight 3
 #define numOfLayers 3
 #define numPieces 9
-#define boardWidgetWidth 12
-#define boardWidgetHeight 14
-
 #include <iostream>
 #include <QLabel>
 #include <QGridLayout>
 #include <QtGui>
+#include <QtGui>
 #include <QTCore>
-#include <QMainWindow>
 
 
 using namespace std;
@@ -66,7 +63,7 @@ public:
     struct pieces whitePieces;
     struct pieces blackPieces;
     bool valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
-    QWidget * boardWidget;
+    QGridLayout * boardGrid;
 
 public:
     bool valPos(int xcoord, int ycoord, int layerNum);
