@@ -13,6 +13,7 @@
 #include <QtGui>
 #include <QTCore>
 #include <QMainWindow>
+#include <QPixmap>
 
 
 using namespace std;
@@ -36,8 +37,10 @@ struct position
 {
     posType type;
     posColour colour;
-    int mlinStatus;
+    unsigned int mlinStatus;
     QLabel * locImg;
+    /*int xCoordWidget;
+    int yCoordWidget;*/
 };
 
 
@@ -58,6 +61,15 @@ enum status
     draw
 };
 
+struct tokenImage
+{
+    QPixmap * blackTokenMap;
+    QPixmap * whiteTokenMap;
+    QPixmap * emptyTokenMap;
+    QPixmap * blackTokenMlinMap;
+    QPixmap * whiteTokenMlinMap;
+};
+
 class gameData
 {
 public:
@@ -67,6 +79,8 @@ public:
     struct pieces blackPieces;
     bool valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
     QWidget * boardWidget;
+    struct tokenImage tokenImage;
+
 
 public:
     bool valPos(int xcoord, int ycoord, int layerNum);
@@ -80,6 +94,7 @@ public:
     void removeMlin(int xcoord, int ycoord, int laynum);
     void checkForWin();
     int checkForNewMlin(int xcoord, int ycoord, int laynum);
+    bool initBoardWidget();
 };
 
 
