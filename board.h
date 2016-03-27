@@ -39,8 +39,9 @@ struct position
     posColour colour;
     unsigned int mlinStatus;
     QLabel * locImg;
-    /*int xCoordWidget;
-    int yCoordWidget;*/
+    QLabel * defaultImg;
+    int xCoordWidget;
+    int yCoordWidget;
 };
 
 

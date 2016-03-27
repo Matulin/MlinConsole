@@ -37,18 +37,18 @@ bool gameData::initBoard()
 
                     }
 
-                    /*int neg;
+                    int neg;
                     if(count2 == 0)
                     {
-                        neg = 0;
+                        neg = 1;
                     }
                     else if (count2 == 1)
                     {
-                        neg = -1;
+                        neg = 0;
                     }
                     else
                     {
-                        neg = 1;
+                        neg = -1;
                     }
 
                     board[count][count2][count3].xCoordWidget = neg * count * 2 + 7 * count2;
@@ -56,18 +56,18 @@ bool gameData::initBoard()
                     int neg2;
                     if(count3 == 0)
                     {
-                        neg2 = 0;
+                        neg2 = 1;
                     }
                     else if (count3 == 1)
                     {
-                        neg2 = -1;
+                        neg2 = 0;
                     }
                     else
                     {
-                        neg2 = 1;
-                    }*/
+                        neg2 = -1;
+                    }
 
-                    /*board[count][count2][count3].yCoordWidget = neg2 * count * 2 + 6 * count3;*/
+                    board[count][count2][count3].yCoordWidget = neg2 * count * 2 + 6 * count3;
 
 
 
@@ -81,8 +81,8 @@ bool gameData::initBoard()
                     board[count][count2][count3].mlinStatus = 0;
                     board[count][count2][count3].locImg = new QLabel;
 
-                    /*board[count][count2][count3].xCoordWidget = -1;
-                    board[count][count2][count3].yCoordWidget = -1;*/
+                    board[count][count2][count3].xCoordWidget = -1;
+                    board[count][count2][count3].yCoordWidget = -1;
                 }
                 else
                 {
@@ -108,34 +108,17 @@ bool gameData::initBoardWidget()
     QGridLayout * boardGrid = new QGridLayout;
     boardWidget->setLayout(boardGrid);
 
-    boardGrid->addWidget(board[0][0][0].locImg, 0, 0);
-    boardGrid->addWidget(board[0][0][1].locImg, 0, 6);
-    boardGrid->addWidget(board[0][0][2].locImg, 0, 12);
-    boardGrid->addWidget(board[0][1][0].locImg, 7, 0);
-    boardGrid->addWidget(board[0][1][2].locImg, 7, 12);
-    boardGrid->addWidget(board[0][2][0].locImg, 14, 0);
-    boardGrid->addWidget(board[0][2][1].locImg, 14, 6);
-    boardGrid->addWidget(board[0][2][2].locImg, 14, 12);
+    for(unsigned int count = 0; count <= boardWidgetHeight; count++)
+    {
+        for(unsigned int count2 = 0; count2 <= boardWidgetWidth; count2++)
+        {
+            QLabel * tempLabel = new QLabel;
+            tempLabel->setPixmap(*(tokenImage.emptyTokenMap));
+            boardGrid->addWidget(tempLabel, count, count2);
+        }
+    }
 
-    boardGrid->addWidget(board[1][0][0].locImg, 2, 2);
-    boardGrid->addWidget(board[1][0][1].locImg, 2, 6);
-    boardGrid->addWidget(board[1][0][2].locImg, 2, 10);
-    boardGrid->addWidget(board[1][1][0].locImg, 7, 2);
-    boardGrid->addWidget(board[1][1][2].locImg, 7, 10);
-    boardGrid->addWidget(board[1][2][0].locImg, 12, 2);
-    boardGrid->addWidget(board[1][2][1].locImg, 12, 6);
-    boardGrid->addWidget(board[1][2][2].locImg, 12, 10);
-
-    boardGrid->addWidget(board[2][0][0].locImg, 4, 4);
-    boardGrid->addWidget(board[2][0][1].locImg, 4, 6);
-    boardGrid->addWidget(board[2][0][2].locImg, 4, 8);
-    boardGrid->addWidget(board[2][1][0].locImg, 7, 4);
-    boardGrid->addWidget(board[2][1][2].locImg, 7, 8);
-    boardGrid->addWidget(board[2][2][0].locImg, 10, 4);
-    boardGrid->addWidget(board[2][2][1].locImg, 10, 6);
-    boardGrid->addWidget(board[2][2][2].locImg, 10, 8);
-
-    /*for(unsigned int count = 0; count < numOfLayers; count++)
+    for(unsigned int count = 0; count < numOfLayers; count++)
     {
 
         for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
@@ -143,11 +126,15 @@ bool gameData::initBoardWidget()
             for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
             {
                 board[count][count2][count3].locImg->setPixmap(*(tokenImage.blackTokenMap));
+                std::cout << board[count][count2][count3].xCoordWidget << endl;
+                if(board[count][count2][count3].xCoordWidget >= 0)
+                {
+                    boardGrid->addWidget(board[count][count2][count3].locImg, board[count][count2][count3].xCoordWidget, board[count][count2][count3].yCoordWidget);
+                }
             }
         }
-    }*/
+    }
 
-    /* board[0][0][0].locImg->setPixmap(*(tokenImage.blackTokenMap)); */
     return true;
 }
 
