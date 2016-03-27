@@ -69,6 +69,17 @@ struct tokenImage
     QPixmap * emptyTokenMap;
     QPixmap * blackTokenMlinMap;
     QPixmap * whiteTokenMlinMap;
+    QPixmap * cornerBottomLeftMap;
+    QPixmap * cornerBottomRightMap;
+    QPixmap * cornerTopLeftMap;
+    QPixmap * cornerTopRightMap;
+    QPixmap * horizontalLineMap;
+    QPixmap * verticalLineMap;
+    QPixmap * intersectionBottomMap;
+    QPixmap * intersectionTopMap;
+    QPixmap * intersectionLeftMap;
+    QPixmap * intersectionRightMap;
+    QPixmap * intersectionMiddleMap;
 };
 
 class gameData

@@ -2,7 +2,7 @@
 
 gameData::gameData()
 {
-    initBoard();
+
     gameStatus = placing;
     blackPieces.piecesOnBoard = 0;
     blackPieces.piecesUnplaced = numPieces;
@@ -16,7 +16,19 @@ gameData::gameData()
     tokenImage.emptyTokenMap = new QPixmap("resources/blankSquare.jpg");
     tokenImage.whiteTokenMlinMap = new QPixmap("resources/whiteTokenMlin.jpg");
     tokenImage.blackTokenMlinMap = new QPixmap("resources/blackTokenMlin.jpg");
-
+    tokenImage.horizontalLineMap = new QPixmap("resources/horizontalLine.jpg");
+    tokenImage.verticalLineMap = new QPixmap("resources/verticalLine.jpg");
+    tokenImage.cornerBottomLeftMap = new QPixmap("resources/cornerBottomLeft.jpg");
+    tokenImage.cornerBottomRightMap = new QPixmap("resources/cornerBottomRight.jpg");
+    tokenImage.cornerTopLeftMap = new QPixmap("resources/cornerTopLeft.jpg");
+    tokenImage.cornerTopRightMap = new QPixmap("resources/cornerTopRight.jpg");
+    tokenImage.intersectionBottomMap = new QPixmap("resources/intersectionBottom.jpg");
+    tokenImage.intersectionTopMap = new QPixmap("resources/intersectionTop.jpg");
+    tokenImage.intersectionBottomMap = new QPixmap("resources/intersectionBottom.jpg");
+    tokenImage.intersectionLeftMap = new QPixmap("resources/intersectionLeft.jpg");
+    tokenImage.intersectionRightMap = new QPixmap("resources/intersectionRight.jpg");
+    tokenImage.intersectionMiddleMap = new QPixmap("resources/intersectionMiddle.jpg");
+    initBoard();
     initBoardWidget();
 
 }

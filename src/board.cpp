@@ -24,16 +24,61 @@ bool gameData::initBoard()
                         board[count][count2][count3].type = intersection;
                         board[count][count2][count3].mlinStatus = 0;
                         board[count][count2][count3].locImg = new QLabel;
+                        board[count][count2][count3].defaultImg = new QLabel;
+                        if(((count3 == 0) && (count == 0)) || ((count3 == boardLayerWidth - 1) && (count == numOfLayers - 1)))
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionLeftMap));
+                        }
+                        else if(((count2 == 0) && (count == 0)) || ((count2 == boardLayerHeight - 1) && (count == numOfLayers - 1)))
+                        {
+
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionTopMap));
+                        }
+                        else if(((count2 == boardLayerHeight - 1) && (count == 0)) || ((count2 == 0) && (count == numOfLayers - 1)))
+                        {
+
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionBottomMap));
+                        }
+                        else if(((count3 == 0) && (count == numOfLayers - 1)) || ((count == 0) && (count3 == boardLayerWidth - 1)))
+                        {
+
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionRightMap));
+                        }
+                        else
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionMiddleMap));
+                        }
+
 
                     }
 
                     // If the position is a corner...
                     else if((count2 % 2 != 1) && (count3 % 2 != 1))
                     {
+
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = corner;
                         board[count][count2][count3].mlinStatus = 0;
                         board[count][count2][count3].locImg = new QLabel;
+                        board[count][count2][count3].defaultImg = new QLabel;
+                        if((count2 == 0) && count3 == 0)
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerTopLeftMap));
+
+                        }
+                        else if((count2 == boardLayerWidth - 1) && count3 == boardLayerHeight - 1)
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerBottomRightMap));
+                        }
+                        else if((count2 == boardLayerWidth - 1) && count3 == 0)
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerBottomLeftMap));
+                        }
+                        else if((count2 == 0) && count3 == boardLayerHeight - 1)
+                        {
+                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerTopRightMap));
+                        }
+
 
                     }
 
@@ -79,7 +124,6 @@ bool gameData::initBoard()
                     board[count][count2][count3].colour = invalidToken;
                     board[count][count2][count3].type = centre;
                     board[count][count2][count3].mlinStatus = 0;
-                    board[count][count2][count3].locImg = new QLabel;
 
                     board[count][count2][count3].xCoordWidget = -1;
                     board[count][count2][count3].yCoordWidget = -1;
@@ -92,10 +136,12 @@ bool gameData::initBoard()
                     cout << "count3: " << count3 << endl;
                     return false;
                 }
+
+                board[count][count2][count3].locImg = board[count][count2][count3].defaultImg;
             }
         }
     }
-
+    std::cout <<  board[0][0][0].locImg << endl;
     return true;
 }
 
@@ -107,13 +153,44 @@ bool gameData::initBoardWidget()
     boardWidget = new QWidget;
     QGridLayout * boardGrid = new QGridLayout;
     boardWidget->setLayout(boardGrid);
+    boardGrid->setMargin(0);
+    boardGrid->setSpacing(0);
 
     for(unsigned int count = 0; count <= boardWidgetHeight; count++)
     {
         for(unsigned int count2 = 0; count2 <= boardWidgetWidth; count2++)
         {
             QLabel * tempLabel = new QLabel;
-            tempLabel->setPixmap(*(tokenImage.emptyTokenMap));
+
+            // If it isn't a corner
+            if(!(((count == 0 && count2 == 0) || (count == 0 && count2 == boardWidgetWidth)) || ((count == boardWidgetHeight && count2 == boardWidgetWidth) || (count == boardWidgetHeight && count2 == 0))))
+            {
+                // If it isn't an intersection
+                if(!(((count2 == boardWidgetWidth/2) && (((((count == 0) || (count == 2)) || (count == 4)) || (((count == boardWidgetHeight) || (count == boardWidgetHeight - 2))) || (count == boardWidgetHeight - 4)))) || ((count == boardWidgetHeight/2) && (((((count2 == 0) || (count2 == 2)) || (count2 == 4)) || (((count2 == boardWidgetWidth) || (count2 == boardWidgetWidth - 2))) || (count2 == boardWidgetWidth - 4))))))
+                {
+                    if((count2 == 0) || (count2 == boardWidgetWidth) || (((count2 == 2) || (count2 == (boardWidgetWidth - 2))) && ((count > 2)) && (count < boardWidgetHeight - 2)) || (((count2 == 4) || (count2 == boardWidgetWidth - 4)) && ((count > 4)) && (count < boardWidgetHeight - 4)))
+                    {
+                          tempLabel->setPixmap(*(tokenImage.verticalLineMap));
+                    }
+                    else if((count == 0) || (count == boardWidgetHeight) || (((count == 2) || (count == (boardWidgetHeight - 2))) && ((count2 > 2)) && (count2 < boardWidgetWidth - 2)) || (((count == 4) || (count == boardWidgetHeight - 4)) && ((count2 > 4)) && (count2 < boardWidgetWidth - 4)))
+                    {
+                          tempLabel->setPixmap(*(tokenImage.horizontalLineMap));
+                    }
+                    else if((count2 == (boardWidgetWidth/2)) && (((count == 1) || (count == 3)) || ((count == boardWidgetHeight - 1) || (count == boardWidgetHeight - 3))))
+                    {
+                        tempLabel->setPixmap(*(tokenImage.verticalLineMap));
+                    }
+                    else if((count == (boardWidgetHeight/2)) && (((count2 == 1) || (count2 == 3)) || ((count2 == boardWidgetWidth - 1) || (count2 == boardWidgetWidth - 3))))
+                    {
+                        tempLabel->setPixmap(*(tokenImage.horizontalLineMap));
+                    }
+                    else
+                    {
+                        tempLabel->setPixmap(*(tokenImage.emptyTokenMap));
+                    }
+                }
+            }
+
             boardGrid->addWidget(tempLabel, count, count2);
         }
     }
@@ -125,8 +202,6 @@ bool gameData::initBoardWidget()
         {
             for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
             {
-                board[count][count2][count3].locImg->setPixmap(*(tokenImage.blackTokenMap));
-                std::cout << board[count][count2][count3].xCoordWidget << endl;
                 if(board[count][count2][count3].xCoordWidget >= 0)
                 {
                     boardGrid->addWidget(board[count][count2][count3].locImg, board[count][count2][count3].xCoordWidget, board[count][count2][count3].yCoordWidget);
