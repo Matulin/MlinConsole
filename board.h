@@ -1,5 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H
+
 #define boardLayerWidth 3
 #define boardLayerHeight 3
 #define numOfLayers 3
@@ -14,6 +15,7 @@
 #include <QTCore>
 #include <QMainWindow>
 #include <QPixmap>
+#include <graphics.h>
 
 
 using namespace std;
@@ -38,8 +40,8 @@ struct position
     posType type;
     posColour colour;
     unsigned int mlinStatus;
-    QLabel * locImg;
-    QLabel * defaultImg;
+    squareGraphic * locImg;
+    squareGraphic * defaultImg;
     int xCoordWidget;
     int yCoordWidget;
 };
