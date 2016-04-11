@@ -1,5 +1,14 @@
 #include "board.h"
 
+void position::setCoords(unsigned int layNum, unsigned int XCoord, unsigned int YCoord)
+{
+    arrayLayNum = layNum;
+    arrayXCoord = XCoord;
+    arrayYCoord = YCoord;
+}
+
+
+
 // Initalises the board
 // Each layer has 9 positions: 8 which will start out as empty, and 1 invalid one in the middle of each layer
 bool gameData::initBoard()
@@ -23,15 +32,15 @@ bool gameData::initBoard()
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = intersection;
                         board[count][count2][count3].mlinStatus = 0;
-                        board[count][count2][count3].locImg = new squareGraphic;
-                        board[count][count2][count3].defaultImg = new squareGraphic;
+                        board[count][count2][count3].locImg = new squareGraphic(&board[count][count2][count3], this);
+                        board[count][count2][count3].defaultImg = new squareGraphic(&board[count][count2][count3], this);
+                        board[count][count2][count3].setCoords(count, count2, count3);
                         if(((count3 == 0) && (count == 0)) || ((count3 == boardLayerWidth - 1) && (count == numOfLayers - 1)))
                         {
                             board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionLeftMap));
                         }
                         else if(((count2 == 0) && (count == 0)) || ((count2 == boardLayerHeight - 1) && (count == numOfLayers - 1)))
                         {
-
                             board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionTopMap));
                         }
                         else if(((count2 == boardLayerHeight - 1) && (count == 0)) || ((count2 == 0) && (count == numOfLayers - 1)))
@@ -41,7 +50,6 @@ bool gameData::initBoard()
                         }
                         else if(((count3 == 0) && (count == numOfLayers - 1)) || ((count == 0) && (count3 == boardLayerWidth - 1)))
                         {
-
                             board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionRightMap));
                         }
                         else
@@ -59,8 +67,9 @@ bool gameData::initBoard()
                         board[count][count2][count3].colour = noToken;
                         board[count][count2][count3].type = corner;
                         board[count][count2][count3].mlinStatus = 0;
-                        board[count][count2][count3].locImg = new squareGraphic;
-                        board[count][count2][count3].defaultImg = new squareGraphic;
+                        board[count][count2][count3].locImg = new squareGraphic(&board[count][count2][count3], this);
+                        board[count][count2][count3].defaultImg = new squareGraphic(&board[count][count2][count3], this);
+                        board[count][count2][count3].setCoords(count, count2, count3);
                         if((count2 == 0) && count3 == 0)
                         {
                             board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerTopLeftMap));
@@ -141,6 +150,7 @@ bool gameData::initBoard()
 
             }
         }
+
     }
     return true;
 }
@@ -262,6 +272,8 @@ void gameData::displayBoard()
         }
     }
 }
+
+
 
 // The first stage of the game. Each player starts with 9 tokens of an appropriate colour.
 // A token may be placed on any empty square.

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <board.h>
+#include <game.h>
 #include <QtGui>
 #include <QHBoxLayout>
 

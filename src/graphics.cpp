@@ -1,10 +1,18 @@
 #include <graphics.h>
 
+squareGraphic::squareGraphic(struct position * squarePosition, class gameData * data, QLabel *parent)
+    : QLabel(parent)
+{
+    tokenCheck = true;
+    thisPosition = squarePosition;
+    gameData = data;
+
+}
+
 squareGraphic::squareGraphic(QLabel *parent)
     : QLabel(parent)
 {
-
-    connect(this, SIGNAL(clicked()), this, SLOT(functionTest()));
+    tokenCheck = false;
 }
 
 squareGraphic::~squareGraphic()
@@ -14,6 +22,7 @@ squareGraphic::~squareGraphic()
 
 void squareGraphic::setCoords(unsigned int layNum, unsigned int XCoord, unsigned int YCoord)
 {
+
     arrayLayNum = layNum;
     arrayXCoord = XCoord;
     arrayYCoord = YCoord;
@@ -22,12 +31,13 @@ void squareGraphic::setCoords(unsigned int layNum, unsigned int XCoord, unsigned
 
 void squareGraphic::mousePressEvent(QMouseEvent *)
 {
+    if(tokenCheck == true)
+    {
 
-    std::cout << "Test" << std::endl;
-    emit clicked();
-}
-
-void squareGraphic::functionTest()
-{
-    std::cout << "Layer: " << arrayLayNum << "X: " << arrayXCoord << "Y: " << arrayYCoord << std::endl;
+        //std::cout << arrayLayNum << std::endl;
+        //std::cout << thisPosition->colour << std::endl;
+        // gameData->displayBoard();
+        // gameData->placePiece(arrayLayNum, arrayXCoord, arrayYCoord, blackToken);
+        emit clicked();
+    }
 }

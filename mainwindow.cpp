@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
    class gameData gameData;
    QHBoxLayout * appBox = new QHBoxLayout;
    setLayout(appBox);
-
    appBox->addWidget(gameData.boardWidget);
 
 

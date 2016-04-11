@@ -16,9 +16,12 @@
 #include <QMainWindow>
 #include <QPixmap>
 #include <graphics.h>
+#include <game.h>
 
 
 using namespace std;
+class squareGraphic;
+
 
 enum posColour
 {
@@ -44,6 +47,12 @@ struct position
     squareGraphic * defaultImg;
     int xCoordWidget;
     int yCoordWidget;
+    unsigned int arrayLayNum;
+    unsigned int arrayXCoord;
+    unsigned int arrayYCoord;
+
+    void setCoords(unsigned int layNum, unsigned int XCoord, unsigned int YCoord);
+    bool placePiece(enum posColour newToken);
 };
 
 
@@ -84,6 +93,7 @@ struct tokenImage
     QPixmap * intersectionMiddleMap;
 };
 
+
 class gameData
 {
 public:
@@ -99,7 +109,7 @@ public:
 public:
     bool valPos(int xcoord, int ycoord, int layerNum);
     void displayBoard();
-    bool placePiece(int xcoord, int ycoord, int lay, enum posColour newToken);
+
     bool moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
     bool initBoard();
     gameData();
@@ -109,8 +119,10 @@ public:
     void checkForWin();
     int checkForNewMlin(int xcoord, int ycoord, int laynum);
     bool initBoardWidget();
-};
 
+public slots:
+     bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken);
+};
 
 
 

@@ -30,7 +30,6 @@ gameData::gameData()
     tokenImage.intersectionMiddleMap = new QPixmap("resources/intersectionMiddle.jpg");
     initBoard();
     initBoardWidget();
-
 }
 
 bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
@@ -94,31 +93,62 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
     return false;
 }
 
-bool gameData::placePiece(int xcoord, int ycoord, int lay, enum posColour newToken)
+bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken)
 {
-    if(blackPieces.piecesUnplaced <= 0)
+
+    /*if(blackPieces.piecesUnplaced <= 0)
     {
         return false;
     }
     if(valPos(xcoord, ycoord, lay) == false)
     {
         return false;
-    }
-   board[lay][xcoord][ycoord].colour = newToken;
-    if(newToken == blackToken)
+    }*/
+    std::cout << board[lay][xcoord][ycoord].colour << std::endl;
+    board[lay][xcoord][ycoord].colour = newToken;
+   /* board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));*/
+    /*if(newToken == blackToken)
     {
         blackPieces.piecesOnBoard++;
         blackPieces.piecesUnplaced--;
+        board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
         return true;
     }
     else if(newToken == whiteToken)
     {
         whitePieces.piecesOnBoard++;
         whitePieces.piecesUnplaced--;
+        board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
+        return true;
+    }*/
+    return false;
+}
+
+/*bool position::placePiece(enum posColour newToken)
+{
+    if(posColour != noToken)
+    {
+        return false;
+    }
+    colour = newToken;
+
+    if(newToken == blackToken)
+    {
+        gameData.blackPieces.piecesOnBoard++;
+        gameData.blackPieces.piecesUnplaced--;
+        locImg->setPixmap(*(tokenImage.blackTokenMap));
+        return true;
+    }
+    else if(newToken == whiteToken)
+    {
+        gameData.whitePieces.piecesOnBoard++;
+        gameData.whitePieces.piecesUnplaced--;
+        locImg->setPixmap(*(tokenImage.whiteTokenMap));
         return true;
     }
     return false;
-}
+}*/
+
 
 // When all the tokens have been placed, each player takes turns moving a piece one position.
 // Attempting to move a token outside the size of the array from a middle-position will result in moving the piece to the next layer.

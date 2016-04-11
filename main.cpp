@@ -9,9 +9,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    std::cout << "Program begins" << std::endl;
-
-   MainWindow w;
+    MainWindow w;
 
 
 
