@@ -4,12 +4,14 @@ gameData::gameData()
 {
 
     gameStatus = placing;
+    currentTurn = black;
     blackPieces.piecesOnBoard = 0;
     blackPieces.piecesUnplaced = numPieces;
     blackPieces.piecesTaken = 0;
     whitePieces.piecesOnBoard = 0;
     whitePieces.piecesUnplaced = numPieces;
     whitePieces.piecesTaken = 0;
+    selectedToken = noToken;
 
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
     tokenImage.whiteTokenMap = new QPixmap("resources/whiteToken.jpg");
@@ -28,8 +30,83 @@ gameData::gameData()
     tokenImage.intersectionLeftMap = new QPixmap("resources/intersectionLeft.jpg");
     tokenImage.intersectionRightMap = new QPixmap("resources/intersectionRight.jpg");
     tokenImage.intersectionMiddleMap = new QPixmap("resources/intersectionMiddle.jpg");
+
+
+    tokenImage.horizontalLineHoverMap = new QPixmap("resources/horizontalLineHover.jpg");
+    tokenImage.verticalLineHoverMap = new QPixmap("resources/verticalLineHover.jpg");
+    tokenImage.cornerBottomLeftHoverMap = new QPixmap("resources/cornerBottomLeftHover.jpg");
+    tokenImage.cornerBottomRightHoverMap = new QPixmap("resources/cornerBottomRightHover.jpg");
+    tokenImage.cornerTopLeftHoverMap = new QPixmap("resources/cornerTopLeftHover.jpg");
+    tokenImage.cornerTopRightHoverMap = new QPixmap("resources/cornerTopRightHover.jpg");
+    tokenImage.intersectionBottomHoverMap = new QPixmap("resources/intersectionBottomHover.jpg");
+    tokenImage.intersectionTopHoverMap = new QPixmap("resources/intersectionTopHover.jpg");
+    tokenImage.intersectionBottomHoverMap = new QPixmap("resources/intersectionBottomHover.jpg");
+    tokenImage.intersectionLeftHoverMap = new QPixmap("resources/intersectionLeftHover.jpg");
+    tokenImage.intersectionRightHoverMap = new QPixmap("resources/intersectionRightHover.jpg");
+    tokenImage.intersectionMiddleHoverMap = new QPixmap("resources/intersectionMiddleHover.jpg");
+
+
+
     initBoard();
     initBoardWidget();
+}
+
+bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum)
+{
+    enum posColour currentColour;
+    bool movedBool = false;
+    if(currentTurn == black)
+    {
+        currentColour = blackToken;
+    }
+    else if(currentTurn == white)
+    {
+        currentColour = whiteToken;
+    }
+    if(gameStatus == placing)
+    {
+
+
+        if(valPos(arrayXCoord, arrayYCoord, arrayLayNum) == false)
+        {
+            return false;
+        }
+        else
+        {
+            placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentColour);
+            movedBool = true;
+        }
+    }
+
+    else if(gameStatus == moving)
+    {
+        if(board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour)
+        {
+            return false;
+        }
+        else
+        {
+            std::cout << "test" << std::endl;
+        }
+    }
+    if(movedBool == true)
+    {
+        if(currentTurn == black)
+        {
+            currentTurn = white;
+        }
+        else if(currentTurn == white)
+        {
+            currentTurn = black;
+        }
+
+        if((gameStatus == placing && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
+        {
+            gameStatus = moving;
+        }
+    }
+
+    return true;
 }
 
 bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
@@ -96,18 +173,10 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
 bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken)
 {
 
-    /*if(blackPieces.piecesUnplaced <= 0)
-    {
-        return false;
-    }
-    if(valPos(xcoord, ycoord, lay) == false)
-    {
-        return false;
-    }*/
-    std::cout << board[lay][xcoord][ycoord].colour << std::endl;
+
     board[lay][xcoord][ycoord].colour = newToken;
-   /* board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));*/
-    /*if(newToken == blackToken)
+    board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
+    if(newToken == blackToken)
     {
         blackPieces.piecesOnBoard++;
         blackPieces.piecesUnplaced--;
@@ -120,7 +189,7 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         whitePieces.piecesUnplaced--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
         return true;
-    }*/
+    }
     return false;
 }
 

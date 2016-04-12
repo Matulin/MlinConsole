@@ -33,28 +33,28 @@ bool gameData::initBoard()
                         board[count][count2][count3].type = intersection;
                         board[count][count2][count3].mlinStatus = 0;
                         board[count][count2][count3].locImg = new squareGraphic(&board[count][count2][count3], this);
-                        board[count][count2][count3].defaultImg = new squareGraphic(&board[count][count2][count3], this);
                         board[count][count2][count3].setCoords(count, count2, count3);
                         if(((count3 == 0) && (count == 0)) || ((count3 == boardLayerWidth - 1) && (count == numOfLayers - 1)))
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionLeftMap));
+
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionLeftMap, tokenImage.intersectionLeftHoverMap);
                         }
                         else if(((count2 == 0) && (count == 0)) || ((count2 == boardLayerHeight - 1) && (count == numOfLayers - 1)))
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionTopMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionTopMap, tokenImage.intersectionTopHoverMap);
                         }
                         else if(((count2 == boardLayerHeight - 1) && (count == 0)) || ((count2 == 0) && (count == numOfLayers - 1)))
                         {
-
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionBottomMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionBottomMap, tokenImage.intersectionBottomHoverMap);
                         }
                         else if(((count3 == 0) && (count == numOfLayers - 1)) || ((count == 0) && (count3 == boardLayerWidth - 1)))
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionRightMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionRightMap, tokenImage.intersectionRightHoverMap);
                         }
+
                         else
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.intersectionMiddleMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionMiddleMap, tokenImage.intersectionMiddleHoverMap);
                         }
 
 
@@ -68,24 +68,27 @@ bool gameData::initBoard()
                         board[count][count2][count3].type = corner;
                         board[count][count2][count3].mlinStatus = 0;
                         board[count][count2][count3].locImg = new squareGraphic(&board[count][count2][count3], this);
-                        board[count][count2][count3].defaultImg = new squareGraphic(&board[count][count2][count3], this);
                         board[count][count2][count3].setCoords(count, count2, count3);
                         if((count2 == 0) && count3 == 0)
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerTopLeftMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.cornerTopLeftMap, tokenImage.cornerTopLeftHoverMap);
 
                         }
                         else if((count2 == boardLayerWidth - 1) && count3 == boardLayerHeight - 1)
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerBottomRightMap));
+                            board[count][count2][count3].locImg->setPixmap(*(tokenImage.cornerBottomRightMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.cornerBottomRightMap, tokenImage.cornerBottomRightHoverMap);
+
                         }
                         else if((count2 == boardLayerWidth - 1) && count3 == 0)
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerBottomLeftMap));
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.cornerBottomLeftMap, tokenImage.cornerBottomLeftHoverMap);
                         }
                         else if((count2 == 0) && count3 == boardLayerHeight - 1)
                         {
-                            board[count][count2][count3].defaultImg->setPixmap(*(tokenImage.cornerTopRightMap));
+
+                            board[count][count2][count3].locImg->setDefaults(tokenImage.cornerTopRightMap, tokenImage.cornerTopRightHoverMap);
+
                         }
 
 
@@ -124,8 +127,9 @@ bool gameData::initBoard()
 
                     board[count][count2][count3].yCoordWidget = neg2 * count * 2 + 6 * count3;
 
-                    board[count][count2][count3].defaultImg->setCoords(count, count2, count3);
-                    board[count][count2][count3].locImg = board[count][count2][count3].defaultImg;
+                    board[count][count2][count3].locImg->setCoords(count, count2, count3);
+                    // board[count][count2][count3].locImg = board[count][count2][count3].defaultImg;
+
 
                 }
 

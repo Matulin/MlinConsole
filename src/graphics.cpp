@@ -29,15 +29,34 @@ void squareGraphic::setCoords(unsigned int layNum, unsigned int XCoord, unsigned
 
 }
 
+void squareGraphic::setDefaults(QPixmap * defaultImage, QPixmap * hoverImage)
+{
+    defaultImg = defaultImage;
+    hoverImg = hoverImage;
+    this->setPixmap(*defaultImg);
+}
+
 void squareGraphic::mousePressEvent(QMouseEvent *)
 {
     if(tokenCheck == true)
     {
+        gameData->gameFunction(arrayXCoord, arrayYCoord, arrayLayNum);
 
-        //std::cout << arrayLayNum << std::endl;
-        //std::cout << thisPosition->colour << std::endl;
-        // gameData->displayBoard();
-        // gameData->placePiece(arrayLayNum, arrayXCoord, arrayYCoord, blackToken);
-        emit clicked();
+    }
+}
+
+void squareGraphic::enterEvent(QEvent *)
+{
+    if(((tokenCheck == true) && ((thisPosition->colour == noToken)) && (gameData->gameStatus == placing)))
+    {
+        this->setPixmap(*hoverImg);
+    }
+}
+
+void squareGraphic::leaveEvent(QEvent *)
+{
+    if(((tokenCheck == true) && ((thisPosition->colour == noToken)) && (gameData->gameStatus == placing)))
+    {
+        this->setPixmap(*defaultImg);
     }
 }

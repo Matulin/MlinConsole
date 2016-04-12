@@ -44,7 +44,6 @@ struct position
     posColour colour;
     unsigned int mlinStatus;
     squareGraphic * locImg;
-    squareGraphic * defaultImg;
     int xCoordWidget;
     int yCoordWidget;
     unsigned int arrayLayNum;
@@ -73,6 +72,12 @@ enum status
     draw
 };
 
+enum currentTurn
+{
+    black,
+    white
+};
+
 struct tokenImage
 {
     QPixmap * blackTokenMap;
@@ -91,6 +96,18 @@ struct tokenImage
     QPixmap * intersectionLeftMap;
     QPixmap * intersectionRightMap;
     QPixmap * intersectionMiddleMap;
+
+    QPixmap * cornerBottomLeftHoverMap;
+    QPixmap * cornerBottomRightHoverMap;
+    QPixmap * cornerTopLeftHoverMap;
+    QPixmap * cornerTopRightHoverMap;
+    QPixmap * horizontalLineHoverMap;
+    QPixmap * verticalLineHoverMap;
+    QPixmap * intersectionBottomHoverMap;
+    QPixmap * intersectionTopHoverMap;
+    QPixmap * intersectionLeftHoverMap;
+    QPixmap * intersectionRightHoverMap;
+    QPixmap * intersectionMiddleHoverMap;
 };
 
 
@@ -104,6 +121,8 @@ public:
     bool valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
     QWidget * boardWidget;
     struct tokenImage tokenImage;
+    enum currentTurn currentTurn;
+    enum posColour selectedToken;
 
 
 public:
@@ -119,11 +138,11 @@ public:
     void checkForWin();
     int checkForNewMlin(int xcoord, int ycoord, int laynum);
     bool initBoardWidget();
+    bool gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum);
+    bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken);
 
-public slots:
-     bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken);
+
+
 };
-
-
 
 #endif // BOARD_H
