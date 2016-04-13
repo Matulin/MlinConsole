@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     src/board.cpp \
     src/game.cpp \
-    src/graphics.cpp
+    src/graphics.cpp \
+    src/interface.cpp
 
 HEADERS  += mainwindow.h \
     board.h \
     game.h \
-    graphics.h
+    graphics.h \
+    interface.h
 
 FORMS    += mainwindow.ui

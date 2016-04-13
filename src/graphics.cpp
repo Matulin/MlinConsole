@@ -1,4 +1,4 @@
-#include <graphics.h>
+#include "graphics.h"
 
 squareGraphic::squareGraphic(struct position * squarePosition, class gameData * data, QLabel *parent)
     : QLabel(parent)
@@ -7,6 +7,13 @@ squareGraphic::squareGraphic(struct position * squarePosition, class gameData * 
     thisPosition = squarePosition;
     gameData = data;
 
+}
+
+squareGraphic::squareGraphic(class gameData * data, QLabel *parent)
+    : QLabel(parent)
+{
+    gameData = data;
+    tokenCheck = false;
 }
 
 squareGraphic::squareGraphic(QLabel *parent)
@@ -43,20 +50,77 @@ void squareGraphic::mousePressEvent(QMouseEvent *)
         gameData->gameFunction(arrayXCoord, arrayYCoord, arrayLayNum);
 
     }
+   else if((gameData->gameStatus == moving) && (gameData->selectedToken != noToken))
+    {
+        gameData->selectedToken = noToken;
+        if(gameData->selectedPosition.colour == blackToken)
+        {
+            gameData->selectedPosition.locImg->setPixmap(*gameData->tokenImage.blackTokenMap);
+        }
+        else if(gameData->selectedPosition.colour == whiteToken)
+        {
+            gameData->selectedPosition.locImg->setPixmap(*gameData->tokenImage.whiteTokenMap);
+        }
+        gameData->selectedPosition = gameData->board[1][1][1];
+
+    }
 }
 
 void squareGraphic::enterEvent(QEvent *)
 {
-    if(((tokenCheck == true) && ((thisPosition->colour == noToken)) && (gameData->gameStatus == placing)))
+    if(tokenCheck == true)
     {
-        this->setPixmap(*hoverImg);
+        if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
+        {
+            this->setPixmap(*hoverImg);
+        }
+        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && (thisPosition->colour == gameData->currentTurn))
+        {
+            if(thisPosition->colour == blackToken)
+            {
+                this->setPixmap(*(gameData->tokenImage.blackTokenHoverMap));
+            }
+            else if(thisPosition->colour == whiteToken)
+            {
+                this->setPixmap(*(gameData->tokenImage.whiteTokenHoverMap));
+            }
+        }
+        else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
+        {
+            if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+            {
+                this->setPixmap(*hoverImg);
+            }
+
+        }
     }
 }
 
 void squareGraphic::leaveEvent(QEvent *)
 {
-    if(((tokenCheck == true) && ((thisPosition->colour == noToken)) && (gameData->gameStatus == placing)))
+    if(tokenCheck == true)
     {
-        this->setPixmap(*defaultImg);
+        if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
+        {
+            this->setPixmap(*defaultImg);
+        }
+        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && (thisPosition->colour == gameData->currentTurn))
+        {
+            if(thisPosition->colour == blackToken)
+            {
+                this->setPixmap(*(gameData->tokenImage.blackTokenMap));
+            }
+            else if(thisPosition->colour == whiteToken)
+            {
+                this->setPixmap(*(gameData->tokenImage.whiteTokenMap));
+            }
+        }
+        else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
+        {
+            if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+            {
+                this->setPixmap(*defaultImg);
+            }
+        }
     }
 }

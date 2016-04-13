@@ -56,8 +56,6 @@ bool gameData::initBoard()
                         {
                             board[count][count2][count3].locImg->setDefaults(tokenImage.intersectionMiddleMap, tokenImage.intersectionMiddleHoverMap);
                         }
-
-
                     }
 
                     // If the position is a corner...
@@ -156,6 +154,7 @@ bool gameData::initBoard()
         }
 
     }
+    selectedPosition = board[1][1][1];
     return true;
 }
 
@@ -174,7 +173,8 @@ bool gameData::initBoardWidget()
     {
         for(unsigned int count2 = 0; count2 <= boardWidgetWidth; count2++)
         {
-            squareGraphic * tempLabel = new squareGraphic;
+            squareGraphic * tempLabel = new squareGraphic(this);
+            //squareGraphic * tempLabel = new squareGraphic();
 
             // If it isn't a corner
             if(!(((count == 0 && count2 == 0) || (count == 0 && count2 == boardWidgetWidth)) || ((count == boardWidgetHeight && count2 == boardWidgetWidth) || (count == boardWidgetHeight && count2 == 0))))

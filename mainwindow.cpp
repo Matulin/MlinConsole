@@ -4,10 +4,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
-   gameData * gameData2 = new gameData;
+   gameData * gameDataApp = new gameData;
    QHBoxLayout * appBox = new QHBoxLayout;
    setLayout(appBox);
-   appBox->addWidget(gameData2->boardWidget);
+   appBox->addWidget(gameDataApp->boardWidget);
 
 }
 

@@ -85,6 +85,12 @@ struct tokenImage
     QPixmap * emptyTokenMap;
     QPixmap * blackTokenMlinMap;
     QPixmap * whiteTokenMlinMap;
+
+    QPixmap * blackTokenHoverMap;
+    QPixmap * whiteTokenHoverMap;
+    QPixmap * blackTokenSelectMap;
+    QPixmap * whiteTokenSelectMap;
+
     QPixmap * cornerBottomLeftMap;
     QPixmap * cornerBottomRightMap;
     QPixmap * cornerTopLeftMap;
@@ -121,8 +127,9 @@ public:
     bool valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
     QWidget * boardWidget;
     struct tokenImage tokenImage;
-    enum currentTurn currentTurn;
+    enum posColour currentTurn;
     enum posColour selectedToken;
+    struct position selectedPosition;
 
 
 public:
@@ -140,6 +147,7 @@ public:
     bool initBoardWidget();
     bool gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum);
     bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken);
+    bool moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum, enum posColour currentColour);
 
 
 

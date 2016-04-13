@@ -4,7 +4,7 @@ gameData::gameData()
 {
 
     gameStatus = placing;
-    currentTurn = black;
+    currentTurn = blackToken;
     blackPieces.piecesOnBoard = 0;
     blackPieces.piecesUnplaced = numPieces;
     blackPieces.piecesTaken = 0;
@@ -18,6 +18,12 @@ gameData::gameData()
     tokenImage.emptyTokenMap = new QPixmap("resources/blankSquare.jpg");
     tokenImage.whiteTokenMlinMap = new QPixmap("resources/whiteTokenMlin.jpg");
     tokenImage.blackTokenMlinMap = new QPixmap("resources/blackTokenMlin.jpg");
+
+    tokenImage.whiteTokenHoverMap = new QPixmap("resources/whiteTokenHover.jpg");
+    tokenImage.blackTokenHoverMap = new QPixmap("resources/blackTokenHover.jpg");
+    tokenImage.whiteTokenSelectMap = new QPixmap("resources/whiteTokenSelect.jpg");
+    tokenImage.blackTokenSelectMap = new QPixmap("resources/blackTokenSelect.jpg");
+
     tokenImage.horizontalLineMap = new QPixmap("resources/horizontalLine.jpg");
     tokenImage.verticalLineMap = new QPixmap("resources/verticalLine.jpg");
     tokenImage.cornerBottomLeftMap = new QPixmap("resources/cornerBottomLeft.jpg");
@@ -55,14 +61,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
 {
     enum posColour currentColour;
     bool movedBool = false;
-    if(currentTurn == black)
-    {
-        currentColour = blackToken;
-    }
-    else if(currentTurn == white)
-    {
-        currentColour = whiteToken;
-    }
+    currentColour = currentTurn;
     if(gameStatus == placing)
     {
 
@@ -80,26 +79,23 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
 
     else if(gameStatus == moving)
     {
-        if(board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour)
+        // std::cout << "test" << std::endl;
+        if(moveSelect(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
         {
-            return false;
-        }
-        else
-        {
-            std::cout << "test" << std::endl;
+            movedBool = true;
         }
     }
     if(movedBool == true)
     {
-        if(currentTurn == black)
+        if(currentTurn == blackToken)
         {
-            currentTurn = white;
+            currentTurn = whiteToken;
         }
-        else if(currentTurn == white)
+        else if(currentTurn == whiteToken)
         {
-            currentTurn = black;
+            currentTurn = blackToken;
         }
-
+        selectedToken = noToken;
         if((gameStatus == placing && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
         {
             gameStatus = moving;
@@ -109,21 +105,53 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
     return true;
 }
 
+bool gameData::moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum, enum posColour currentColour)
+{
+    if(selectedToken == noToken)
+    {
+        if(board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour)
+        {
+            return false;
+        }
+        else
+        {
+            selectedToken = board[arrayLayNum][arrayXCoord][arrayYCoord].colour;
+            selectedPosition = board[arrayLayNum][arrayXCoord][arrayYCoord];
+            if(currentColour == blackToken)
+            {
+                selectedPosition.locImg->setPixmap(*tokenImage.blackTokenSelectMap);
+            }
+            else if(currentColour == whiteToken)
+            {
+                selectedPosition.locImg->setPixmap(*tokenImage.whiteTokenSelectMap);
+            }
+            return false;
+        }
+    }
+    else if((selectedToken == whiteToken) || (selectedToken == blackToken))
+    {
+        if(board[arrayLayNum][arrayXCoord][arrayYCoord].colour != noToken)
+        {
+            return false;
+        }
+        else
+        {
+
+            return moveToken(selectedPosition.arrayXCoord, selectedPosition.arrayYCoord, selectedPosition.arrayLayNum, arrayXCoord, arrayYCoord, arrayLayNum, selectedToken);
+        }
+    }
+    return false;
+}
+
 bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
 {
-
-    // Confirms that both positions exist.
-    if(valPos(oldx, oldy, oldlay) == false)
-    {
-        return false;
-    }
     if(valPos(newx, newy, newlay) == false)
     {
         return false;
     }
 
     // Confirms that neither position is an invalid position (i.e. the centre of a layer)
-    if((board[oldlay-1][oldx - 1][oldy - 1].type == centre) || (board[newlay-1][newx - 1][newy - 1].type == centre))
+    if((board[oldlay][oldx][oldy].type == centre) || (board[newlay][newx][newy].type == centre))
     {
         return false;
     }
@@ -137,17 +165,22 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
     // If two positions have the same x and y coordinates and their layer numbers are one off, they're next to each other between the layers if they're intersections
     if((oldx == newx) && (oldy == newy))
     {
-        if(board[oldlay - 1][oldx - 1][oldy - 1].type == intersection)
+        if(board[oldlay][oldx][oldy].type == intersection)
         {
-            if((newlay - oldlay == 1) || (newlay - oldlay == -1))
+            if((newlay - oldlay == 1) || (oldlay - newlay == 1))
             {
                 return true;
+            }
+            else
+            {
+                return false;
             }
         }
         else
         {
             return false;
         }
+
     }
 
     // Makes sure positions are in the same layer
@@ -157,16 +190,27 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
     }
 
     // Checks whether the x values are next to each other in the same layer
-    // It's imposible for the old and new positions to be diagonal, since valPos has already checked for the centre of the layer
-    if((newx - oldx >= -1) && (newx - oldx <= 1))
+    if((newx - oldx == 1) || (oldx - newx == 1))
     {
-        if((newy - oldy >= -1) && (newy - oldy <= 1))
+        if(oldy == newy)
         {
             return true;
         }
     }
+    if((newy - oldy == 1) || (oldy - newy == 1))
+    {
+        if(oldx == newx)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-    cout << "There was an error validating the move!" << endl;
+
+    std::cout << "test4" << std::endl;
     return false;
 }
 
@@ -230,10 +274,22 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
     {
         return false;
     }
+    /* board[arrayLayNum][arrayXCoord][arrayYCoord].colour = selectedToken;
+    selectedPosition.colour = noToken;
+    selectedToken = noToken;*/
 
+    board[oldlay][oldx][oldy].colour = noToken;
+    board[newlay][newx][newy].colour = newToken;
 
-    board[oldlay - 1][oldx - 1][oldy - 1].colour = noToken;
-    board[newlay - 1][newx - 1][newy - 1].colour = newToken;
+    board[oldlay][oldx][oldy].locImg->setPixmap(*board[oldlay][oldx][oldy].locImg->defaultImg);
+    if(newToken == blackToken)
+    {
+        board[newlay][newx][newy].locImg->setPixmap(*tokenImage.blackTokenMap);
+    }
+    else if(newToken == whiteToken)
+    {
+        board[newlay][newx][newy].locImg->setPixmap(*tokenImage.whiteTokenMap);
+    }
     return true;
 }
 

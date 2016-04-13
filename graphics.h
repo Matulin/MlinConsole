@@ -7,6 +7,8 @@
 #include <QtGui>
 #include <QTCore>
 #include <board.h>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 
 // struct position;
@@ -18,6 +20,7 @@ class squareGraphic : public QLabel
 public:
 
     explicit squareGraphic(struct position * squarePosition, class gameData * data, QLabel *parent = 0);
+    explicit squareGraphic(class gameData * data, QLabel *parent = 0);
     explicit squareGraphic(QLabel *parent = 0);
    ~squareGraphic();
 
