@@ -5,12 +5,15 @@
 #include <board.h>
 #include <graphics.h>
 #include <QHBoxLayout>
+#include "interface.h"
+
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-
+    //MainWindow w;
+    interfaceWindow w;
 
 
     w.show();

@@ -1,6 +1,6 @@
 #include "game.h"
 
-gameData::gameData()
+gameData::gameData(interfaceWindow * parentWindow)
 {
 
     gameStatus = placing;
@@ -12,17 +12,21 @@ gameData::gameData()
     whitePieces.piecesUnplaced = numPieces;
     whitePieces.piecesTaken = 0;
     selectedToken = noToken;
+    outerWindow = parentWindow;
 
+    // These will be converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
     tokenImage.whiteTokenMap = new QPixmap("resources/whiteToken.jpg");
     tokenImage.emptyTokenMap = new QPixmap("resources/blankSquare.jpg");
-    tokenImage.whiteTokenMlinMap = new QPixmap("resources/whiteTokenMlin.jpg");
-    tokenImage.blackTokenMlinMap = new QPixmap("resources/blackTokenMlin.jpg");
+    tokenImage.whiteTokenMlinMap = new QPixmap("resources/whiteTokenMlin.png");
+    tokenImage.blackTokenMlinMap = new QPixmap("resources/blackTokenMlin.png");
 
-    tokenImage.whiteTokenHoverMap = new QPixmap("resources/whiteTokenHover.jpg");
-    tokenImage.blackTokenHoverMap = new QPixmap("resources/blackTokenHover.jpg");
+    tokenImage.whiteTokenHoverMap = new QPixmap("resources/whiteTokenHover.png");
+    tokenImage.blackTokenHoverMap = new QPixmap("resources/blackTokenHover.png");
     tokenImage.whiteTokenSelectMap = new QPixmap("resources/whiteTokenSelect.jpg");
     tokenImage.blackTokenSelectMap = new QPixmap("resources/blackTokenSelect.jpg");
+    tokenImage.blackTokenDeleteMap = new QPixmap("resources/blackTokenDelete.png");
+    tokenImage.whiteTokenDeleteMap = new QPixmap("resources/whiteTokenDelete.png");
 
     tokenImage.horizontalLineMap = new QPixmap("resources/horizontalLine.jpg");
     tokenImage.verticalLineMap = new QPixmap("resources/verticalLine.jpg");
@@ -74,6 +78,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
         {
             placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentColour);
             movedBool = true;
+            checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum);
         }
     }
 
@@ -83,6 +88,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
         if(moveSelect(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
         {
             movedBool = true;
+
         }
     }
     if(movedBool == true)
@@ -101,7 +107,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
             gameStatus = moving;
         }
     }
-
+    outerWindow->setInterfaceWidgets();
     return true;
 }
 
@@ -293,80 +299,37 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
     return true;
 }
 
-int gameData::checkForNewMlin(int xcoord, int ycoord, int laynum)
+int gameData::checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned int laynum)
 {
     int mlin = 0; // It's possible for a single move to make 0, 1 or 2 mlins.
-    // If the new position is a corner...
-    if(board[laynum][xcoord][ycoord].type == corner)
+    if((board[laynum][xcoord][0].colour == board[laynum][xcoord][2].colour) && (board[laynum][xcoord][0].colour == board[laynum][xcoord][1].colour))
     {
-        unsigned int adjx;
-        unsigned int adjy;
-        if(xcoord == 0)
-        {
-            adjx = 2;
-        }
-        else if(xcoord == 2)
-        {
-            adjx = 0;
-        }
-
-        if(ycoord == 0)
-        {
-            adjy = 2;
-        }
-        else if(ycoord == 2)
-        {
-            adjy = 0;
-        }
-        if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][adjy].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][1].colour))
-        {
-            board[laynum][xcoord][ycoord].mlinStatus++;
-            board[laynum][xcoord][adjy].mlinStatus++;
-            board[laynum][xcoord][1].mlinStatus++;
-            mlin++;
-        }
-
-        if((board[laynum][xcoord][ycoord].colour == board[laynum][adjx][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][1][ycoord].colour))
-        {
-            board[laynum][xcoord][ycoord].mlinStatus++;
-            board[laynum][adjx][ycoord].mlinStatus++;
-            board[laynum][1][ycoord].mlinStatus++;
-            mlin++;
-
-        }
+        board[laynum][xcoord][0].mlinStatus++;
+        board[laynum][xcoord][1].mlinStatus++;
+        board[laynum][xcoord][2].mlinStatus++;
+        mlin++;
     }
-
-    // If the new position is an intersection
-    else if(board[laynum][xcoord][ycoord].type == intersection)
+    if((board[laynum][0][ycoord].colour == board[laynum][2][ycoord].colour) && (board[laynum][0][ycoord].colour == board[laynum][1][ycoord].colour))
     {
-        if(xcoord == 1)
-        {
-            if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][ycoord + 1].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord][ycoord - 1].colour))
+        board[laynum][0][ycoord].mlinStatus++;
+        board[laynum][1][ycoord].mlinStatus++;
+        board[laynum][2][ycoord].mlinStatus++;
+        mlin++;
+    }
+    if(board[laynum][xcoord][ycoord].type == intersection)
+    {
+            // Checks for a mlin across the layers
+            if((board[0][xcoord][ycoord].colour == board[1][xcoord][ycoord].colour) && (board[1][xcoord][ycoord].colour == board[2][xcoord][ycoord].colour))
             {
-                board[laynum][xcoord][ycoord].mlinStatus++;
-                board[laynum][xcoord][ycoord + 1].mlinStatus++;
-                board[laynum][xcoord][ycoord - 1].mlinStatus++;
+                board[0][xcoord][ycoord].mlinStatus++;
+                board[1][xcoord][ycoord].mlinStatus++;
+                board[2][xcoord][ycoord].mlinStatus++;
                 mlin++;
             }
-        }
-
-        else if(ycoord == 1)
-        {
-            if((board[laynum][xcoord][ycoord].colour == board[laynum][xcoord + 1][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[laynum][xcoord - 1][ycoord].colour))
-            {
-                board[laynum][xcoord][ycoord].mlinStatus++;
-                board[laynum][xcoord + 1][ycoord].mlinStatus++;
-                board[laynum][xcoord - 1][ycoord].mlinStatus++;
-                mlin++;
-            }
-        }
-        if((board[0][xcoord][ycoord].colour == board[1][xcoord][ycoord].colour) && (board[laynum][xcoord][ycoord].colour == board[2][xcoord][ycoord].colour))
-        {
-            board[laynum][xcoord][ycoord].mlinStatus++;
-            board[laynum][xcoord][ycoord].mlinStatus++;
-            board[laynum][xcoord][ycoord].mlinStatus++;
-            mlin++;
-        }
+    }
+    if(mlin > 0)
+    {
+        std::cout << "Mlin" << std::endl;
     }
     return mlin;
 }

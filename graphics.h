@@ -7,8 +7,7 @@
 #include <QtGui>
 #include <QTCore>
 #include <board.h>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
+
 
 
 // struct position;

@@ -17,10 +17,12 @@
 #include <QPixmap>
 #include <graphics.h>
 #include <game.h>
+#include "interface.h"
 
 
 using namespace std;
 class squareGraphic;
+class interfaceWindow;
 
 
 enum posColour
@@ -90,6 +92,8 @@ struct tokenImage
     QPixmap * whiteTokenHoverMap;
     QPixmap * blackTokenSelectMap;
     QPixmap * whiteTokenSelectMap;
+    QPixmap * blackTokenDeleteMap;
+    QPixmap * whiteTokenDeleteMap;
 
     QPixmap * cornerBottomLeftMap;
     QPixmap * cornerBottomRightMap;
@@ -114,12 +118,14 @@ struct tokenImage
     QPixmap * intersectionLeftHoverMap;
     QPixmap * intersectionRightHoverMap;
     QPixmap * intersectionMiddleHoverMap;
+
 };
 
 
 class gameData
 {
 public:
+    explicit gameData(interfaceWindow * parentWindow);
     enum status gameStatus;
     struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];
     struct pieces whitePieces;
@@ -130,6 +136,7 @@ public:
     enum posColour currentTurn;
     enum posColour selectedToken;
     struct position selectedPosition;
+    interfaceWindow * outerWindow;
 
 
 public:
@@ -143,7 +150,7 @@ public:
     enum posColour checkForMlin();
     void removeMlin(int xcoord, int ycoord, int laynum);
     void checkForWin();
-    int checkForNewMlin(int xcoord, int ycoord, int laynum);
+    int checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned int laynum);
     bool initBoardWidget();
     bool gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum);
     bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken);
