@@ -6,6 +6,7 @@ interfaceWindow::interfaceWindow(QWidget *parent)
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
     gameSideBar = new QVBoxLayout;
+    gameOuterWindow = new QVBoxLayout;
 
     QFont * boldFont = new QFont;
     boldFont->setBold(true);
@@ -71,10 +72,14 @@ interfaceWindow::interfaceWindow(QWidget *parent)
     gameSideBar->addWidget(whitePiecesTakenMessage);
     gameSideBar->addLayout(whitePiecesTakenBox);
 
+    toolbar = new gameToolbar;
+
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
+    gameOuterWindow->addWidget(toolbar);
+    gameOuterWindow->addLayout(gameWindow);
 
-    setLayout(gameWindow);
+    setLayout(gameOuterWindow);
 
     setInterfaceWidgets();
 }

@@ -11,4 +11,5 @@ INPUT(
 ./debug\moc_mainwindow.o
 ./debug\moc_graphics.o
 ./debug\moc_interface.o
+./debug\moc_toolbar.o
 );

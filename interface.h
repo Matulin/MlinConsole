@@ -9,8 +9,10 @@
 #include <QTCore>
 #include <QString>
 #include <QFont>
+#include "toolbar.h"
 
 class gameData;
+class gameToolbar;
 
 class interfaceWindow : public QWidget
 {
@@ -25,6 +27,7 @@ public:
     class gameData * thisGameData;
     QVBoxLayout * gameSideBar;
     QHBoxLayout * gameWindow;
+    QVBoxLayout * gameOuterWindow;
     bool setInterfaceWidgets();
     static void testPrint();
 
@@ -43,6 +46,7 @@ public:
     QHBoxLayout * blackPiecesTakenBox;
     QLabel * blackPiecesUnplacedMessage;
     QLabel * blackPiecesTakenMessage;
+    gameToolbar * toolbar;
 
 
     QLabel * whitePiecesMessage;

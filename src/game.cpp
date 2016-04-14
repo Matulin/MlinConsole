@@ -679,6 +679,36 @@ bool gameData::checkForMove(unsigned int count, unsigned int count2, unsigned in
                     }
                 }
             }
+            if(count == 1)
+            {
+                if((board[0][count2][count3].colour == noToken) || (board[2][count2][count3].colour == noToken))
+                {
+                    if(board[count][count2][count3].colour == blackToken)
+                    {
+                        return true;
+                    }
+                    if(board[count][count2][count3].colour == whiteToken)
+                    {
+
+                        return true;
+                    }
+                }
+            }
+            else if((count == 0) || (count == 2))
+            {
+                if(board[1][count2][count3].colour == noToken)
+                {
+                    if(board[count][count2][count3].colour == blackToken)
+                    {
+                        return true;
+                    }
+                    if(board[count][count2][count3].colour == whiteToken)
+                    {
+
+                        return true;
+                    }
+                }
+            }
         }
 
     }
