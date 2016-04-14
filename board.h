@@ -69,6 +69,7 @@ enum status
 {
     placing,
     moving,
+    taking,
     blackWin,
     whiteWin,
     draw
@@ -146,7 +147,7 @@ public:
     bool moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
     bool initBoard();
     gameData();
-    bool takeToken(int xcoord, int ycoord, int laynum, enum posColour token);
+    bool takeToken(int xcoord, int ycoord, int laynum);
     enum posColour checkForMlin();
     void removeMlin(int xcoord, int ycoord, int laynum);
     void checkForWin();

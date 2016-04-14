@@ -17,12 +17,18 @@ SOURCES += main.cpp\
     src/board.cpp \
     src/game.cpp \
     src/graphics.cpp \
-    src/interface.cpp
+    src/interface.cpp \
+    src/menu.cpp \
+    src/toolbar.cpp \
+    src/options.cpp
 
 HEADERS  += mainwindow.h \
     board.h \
     game.h \
     graphics.h \
-    interface.h
+    interface.h \
+    menu.h \
+    toolbar.h \
+    options.h
 
 FORMS    += mainwindow.ui

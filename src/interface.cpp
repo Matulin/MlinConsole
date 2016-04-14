@@ -69,8 +69,6 @@ interfaceWindow::interfaceWindow(QWidget *parent)
     setLayout(gameWindow);
 
     setInterfaceWidgets();
-
-
 }
 
 interfaceWindow::~interfaceWindow()
@@ -91,6 +89,10 @@ bool interfaceWindow::setInterfaceWidgets()
         {
             messageBox->setText("Black Moving");
         }
+        else if(thisGameData->gameStatus == taking)
+        {
+            messageBox->setText("Black Taking");
+        }
     }
     else if(thisGameData->currentTurn == whiteToken)
     {
@@ -102,10 +104,19 @@ bool interfaceWindow::setInterfaceWidgets()
         {
             messageBox->setText("White Moving");
         }
+        else if(thisGameData->gameStatus == taking)
+        {
+            messageBox->setText("White Taking");
+        }
     }
-    else
+
+    if(thisGameData->gameStatus == whiteWin)
     {
-        messageBox->setText("Other Case");
+        messageBox->setText("White wins!");
+    }
+    else if(thisGameData->gameStatus == blackWin)
+    {
+        messageBox->setText("Black wins!");
     }
 
     if(thisGameData->blackPieces.piecesUnplaced > 0)
@@ -143,7 +154,7 @@ bool interfaceWindow::setInterfaceWidgets()
        blackPiecesTakenMessage->setText("Pieces Taken: ");
        blackPiecesTaken->setPixmap(*thisGameData->tokenImage.blackTokenMap);
        QString tokenText = QString::fromStdString("x" + std::to_string(thisGameData->blackPieces.piecesTaken));
-       whitePiecesUnplaced2->setText(tokenText);
+       blackPiecesTaken2->setText(tokenText);
     }
     else if(thisGameData->blackPieces.piecesTaken == 0)
     {
@@ -158,7 +169,7 @@ bool interfaceWindow::setInterfaceWidgets()
         whitePiecesTakenMessage->setText("Pieces Taken: ");
         whitePiecesTaken->setPixmap(*thisGameData->tokenImage.whiteTokenMap);
         QString tokenText = QString::fromStdString("x" + std::to_string(thisGameData->whitePieces.piecesTaken));
-        whitePiecesUnplaced2->setText(tokenText);
+        whitePiecesTaken2->setText(tokenText);
     }
     else if(thisGameData->whitePieces.piecesUnplaced == 0)
     {

@@ -66,31 +66,49 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
     enum posColour currentColour;
     bool movedBool = false;
     currentColour = currentTurn;
+    if((gameStatus == taking) && (board[arrayLayNum][arrayXCoord][arrayYCoord].mlinStatus < 1))
+    {
+        if(takeToken(arrayXCoord, arrayYCoord, arrayLayNum))
+        {
+            movedBool = true;
+        }
+
+    }
     if(gameStatus == placing)
     {
-
-
         if(valPos(arrayXCoord, arrayYCoord, arrayLayNum) == false)
         {
             return false;
         }
         else
         {
-            placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentColour);
-            movedBool = true;
-            checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum);
+            if(placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
+            {
+                if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
+                {
+                    movedBool = true;
+                }
+            }
         }
     }
 
     else if(gameStatus == moving)
     {
-        // std::cout << "test" << std::endl;
         if(moveSelect(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
         {
-            movedBool = true;
+            if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
+            {
+                movedBool = true;
+            }
 
         }
     }
+    if((gameStatus == taking) && (movedBool == true))
+    {
+        //  If it should be "moving" instead, it'll change to that in the next block.
+        gameStatus = placing;
+    }
+
     if(movedBool == true)
     {
         if(currentTurn == blackToken)
@@ -102,10 +120,11 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
             currentTurn = blackToken;
         }
         selectedToken = noToken;
-        if((gameStatus == placing && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
+        if(((gameStatus == placing) && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
         {
             gameStatus = moving;
         }
+        checkForWin();
     }
     outerWindow->setInterfaceWidgets();
     return true;
@@ -216,7 +235,6 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
     }
 
 
-    std::cout << "test4" << std::endl;
     return false;
 }
 
@@ -278,12 +296,13 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
 
     if(valMove(oldx, oldy, oldlay, newx, newy, newlay) != true)
     {
+
         return false;
     }
     /* board[arrayLayNum][arrayXCoord][arrayYCoord].colour = selectedToken;
     selectedPosition.colour = noToken;
     selectedToken = noToken;*/
-
+    removeMlin(oldx, oldy, oldlay);
     board[oldlay][oldx][oldy].colour = noToken;
     board[newlay][newx][newy].colour = newToken;
 
@@ -308,6 +327,20 @@ int gameData::checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned
         board[laynum][xcoord][1].mlinStatus++;
         board[laynum][xcoord][2].mlinStatus++;
         mlin++;
+        if(board[laynum][xcoord][ycoord].colour == blackToken)
+        {
+            board[laynum][xcoord][0].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+            board[laynum][xcoord][1].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+            board[laynum][xcoord][2].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+        }
+        else if(board[laynum][xcoord][ycoord].colour == whiteToken)
+        {
+            board[laynum][xcoord][0].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+            board[laynum][xcoord][1].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+            board[laynum][xcoord][2].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+        }
+
+
     }
     if((board[laynum][0][ycoord].colour == board[laynum][2][ycoord].colour) && (board[laynum][0][ycoord].colour == board[laynum][1][ycoord].colour))
     {
@@ -315,6 +348,18 @@ int gameData::checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned
         board[laynum][1][ycoord].mlinStatus++;
         board[laynum][2][ycoord].mlinStatus++;
         mlin++;
+        if(board[laynum][xcoord][ycoord].colour == blackToken)
+        {
+            board[laynum][0][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+            board[laynum][1][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+            board[laynum][2][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+        }
+        else if(board[laynum][xcoord][ycoord].colour == whiteToken)
+        {
+            board[laynum][0][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+            board[laynum][1][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+            board[laynum][2][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+        }
     }
     if(board[laynum][xcoord][ycoord].type == intersection)
     {
@@ -325,11 +370,24 @@ int gameData::checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned
                 board[1][xcoord][ycoord].mlinStatus++;
                 board[2][xcoord][ycoord].mlinStatus++;
                 mlin++;
+                if(board[laynum][xcoord][ycoord].colour == blackToken)
+                {
+
+                    board[0][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+                    board[1][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+                    board[2][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMlinMap);
+                }
+                else if(board[laynum][xcoord][ycoord].colour == whiteToken)
+                {
+                    board[0][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+                    board[1][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+                    board[2][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMlinMap);
+                }
             }
     }
     if(mlin > 0)
     {
-        std::cout << "Mlin" << std::endl;
+        gameStatus = taking;
     }
     return mlin;
 }
@@ -378,12 +436,13 @@ enum posColour gameData::checkForMlin()
 }
 
 // After a mlin, this takes a piece if allowed.
-bool gameData::takeToken(int xcoord, int ycoord, int laynum, enum posColour token)
+bool gameData::takeToken(int xcoord, int ycoord, int laynum)
 {
-    if(valPos(xcoord, ycoord, laynum) == 0)
+    enum posColour token = currentTurn;
+    /*if(valPos(xcoord, ycoord, laynum) == 0)
     {
         return false;
-    }
+    }*/
     if(board[laynum][xcoord][ycoord].mlinStatus > 0)
     {
         return false;
@@ -393,6 +452,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum, enum posColour toke
         if(board[laynum][xcoord][ycoord].colour == whiteToken)
         {
             board[laynum][xcoord][ycoord].colour = noToken;
+            board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
             whitePieces.piecesOnBoard--;
             whitePieces.piecesTaken++;
             return true;
@@ -405,6 +465,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum, enum posColour toke
             board[laynum][xcoord][ycoord].colour = noToken;
             blackPieces.piecesOnBoard--;
             blackPieces.piecesTaken++;
+            board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
             return true;
         }
     }
@@ -422,87 +483,84 @@ void gameData::removeMlin(int xcoord, int ycoord, int laynum)
     }
     else if(board[laynum][xcoord][ycoord].mlinStatus > 0)
     {
-        board[laynum][xcoord][ycoord].mlinStatus--;
-        if(board[laynum][xcoord][ycoord].type == corner)
+        if((board[laynum][xcoord][0].colour == board[laynum][xcoord][2].colour) && (board[laynum][xcoord][0].colour == board[laynum][xcoord][1].colour))
         {
-            unsigned int adjx;
-            unsigned int adjy;
-            if(xcoord == 0)
+            board[laynum][xcoord][0].mlinStatus--;
+            board[laynum][xcoord][1].mlinStatus--;
+            board[laynum][xcoord][2].mlinStatus--;
+            if(board[laynum][xcoord][ycoord].colour == blackToken)
             {
-                adjx = 2;
+                if(board[laynum][xcoord][0].mlinStatus == 0)
+                    board[laynum][xcoord][0].locImg->setPixmap(*tokenImage.blackTokenMap);
+                if(board[laynum][xcoord][1].mlinStatus == 0)
+                    board[laynum][xcoord][1].locImg->setPixmap(*tokenImage.blackTokenMap);
+                if(board[laynum][xcoord][2].mlinStatus == 0)
+                    board[laynum][xcoord][2].locImg->setPixmap(*tokenImage.blackTokenMap);
             }
-            else if(xcoord == 2)
+            else if(board[laynum][xcoord][ycoord].colour == whiteToken)
             {
-                adjx = 0;
+                if(board[laynum][xcoord][0].mlinStatus == 0)
+                    board[laynum][xcoord][0].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                if(board[laynum][xcoord][1].mlinStatus == 0)
+                    board[laynum][xcoord][1].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                if(board[laynum][xcoord][2].mlinStatus == 0)
+                    board[laynum][xcoord][2].locImg->setPixmap(*tokenImage.whiteTokenMap);
             }
 
-            if(ycoord == 0)
+
+        }
+        if((board[laynum][0][ycoord].colour == board[laynum][2][ycoord].colour) && (board[laynum][0][ycoord].colour == board[laynum][1][ycoord].colour))
+        {
+            board[laynum][0][ycoord].mlinStatus--;
+            board[laynum][1][ycoord].mlinStatus--;
+            board[laynum][2][ycoord].mlinStatus--;
+            if(board[laynum][xcoord][ycoord].colour == blackToken)
             {
-                adjy = 2;
+                if(board[laynum][0][ycoord].mlinStatus == 0)
+                     board[laynum][0][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
+                if(board[laynum][1][ycoord].mlinStatus == 0)
+                    board[laynum][1][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
+                if(board[laynum][2][ycoord].mlinStatus == 0)
+                  board[laynum][2][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
             }
-            else if(ycoord == 2)
+            else if(board[laynum][xcoord][ycoord].colour == whiteToken)
             {
-                adjy = 0;
-            }
-            if(board[laynum][xcoord][1].mlinStatus > 0)
-            {
-                board[laynum][xcoord][1].mlinStatus--;
-                board[laynum][xcoord][adjy].mlinStatus--;
-            }
-            else if(board[laynum][1][ycoord].mlinStatus > 0)
-            {
-                board[laynum][1][ycoord].mlinStatus--;
-                board[laynum][adjx][ycoord].mlinStatus--;
+                if(board[laynum][0][ycoord].mlinStatus == 0)
+                    board[laynum][0][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                if(board[laynum][1][ycoord].mlinStatus == 0)
+                    board[laynum][1][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                if(board[laynum][2][ycoord].mlinStatus == 0)
+                  board[laynum][2][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
             }
         }
-
         if(board[laynum][xcoord][ycoord].type == intersection)
         {
-            if(xcoord == 1)
-            {
-                if((board[laynum][0][ycoord].mlinStatus > 0) && (board[laynum][2][ycoord].mlinStatus > 0))
-                {
-                    board[laynum][0][ycoord].mlinStatus--;
-                    board[laynum][2][ycoord].mlinStatus--;
-                }
-            }
-
-            if(ycoord == 1)
-            {
-                if((board[laynum][xcoord][0].mlinStatus > 0) && (board[laynum][xcoord][2].mlinStatus > 0))
-                {
-                    board[laynum][xcoord][0].mlinStatus--;
-                    board[laynum][xcoord][2].mlinStatus--;
-                }
-            }
-
-            if(laynum == 0)
-            {
-                if((board[1][xcoord][ycoord].mlinStatus > 0) && (board[2][xcoord][ycoord].mlinStatus > 0))
-                {
-                    board[1][xcoord][ycoord].mlinStatus--;
-                    board[2][xcoord][ycoord].mlinStatus--;
-                }
-            }
-
-            if(laynum == 1)
-            {
-                if((board[0][xcoord][ycoord].mlinStatus > 0) && (board[2][xcoord][ycoord].mlinStatus > 0))
+                // Checks for a mlin across the layers
+                if((board[0][xcoord][ycoord].colour == board[1][xcoord][ycoord].colour) && (board[1][xcoord][ycoord].colour == board[2][xcoord][ycoord].colour))
                 {
                     board[0][xcoord][ycoord].mlinStatus--;
-                    board[2][xcoord][ycoord].mlinStatus--;
-                }
-            }
-
-            if(laynum == 2)
-            {
-                if((board[1][xcoord][ycoord].mlinStatus > 0) && (board[0][xcoord][ycoord].mlinStatus > 0))
-                {
                     board[1][xcoord][ycoord].mlinStatus--;
-                    board[0][xcoord][ycoord].mlinStatus--;
-                }
-            }
+                    board[2][xcoord][ycoord].mlinStatus--;
+                    if(board[laynum][xcoord][ycoord].colour == blackToken)
+                    {
+                        if(board[0][xcoord][ycoord].mlinStatus == 0)
+                            board[0][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
+                        if(board[1][xcoord][ycoord].mlinStatus == 0)
+                            board[1][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
+                        if(board[2][xcoord][ycoord].mlinStatus == 0)
+                            board[2][xcoord][ycoord].locImg->setPixmap(*tokenImage.blackTokenMap);
+                    }
+                    else if(board[laynum][xcoord][ycoord].colour == whiteToken)
+                    {
+                        if(board[0][xcoord][ycoord].mlinStatus == 0)
+                            board[0][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                        if(board[1][xcoord][ycoord].mlinStatus == 0)
+                            board[1][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                        if(board[2][xcoord][ycoord].mlinStatus == 0)
+                            board[2][xcoord][ycoord].locImg->setPixmap(*tokenImage.whiteTokenMap);
+                    }
 
+                }
         }
     }
 }
@@ -511,21 +569,19 @@ void gameData::removeMlin(int xcoord, int ycoord, int laynum)
 // ... or if they can't move their pieces anywhere.
 void gameData::checkForWin()
 {
-    if(gameStatus == moving)
-    {
-        if(whitePieces.piecesOnBoard < 3)
+        if(whitePieces.piecesOnBoard + whitePieces.piecesUnplaced < 3)
         {
             gameStatus = blackWin;
             return;
         }
-        else if(blackPieces.piecesOnBoard < 3)
+        else if(blackPieces.piecesOnBoard + whitePieces.piecesUnplaced < 3)
         {
             gameStatus = whiteWin;
             return;
         }
 
         /* These will become "true" if a white or black piece is next to an empty position */
-        bool blackMove = false;
+        /*bool blackMove = false;
         bool whiteMove = false;
         for(unsigned int count = 0; count < numOfLayers; count++)
         {
@@ -596,11 +652,6 @@ void gameData::checkForWin()
         {
             gameStatus = blackWin;
             return;
-        }
+        }*/
         return;
-    }
-    else
-    {
-        return;
-    }
 }
