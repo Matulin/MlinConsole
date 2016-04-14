@@ -63,6 +63,8 @@ gameData::gameData(interfaceWindow * parentWindow)
 
 bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum)
 {
+    outerWindow->messageBox2->clear();
+    outerWindow->messageBox3->clear();
     enum posColour currentColour;
     bool movedBool = false;
     currentColour = currentTurn;
@@ -105,26 +107,13 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
     }
     if((gameStatus == taking) && (movedBool == true))
     {
-        //  If it should be "moving" instead, it'll change to that in the next block.
+        //  If it should be "moving" instead, it'll change to that in changeTurns()
         gameStatus = placing;
     }
 
     if(movedBool == true)
     {
-        if(currentTurn == blackToken)
-        {
-            currentTurn = whiteToken;
-        }
-        else if(currentTurn == whiteToken)
-        {
-            currentTurn = blackToken;
-        }
-        selectedToken = noToken;
-        if(((gameStatus == placing) && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
-        {
-            gameStatus = moving;
-        }
-        checkForWin();
+        changeTurns();
     }
     outerWindow->setInterfaceWidgets();
     return true;
@@ -134,7 +123,7 @@ bool gameData::moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, un
 {
     if(selectedToken == noToken)
     {
-        if(board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour)
+        if((board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour) && (checkForMove(arrayLayNum, arrayXCoord, arrayYCoord) == false))
         {
             return false;
         }
@@ -387,8 +376,25 @@ int gameData::checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned
     }
     if(mlin > 0)
     {
-        gameStatus = taking;
+        if(currentTurn == blackToken)
+        {
+            outerWindow->messageBox2->setText("Black Mlins!");
+        }
+        else if(currentTurn == whiteToken)
+        {
+            outerWindow->messageBox2->setText("White Mlins!");
+        }
+
+        if(!checkForTakableToken())
+        {
+
+            outerWindow->messageBox3->setText("All of the opponent's pieces are in mlin");
+            changeTurns();
+        }
+        else
+            gameStatus = taking;
     }
+
     return mlin;
 }
 
@@ -581,77 +587,152 @@ void gameData::checkForWin()
         }
 
         /* These will become "true" if a white or black piece is next to an empty position */
-        /*bool blackMove = false;
-        bool whiteMove = false;
-        for(unsigned int count = 0; count < numOfLayers; count++)
+        if(gameStatus == moving)
         {
-            for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
+            bool blackMove = false;
+            bool whiteMove = false;
+            for(unsigned int count = 0; count < numOfLayers; count++)
             {
-                for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
+                for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
                 {
-                    if((board[count][count2][count3].colour == blackToken) || (board[count][count2][count3].colour == whiteToken))
+                    for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
                     {
-                        // If the position is a corner...
-                        if(board[count][count2][count3].type == corner)
+                        if(checkForMove(count, count2, count3) == true)
                         {
-                            if((board[count][1][count3].colour != noToken) || (board[count][count2][1].colour != noToken))
-                            {
-                                if(board[count][count2][count3].colour == blackToken)
-                                {
-                                    blackMove = true;
-                                }
-                                if(board[count][count2][count3].colour == whiteToken)
-                                {
-                                    whiteMove = true;
-                                }
-                            }
-                        }
-
-                        // If the position is an intersection
-                        else if(board[count][count2][count3].type == intersection)
-                        {
-                            if((count2 == 0) || (count2 == 2))
-                            {
-                                if((board[count][count2][0].colour == noToken) || (board[count][count2][2].colour == noToken))
-                                {
-                                    if(board[count][count2][count3].colour == blackToken)
-                                    {
-                                        blackMove = true;
-                                    }
-                                    if(board[count][count2][count3].colour == whiteToken)
-                                    {
-                                        whiteMove = true;
-                                    }
-                                }
-                            }
-                            if((count3 == 0) || (count3 == 2))
-                            {
-                                if((board[count][0][count3].colour == noToken) || (board[count][2][count3].colour == noToken))
-                                {
-                                    if(board[count][count2][count3].colour == blackToken)
-                                    {
-                                        blackMove = true;
-                                    }
-                                    if(board[count][count2][count3].colour == whiteToken)
-                                    {
-                                        whiteMove = true;
-                                    }
-                                }
-                            }
+                            if(board[count][count2][count3].colour == blackToken)
+                                blackMove = true;
+                            if(board[count][count2][count3].colour == whiteToken)
+                                whiteMove = true;
                         }
                     }
                 }
             }
+
+            if(blackMove == false)
+            {
+                gameStatus = whiteWin;
+                return;
+            }
+            else if(whiteMove == false)
+            {
+                gameStatus = blackWin;
+                return;
+            }
         }
-        if(blackMove == false)
-        {
-            gameStatus = whiteWin;
-            return;
-        }
-        else if(whiteMove == false)
-        {
-            gameStatus = blackWin;
-            return;
-        }*/
         return;
+}
+
+// Checks to see if a piece can legally move
+// This can be implemented to check for a win (a player loses if they can't move any piece)
+// or to prevent a player from selecting a piece that cannot move in the move stage
+//
+bool gameData::checkForMove(unsigned int count, unsigned int count2, unsigned int count3)
+{
+    if((board[count][count2][count3].colour == blackToken) || (board[count][count2][count3].colour == whiteToken))
+    {
+        // If the position is a corner...
+        if(board[count][count2][count3].type == corner)
+        {
+            if((board[count][1][count3].colour == noToken) || (board[count][count2][1].colour == noToken))
+            {
+                if(board[count][count2][count3].colour == blackToken)
+                {
+                    return true;
+                }
+                if(board[count][count2][count3].colour == whiteToken)
+                {
+                    return true;
+                }
+            }
+        }
+
+        // If the position is an intersection
+        else if(board[count][count2][count3].type == intersection)
+        {
+            // If "count2" is 0 or 2, then "count3" must equal 1.
+            if((count2 == 0) || (count2 == 2))
+            {
+                if((board[count][count2][0].colour == noToken) || (board[count][count2][2].colour == noToken))
+                {
+                    if(board[count][count2][count3].colour == blackToken)
+                    {
+                        return true;
+                    }
+                    if(board[count][count2][count3].colour == whiteToken)
+                    {
+                        return true;
+                    }
+                }
+            }
+            if((count3 == 0) || (count3 == 2))
+            {
+                if((board[count][0][count3].colour == noToken) || (board[count][2][count3].colour == noToken))
+                {
+                    if(board[count][count2][count3].colour == blackToken)
+                    {
+                        return true;
+                    }
+                    if(board[count][count2][count3].colour == whiteToken)
+                    {
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+    }
+    return false;
+}
+
+// This checks the entire board to see if the opponent has at least one piece which is able to be taken.
+bool gameData::checkForTakableToken()
+{
+    enum posColour testingColour;
+    if(currentTurn == blackToken)
+    {
+        testingColour = whiteToken;
+    }
+    else if(currentTurn == whiteToken)
+    {
+        testingColour = blackToken;
+    }
+    else
+    {
+        std::cout << "Error" << std::endl;
+        return false;
+    }
+    for(unsigned int count = 0; count < numOfLayers; count++)
+    {
+        for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
+        {
+            for(unsigned int count3 = 0; count3 < boardLayerWidth; count3++)
+            {
+                if((board[count][count2][count3].colour == testingColour) && (board[count][count2][count3].mlinStatus < 1))
+                {
+                    return true;
+                }
+
+            }
+        }
+    }
+    return false;
+}
+
+void gameData::changeTurns()
+{
+    if(currentTurn == blackToken)
+    {
+        currentTurn = whiteToken;
+    }
+    else if(currentTurn == whiteToken)
+    {
+        currentTurn = blackToken;
+    }
+    selectedToken = noToken;
+    if(((gameStatus == placing) && (blackPieces.piecesUnplaced <= 0) && (whitePieces.piecesUnplaced <= 0)))
+    {
+        gameStatus = moving;
+    }
+    checkForWin();
 }

@@ -29,6 +29,8 @@ public:
     static void testPrint();
 
     QLabel * messageBox;
+    QLabel * messageBox2;
+    QLabel * messageBox3;
     QLabel * turnInfo;
     QLabel * turnInfo2;
     QHBoxLayout * turnInfoBox;

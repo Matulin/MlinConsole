@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\board.o
+./release\game.o
+./release\graphics.o
+./release\interface.o
+./release\menu.o
+./release\toolbar.o
+./release\options.o
+./release\moc_mainwindow.o
+./release\moc_graphics.o
+./release\moc_interface.o
+);

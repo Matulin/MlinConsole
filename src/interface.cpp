@@ -9,10 +9,18 @@ interfaceWindow::interfaceWindow(QWidget *parent)
 
     QFont * boldFont = new QFont;
     boldFont->setBold(true);
+    QFont * boldRedFont = new QFont;
+    boldRedFont->setBold(true);
 
     messageBox = new QLabel;
+    messageBox2 = new QLabel;
+    messageBox3 = new QLabel;
     messageBox->setFont(*boldFont);
+    messageBox2->setFont(*boldRedFont);
+    messageBox3->setFont(*boldRedFont);
     gameSideBar->addWidget(messageBox);
+    gameSideBar->addWidget(messageBox2);
+    gameSideBar->addWidget(messageBox3);
 
     turnInfo = new QLabel;
     turnInfo2 = new QLabel;

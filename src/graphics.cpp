@@ -74,7 +74,7 @@ void squareGraphic::enterEvent(QEvent *)
         {
             this->setPixmap(*hoverImg);
         }
-        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && (thisPosition->colour == gameData->currentTurn))
+        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && ((thisPosition->colour == gameData->currentTurn) && (gameData->checkForMove(thisPosition->arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord) == true)))
         {
             if(thisPosition->colour == blackToken)
             {
