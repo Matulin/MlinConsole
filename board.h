@@ -126,7 +126,7 @@ struct tokenImage
 class gameData
 {
 public:
-    explicit gameData(interfaceWindow * parentWindow);
+    explicit gameData(interfaceWindow * parentWindow, bool restart = false);
     enum status gameStatus;
     struct position board[numOfLayers][boardLayerHeight][boardLayerWidth];
     struct pieces whitePieces;

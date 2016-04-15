@@ -7,8 +7,9 @@
 #include <game.h>
 #include <QtGui>
 #include <QHBoxLayout>
+#include <interface.h>
 
-
+class interfaceWindow;
 
 
 class MainWindow : public QWidget

@@ -12,11 +12,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //MainWindow w;
-    interfaceWindow w;
+    // MainWindow w;
+    interfaceWindow * w = new interfaceWindow(&a);
 
 
-    w.show();
+    w->show();
 
     return a.exec();
 }

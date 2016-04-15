@@ -10,9 +10,11 @@
 #include <QString>
 #include <QFont>
 #include "toolbar.h"
+#include "options.h"
 
 class gameData;
 class gameToolbar;
+class optionFunctions;
 
 class interfaceWindow : public QWidget
 {
@@ -20,7 +22,7 @@ class interfaceWindow : public QWidget
 
 public:
 
-    explicit interfaceWindow(QWidget *parent = 0);
+    explicit interfaceWindow(QApplication * runningApplication);
     explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
 public:

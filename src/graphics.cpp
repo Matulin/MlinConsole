@@ -53,13 +53,20 @@ void squareGraphic::mousePressEvent(QMouseEvent *)
    else if((gameData->gameStatus == moving) && (gameData->selectedToken != noToken))
     {
         gameData->selectedToken = noToken;
+
         if(gameData->selectedPosition.colour == blackToken)
         {
-            gameData->selectedPosition.locImg->setPixmap(*gameData->tokenImage.blackTokenMap);
+            if(gameData->selectedPosition.mlinStatus < 1)
+                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMap));
+            else
+                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
         }
         else if(gameData->selectedPosition.colour == whiteToken)
         {
-            gameData->selectedPosition.locImg->setPixmap(*gameData->tokenImage.whiteTokenMap);
+            if(gameData->selectedPosition.mlinStatus < 1)
+                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMap));
+            else
+                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
         }
         gameData->selectedPosition = gameData->board[1][1][1];
 
@@ -91,7 +98,6 @@ void squareGraphic::enterEvent(QEvent *)
             {
                 this->setPixmap(*hoverImg);
             }
-
         }
         else if(gameData->gameStatus == taking)
         {

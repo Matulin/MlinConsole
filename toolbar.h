@@ -5,7 +5,13 @@
 #include <QtGui>
 #include <QTCore>
 #include <QMenu>
+#include <QMenuBar>
 #include <QHBoxLayout>
+#include <QAction>
+#include "interface.h"
+#include "options.h"
+
+class optionFunctions;
 
 class gameToolbar : public QWidget
 {
@@ -13,14 +19,29 @@ class gameToolbar : public QWidget
 
 public:
 
-    explicit gameToolbar(QWidget *parent = 0);
+    explicit gameToolbar(optionFunctions * optionClass);
     ~gameToolbar();
 
 public:
+    QMenuBar * gameMenu;
     QHBoxLayout * toolbarLayout;
+    optionFunctions * options;
+
     QAction * restartButton;
     QAction * saveButton;
-    QMenu * gameMenu;
+    QAction * saveAsButton;
+    QAction * saveAndExitButton;
+    QAction * exitButton;
+    QMenu * gameButton;
+
+
+    QAction * languageButton;
+    QMenu * optionButton;
+
+private slots:
+
+
+
 };
 
 

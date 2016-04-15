@@ -1,6 +1,6 @@
 #include "game.h"
 
-gameData::gameData(interfaceWindow * parentWindow)
+gameData::gameData(interfaceWindow * parentWindow, bool restart)
 {
 
     gameStatus = placing;
@@ -14,7 +14,7 @@ gameData::gameData(interfaceWindow * parentWindow)
     selectedToken = noToken;
     outerWindow = parentWindow;
 
-    // These will be converted to pngs to preserve image quality
+    // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
     tokenImage.whiteTokenMap = new QPixmap("resources/whiteToken.jpg");
     tokenImage.emptyTokenMap = new QPixmap("resources/blankSquare.jpg");
@@ -58,16 +58,15 @@ gameData::gameData(interfaceWindow * parentWindow)
 
 
     initBoard();
-    initBoardWidget();
+    if(restart != true)
+       initBoardWidget();
 }
 
 bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum)
 {
     outerWindow->messageBox2->clear();
     outerWindow->messageBox3->clear();
-    enum posColour currentColour;
     bool movedBool = false;
-    currentColour = currentTurn;
     if((gameStatus == taking) && (board[arrayLayNum][arrayXCoord][arrayYCoord].mlinStatus < 1))
     {
         if(takeToken(arrayXCoord, arrayYCoord, arrayLayNum))
@@ -84,7 +83,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
         }
         else
         {
-            if(placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
+            if(placePiece(arrayXCoord, arrayYCoord, arrayLayNum, currentTurn))
             {
                 if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
                 {
@@ -96,7 +95,7 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
 
     else if(gameStatus == moving)
     {
-        if(moveSelect(arrayXCoord, arrayYCoord, arrayLayNum, currentColour))
+        if(moveSelect(arrayXCoord, arrayYCoord, arrayLayNum, currentTurn))
         {
             if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
             {
@@ -122,13 +121,14 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
 bool gameData::moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum, enum posColour currentColour)
 {
     if(selectedToken == noToken)
-    {
-        if((board[arrayLayNum][arrayXCoord][arrayYCoord].colour != currentColour) && (checkForMove(arrayLayNum, arrayXCoord, arrayYCoord) == false))
+    {     
+        if(!(((gameStatus == moving) && (selectedToken == noToken)) && ((board[arrayLayNum][arrayXCoord][arrayYCoord].colour == currentTurn) && (checkForMove(arrayLayNum, arrayXCoord, arrayYCoord) == true))))
         {
             return false;
         }
         else
         {
+
             selectedToken = board[arrayLayNum][arrayXCoord][arrayYCoord].colour;
             selectedPosition = board[arrayLayNum][arrayXCoord][arrayYCoord];
             if(currentColour == blackToken)

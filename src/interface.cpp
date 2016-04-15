@@ -1,7 +1,6 @@
 #include "interface.h"
 
-interfaceWindow::interfaceWindow(QWidget *parent)
-    : QWidget(parent)
+interfaceWindow::interfaceWindow(QApplication * runningApplication)
 {
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
@@ -72,14 +71,17 @@ interfaceWindow::interfaceWindow(QWidget *parent)
     gameSideBar->addWidget(whitePiecesTakenMessage);
     gameSideBar->addLayout(whitePiecesTakenBox);
 
-    toolbar = new gameToolbar;
+    optionFunctions * options = new optionFunctions(thisGameData, runningApplication);
+    toolbar = new gameToolbar(options);
+
 
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
-    gameOuterWindow->addWidget(toolbar);
     gameOuterWindow->addLayout(gameWindow);
+    gameOuterWindow->setMenuBar(toolbar->gameMenu);
 
     setLayout(gameOuterWindow);
+
 
     setInterfaceWidgets();
 }
