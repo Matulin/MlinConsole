@@ -13,6 +13,7 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
 
     saveButton = new QAction(tr("&Save"), this);
     saveButton->setStatusTip(tr("Save this game"));
+    connect(saveButton, SIGNAL(triggered()), options, SLOT(saveGame()));
     gameButton->addAction(saveButton);
 
 

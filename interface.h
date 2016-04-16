@@ -6,7 +6,6 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QtGui>
-#include <QTCore>
 #include <QString>
 #include <QFont>
 #include "toolbar.h"

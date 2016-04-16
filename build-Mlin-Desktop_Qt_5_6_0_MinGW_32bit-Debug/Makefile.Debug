@@ -456,7 +456,6 @@ debug/moc_mainwindow.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QPixmap \
 		../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QMouseEvent \
@@ -478,6 +477,16 @@ debug/moc_mainwindow.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		../mainwindow.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\mainwindow.h -o debug\moc_mainwindow.cpp
 
@@ -800,7 +809,6 @@ debug/moc_graphics.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
@@ -830,6 +838,16 @@ debug/moc_graphics.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		../graphics.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\graphics.h -o debug\moc_graphics.cpp
 
@@ -1157,7 +1175,6 @@ debug/moc_interface.cpp: ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -1182,6 +1199,16 @@ debug/moc_interface.cpp: ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		../interface.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\interface.h -o debug\moc_interface.cpp
 
@@ -1503,7 +1530,6 @@ debug/moc_toolbar.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenu \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
@@ -1534,6 +1560,16 @@ debug/moc_toolbar.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		../toolbar.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\toolbar.h -o debug\moc_toolbar.cpp
 
@@ -1647,15 +1683,6 @@ debug/moc_options.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		../board.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QtGui \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QtGuiDepends \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QtCore \
@@ -1864,7 +1891,17 @@ debug/moc_options.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		../board.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -1886,6 +1923,14 @@ debug/moc_options.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
 		../options.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		../options.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\options.h -o debug\moc_options.cpp
 
@@ -2238,7 +2283,6 @@ debug/main.o: ../main.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QPixmap \
 		../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QMouseEvent \
@@ -2259,7 +2303,17 @@ debug/main.o: ../main.cpp ../mainwindow.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\main.cpp
 
 debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
@@ -2591,7 +2645,6 @@ debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QPixmap \
 		../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QMouseEvent \
@@ -2613,7 +2666,37 @@ debug/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		ui_mainwindow.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
+		ui_mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QStatusBar \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QToolBar \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\mainwindow.cpp
 
 debug/board.o: ../src/board.cpp ../board.h \
@@ -2940,7 +3023,6 @@ debug/board.o: ../src/board.cpp ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -2964,7 +3046,17 @@ debug/board.o: ../src/board.cpp ../board.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\board.o ..\src\board.cpp
 
 debug/game.o: ../src/game.cpp ../game.h \
@@ -3292,7 +3384,6 @@ debug/game.o: ../src/game.cpp ../game.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -3315,7 +3406,17 @@ debug/game.o: ../src/game.cpp ../game.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\game.o ..\src\game.cpp
 
 debug/graphics.o: ../src/graphics.cpp ../graphics.h \
@@ -3638,7 +3739,6 @@ debug/graphics.o: ../src/graphics.cpp ../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
@@ -3666,7 +3766,17 @@ debug/graphics.o: ../src/graphics.cpp ../graphics.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\graphics.o ..\src\graphics.cpp
 
 debug/interface.o: ../src/interface.cpp ../interface.h \
@@ -3994,7 +4104,6 @@ debug/interface.o: ../src/interface.cpp ../interface.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -4017,7 +4126,17 @@ debug/interface.o: ../src/interface.cpp ../interface.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\interface.o ..\src\interface.cpp
 
 debug/menu.o: ../src/menu.cpp ../menu.h
@@ -4342,7 +4461,6 @@ debug/toolbar.o: ../src/toolbar.cpp ../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenu \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
@@ -4371,7 +4489,17 @@ debug/toolbar.o: ../src/toolbar.cpp ../toolbar.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\toolbar.o ..\src\toolbar.cpp
 
 debug/options.o: ../src/options.cpp ../options.h \
@@ -4485,15 +4613,6 @@ debug/options.o: ../src/options.cpp ../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		../board.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QtGui \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QtGuiDepends \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QtCore \
@@ -4702,7 +4821,17 @@ debug/options.o: ../src/options.cpp ../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qdesktopservices.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtguiversion.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QTCore \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		../board.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
@@ -4722,7 +4851,15 @@ debug/options.o: ../src/options.cpp ../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenu \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
+		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\options.o ..\src\options.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 

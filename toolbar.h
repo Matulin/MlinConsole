@@ -3,7 +3,6 @@
 
 #include <QAction>
 #include <QtGui>
-#include <QTCore>
 #include <QMenu>
 #include <QMenuBar>
 #include <QHBoxLayout>

@@ -5,7 +5,6 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QtGui>
-#include <QTCore>
 #include <board.h>
 
 

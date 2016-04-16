@@ -13,6 +13,7 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     whitePieces.piecesTaken = 0;
     selectedToken = noToken;
     outerWindow = parentWindow;
+    saveData.saveStatus = false;
 
     // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
@@ -66,6 +67,8 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
 {
     outerWindow->messageBox2->clear();
     outerWindow->messageBox3->clear();
+    if(saveData.saveStatus != false)
+        saveData.saveStatus = false;
     bool movedBool = false;
     if((gameStatus == taking) && (board[arrayLayNum][arrayXCoord][arrayYCoord].mlinStatus < 1))
     {

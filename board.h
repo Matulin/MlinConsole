@@ -12,7 +12,6 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QtGui>
-#include <QTCore>
 #include <QMainWindow>
 #include <QPixmap>
 #include <graphics.h>
@@ -81,6 +80,12 @@ enum currentTurn
     white
 };
 
+struct saveData
+{
+    bool saveStatus;
+    string saveName;
+};
+
 struct tokenImage
 {
     QPixmap * blackTokenMap;
@@ -140,6 +145,7 @@ public:
     interfaceWindow * outerWindow;
     bool checkForMove(unsigned int count, unsigned int count2, unsigned int count3);
     void changeTurns();
+    struct saveData saveData;
 
 
 public:
