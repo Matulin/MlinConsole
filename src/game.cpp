@@ -14,6 +14,7 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     selectedToken = noToken;
     outerWindow = parentWindow;
     saveData.saveStatus = false;
+    saveData.saveName = "";
 
     // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");

@@ -83,7 +83,7 @@ enum currentTurn
 struct saveData
 {
     bool saveStatus;
-    string saveName;
+    QString saveName;
 };
 
 struct tokenImage

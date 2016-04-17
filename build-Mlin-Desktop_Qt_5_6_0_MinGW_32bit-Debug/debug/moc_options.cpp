@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_optionFunctions_t {
-    QByteArrayData data[5];
-    char stringdata0[46];
+    QByteArrayData data[9];
+    char stringdata0[85];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,11 +33,16 @@ QT_MOC_LITERAL(0, 0, 15), // "optionFunctions"
 QT_MOC_LITERAL(1, 16, 7), // "exitApp"
 QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 11), // "restartGame"
-QT_MOC_LITERAL(4, 37, 8) // "saveGame"
+QT_MOC_LITERAL(4, 37, 8), // "saveGame"
+QT_MOC_LITERAL(5, 46, 4), // "exit"
+QT_MOC_LITERAL(6, 51, 10), // "saveAsGame"
+QT_MOC_LITERAL(7, 62, 10), // "loadOption"
+QT_MOC_LITERAL(8, 73, 11) // "saveAndExit"
 
     },
     "optionFunctions\0exitApp\0\0restartGame\0"
-    "saveGame"
+    "saveGame\0exit\0saveAsGame\0loadOption\0"
+    "saveAndExit"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,7 +52,7 @@ static const uint qt_meta_data_optionFunctions[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -55,11 +60,21 @@ static const uint qt_meta_data_optionFunctions[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    0,   31,    2, 0x0a /* Public */,
+       1,    0,   54,    2, 0x0a /* Public */,
+       3,    0,   55,    2, 0x0a /* Public */,
+       4,    1,   56,    2, 0x0a /* Public */,
+       4,    0,   59,    2, 0x2a /* Public | MethodCloned */,
+       6,    1,   60,    2, 0x0a /* Public */,
+       6,    0,   63,    2, 0x2a /* Public | MethodCloned */,
+       7,    0,   64,    2, 0x0a /* Public */,
+       8,    0,   65,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    5,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -75,11 +90,15 @@ void optionFunctions::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->exitApp(); break;
         case 1: _t->restartGame(); break;
-        case 2: _t->saveGame(); break;
+        case 2: _t->saveGame((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: _t->saveGame(); break;
+        case 4: _t->saveAsGame((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: _t->saveAsGame(); break;
+        case 6: _t->loadOption(); break;
+        case 7: _t->saveAndExit(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject optionFunctions::staticMetaObject = {
@@ -107,19 +126,19 @@ int optionFunctions::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 8;
     }
     return _id;
 }
 struct qt_meta_stringdata_saveDialog_t {
-    QByteArrayData data[6];
-    char stringdata0[57];
+    QByteArrayData data[7];
+    char stringdata0[66];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -131,13 +150,14 @@ static const qt_meta_stringdata_saveDialog_t qt_meta_stringdata_saveDialog = {
 QT_MOC_LITERAL(0, 0, 10), // "saveDialog"
 QT_MOC_LITERAL(1, 11, 10), // "createFile"
 QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 15), // "recordInputText"
-QT_MOC_LITERAL(4, 39, 5), // "input"
-QT_MOC_LITERAL(5, 45, 11) // "closeDialog"
+QT_MOC_LITERAL(3, 23, 8), // "loadFile"
+QT_MOC_LITERAL(4, 32, 15), // "recordInputText"
+QT_MOC_LITERAL(5, 48, 5), // "input"
+QT_MOC_LITERAL(6, 54, 11) // "closeDialog"
 
     },
-    "saveDialog\0createFile\0\0recordInputText\0"
-    "input\0closeDialog"
+    "saveDialog\0createFile\0\0loadFile\0"
+    "recordInputText\0input\0closeDialog"
 };
 #undef QT_MOC_LITERAL
 
@@ -147,7 +167,7 @@ static const uint qt_meta_data_saveDialog[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -155,13 +175,15 @@ static const uint qt_meta_data_saveDialog[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    1,   30,    2, 0x0a /* Public */,
-       5,    0,   33,    2, 0x0a /* Public */,
+       1,    0,   34,    2, 0x0a /* Public */,
+       3,    0,   35,    2, 0x0a /* Public */,
+       4,    1,   36,    2, 0x0a /* Public */,
+       6,    0,   39,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void,
 
        0        // eod
@@ -174,8 +196,9 @@ void saveDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->createFile(); break;
-        case 1: _t->recordInputText((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 2: _t->closeDialog(); break;
+        case 1: _t->loadFile(); break;
+        case 2: _t->recordInputText((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 3: _t->closeDialog(); break;
         default: ;
         }
     }
@@ -206,13 +229,13 @@ int saveDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

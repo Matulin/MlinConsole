@@ -17,9 +17,15 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
     gameButton->addAction(saveButton);
 
 
-    saveAsButton = new QAction(tr("&Save as"), this);
+    saveAsButton = new QAction(tr("Save as"), this);
     saveAsButton->setStatusTip(tr("Save this game as a new file"));
+    connect(saveAsButton, SIGNAL(triggered()), options, SLOT(saveAsGame()));
     gameButton->addAction(saveAsButton);
+
+    loadButton = new QAction(tr("Load game"), this);
+    loadButton->setStatusTip(tr("Load a previously saved game"));
+    connect(loadButton, SIGNAL(triggered()), options, SLOT(loadOption()));
+    gameButton->addAction(loadButton);
 
     gameButton->addSeparator();
 
@@ -30,6 +36,7 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
 
     saveAndExitButton = new QAction(tr("&Save and Exit"), this);
     saveAndExitButton->setStatusTip(tr("Save this game and close the app"));
+    connect(saveAndExitButton, SIGNAL(triggered()), options, SLOT(saveAndExit()));
     gameButton->addAction(saveAndExitButton);
 
     gameButton->addSeparator();
@@ -37,12 +44,9 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
     exitButton = new QAction(tr("&Exit"), this);
     exitButton->setStatusTip(tr("Close this application"));
     connect(exitButton, SIGNAL(triggered()), options, SLOT(exitApp()));
-    //options->testFunction();
     gameButton->addAction(exitButton);
 
-
-
-    optionButton = new QMenu("Options");
+    optionButton = new QMenu("Settings");
     gameMenu->addMenu(optionButton);
 
     languageButton = new QAction(tr("&Language"), this);

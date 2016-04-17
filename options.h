@@ -15,7 +15,8 @@
 #include <QFile>
 #include <QIODevice>
 #include <QXmlStreamWriter>
-#include <QRegExp>
+#include <QRegularExpression>
+#include <QString>
 
 
 class QApplication;
@@ -33,7 +34,10 @@ public:
 public slots:
     void exitApp();
     void restartGame();
-    void saveGame();
+    void saveGame(bool exit = false);
+    void saveAsGame(bool exit = false);
+    void loadOption();
+    void saveAndExit();
 };
 
 class saveDialog : public QDialog
@@ -41,7 +45,7 @@ class saveDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit saveDialog();
+    explicit saveDialog(gameData * gameData, bool loadBool = false, bool saveAs = true, bool exit = false);
 
 public:
     QPushButton * saveButton;
@@ -49,11 +53,15 @@ public:
     QLabel * saveLabel;
     QLineEdit * inputText;
     QString inputTextString;
+    gameData * thisGameData;
+    bool exitBool;
 
 public slots:
     void createFile();
+    void loadFile();
     void recordInputText(const QString input);
     void closeDialog();
+
 };
 
 #endif // OPTIONS_H
