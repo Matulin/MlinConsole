@@ -1,17 +1,23 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QApplication * thisApp, QWidget *parent)
     : QWidget(parent)
 {
-   //interfaceWindow * window = new interfaceWindow;
-   /* QHBoxLayout * appBox = new QHBoxLayout;
-   setLayout(appBox);
-   appBox->addWidget(window);*/
-
+   parentApplication = thisApp;
+   startUpMenu = new mainMenu(this);
+   //interfaceWindow * w = new interfaceWindow(parentApplication);
+   setLayout(startUpMenu);
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::startGame()
+{
+    interfaceWindow * w = new interfaceWindow(parentApplication);
+    startUpMenu->~mainMenu();
+    setLayout(w);
 }

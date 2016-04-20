@@ -61,7 +61,7 @@ void interfaceWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
 }
 
 const QMetaObject interfaceWindow::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_interfaceWindow.data,
+    { &QVBoxLayout::staticMetaObject, qt_meta_stringdata_interfaceWindow.data,
       qt_meta_data_interfaceWindow,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -76,12 +76,12 @@ void *interfaceWindow::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_interfaceWindow.stringdata0))
         return static_cast<void*>(const_cast< interfaceWindow*>(this));
-    return QWidget::qt_metacast(_clname);
+    return QVBoxLayout::qt_metacast(_clname);
 }
 
 int interfaceWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QVBoxLayout::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;

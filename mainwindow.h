@@ -3,13 +3,15 @@
 
 #include <QMainWindow>
 #include <QPainter>
-#include <board.h>
-#include <game.h>
+#include "board.h"
+#include "game.h"
 #include <QtGui>
 #include <QHBoxLayout>
-#include <interface.h>
+#include "interface.h"
+#include "menu.h"
 
 class interfaceWindow;
+class mainMenu;
 
 
 class MainWindow : public QWidget
@@ -20,9 +22,13 @@ class MainWindow : public QWidget
 
 public:
 
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QApplication * thisApp, QWidget *parent = 0);
+    QApplication * parentApplication;
     ~MainWindow();
+    mainMenu * startUpMenu;
 
+public slots:
+    void startGame();
 };
 
 #endif // MAINWINDOW_H

@@ -6,7 +6,6 @@ interfaceWindow::interfaceWindow(QApplication * runningApplication)
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
     gameSideBar = new QVBoxLayout;
-    gameOuterWindow = new QVBoxLayout;
 
     QFont * boldFont = new QFont;
     boldFont->setBold(true);
@@ -78,10 +77,8 @@ interfaceWindow::interfaceWindow(QApplication * runningApplication)
 
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
-    gameOuterWindow->addLayout(gameWindow);
-    gameOuterWindow->setMenuBar(toolbar->gameMenu);
-
-    setLayout(gameOuterWindow);
+    addLayout(gameWindow);
+    setMenuBar(toolbar->gameMenu);
 
 
     setInterfaceWidgets();

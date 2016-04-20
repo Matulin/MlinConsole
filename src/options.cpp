@@ -443,7 +443,7 @@ void saveDialog::displayFileList()
     {
         QLabel * testLabel = new QLabel("No saved games");
         gameSaveList->addWidget(testLabel);
-        gameSaveList->addSpacing(100);
+        gameSaveList->addSpacing(40);
     }
     else
     {

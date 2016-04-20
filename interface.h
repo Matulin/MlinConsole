@@ -15,7 +15,7 @@ class gameData;
 class gameToolbar;
 class optionFunctions;
 
-class interfaceWindow : public QWidget
+class interfaceWindow : public QVBoxLayout
 {
     Q_OBJECT
 
@@ -28,7 +28,6 @@ public:
     class gameData * thisGameData;
     QVBoxLayout * gameSideBar;
     QHBoxLayout * gameWindow;
-    QVBoxLayout * gameOuterWindow;
     bool setInterfaceWidgets();
     static void testPrint();
 
