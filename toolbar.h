@@ -12,7 +12,7 @@
 
 class optionFunctions;
 
-class gameToolbar : public QWidget
+class gameToolbar : public QMenuBar
 {
     Q_OBJECT
 
@@ -22,7 +22,7 @@ public:
     ~gameToolbar();
 
 public:
-    QMenuBar * gameMenu;
+    //QMenuBar * gameMenu;
     QHBoxLayout * toolbarLayout;
     optionFunctions * options;
 

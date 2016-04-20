@@ -78,7 +78,7 @@ interfaceWindow::interfaceWindow(QApplication * runningApplication)
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
     addLayout(gameWindow);
-    setMenuBar(toolbar->gameMenu);
+    setMenuBar(toolbar);
 
 
     setInterfaceWidgets();

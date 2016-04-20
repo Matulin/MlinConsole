@@ -4,12 +4,11 @@
 gameToolbar::gameToolbar(optionFunctions * optionClass)
 {
     options = optionClass;
-    gameMenu = new QMenuBar(this);
+    //gameMenu = new QMenuBar(this);
     toolbarLayout = new QHBoxLayout;
-    toolbarLayout->addWidget(gameMenu);
 
     gameButton = new QMenu("Game");
-    gameMenu->addMenu(gameButton);
+    addMenu(gameButton);
 
     saveButton = new QAction(tr("&Save"), this);
     saveButton->setStatusTip(tr("Save this game"));
@@ -47,7 +46,7 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
     gameButton->addAction(exitButton);
 
     optionButton = new QMenu("Settings");
-    gameMenu->addMenu(optionButton);
+    addMenu(optionButton);
 
     languageButton = new QAction(tr("&Language"), this);
     languageButton->setStatusTip(tr("Change the language settings"));

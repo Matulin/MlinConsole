@@ -5,9 +5,9 @@ MainWindow::MainWindow(QApplication * thisApp, QWidget *parent)
     : QWidget(parent)
 {
    parentApplication = thisApp;
-   startUpMenu = new mainMenu(this);
-   //interfaceWindow * w = new interfaceWindow(parentApplication);
-   setLayout(startUpMenu);
+   //startUpMenu = new mainMenu(this);
+   interfaceWindow * w = new interfaceWindow(parentApplication);
+   setLayout(w);
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +17,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::startGame()
 {
-    interfaceWindow * w = new interfaceWindow(parentApplication);
     startUpMenu->~mainMenu();
+    interfaceWindow * w = new interfaceWindow(parentApplication);
+    w->setMenuBar(w->toolbar);
     setLayout(w);
 }

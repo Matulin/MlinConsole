@@ -18,8 +18,6 @@ class MainWindow : public QWidget
 {
     Q_OBJECT
 
-
-
 public:
 
     explicit MainWindow(QApplication * thisApp, QWidget *parent = 0);

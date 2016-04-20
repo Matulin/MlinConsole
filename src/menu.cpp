@@ -10,12 +10,12 @@ mainMenu::mainMenu(MainWindow * givenWindow)
     exitButton = new QPushButton("Exit Button");
     connect(newGame, SIGNAL(clicked()), parentWindow, SLOT(startGame()));
 
-
     addWidget(newGame);
     addWidget(loadGame);
     addWidget(howToPlay);
     addWidget(settings);
     addWidget(exitButton);
+
 }
 
 mainMenu::~mainMenu()
