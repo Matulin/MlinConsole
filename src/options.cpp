@@ -15,8 +15,6 @@ void optionFunctions::restartGame()
 {
 
     gameData * newGameData = new gameData(thisGameData->outerWindow, true);
-
-
     for(unsigned int count = 0; count < numOfLayers; count++)
     {
         for(unsigned int count2 = 0; count2 < boardLayerHeight; count2++)
@@ -41,7 +39,6 @@ void optionFunctions::loadOption()
     saveDialog * loadWindow = new saveDialog(thisGameData, true);
 
     loadWindow->show();
-    thisGameData->saveData.saveStatus = true;
 }
 
 
@@ -100,7 +97,7 @@ saveDialog::saveDialog(gameData * gameData, bool loadBool, bool saveAs, bool exi
         QHBoxLayout * saveDialogBox = new QHBoxLayout;
         QHBoxLayout * saveDialogBox2 = new QHBoxLayout;
         QVBoxLayout * saveDialogLayout = new QVBoxLayout;
-        QVBoxLayout * gameSaveList = new QVBoxLayout;
+        gameSaveList = new QVBoxLayout;
         saveDialogLayout->addLayout(gameSaveList);
         saveDialogLayout->addLayout(saveDialogBox);
         saveDialogLayout->addLayout(saveDialogBox2);
@@ -132,11 +129,7 @@ saveDialog::saveDialog(gameData * gameData, bool loadBool, bool saveAs, bool exi
 
         connect(cancelButton, SIGNAL(clicked()), this, SLOT(closeDialog()));
 
-        QLabel * testLabel = new QLabel("No files to display");
-        gameSaveList->addWidget(testLabel);
-        gameSaveList->addSpacing(100);
-        gameSaveList->setAlignment(Qt::AlignHCenter);
-
+        displayFileList();
 
         setLayout(saveDialogLayout);
     }
@@ -204,15 +197,12 @@ void saveDialog::createFile()
     outputFile->close();
     closeDialog();
 
-
+    recordSave(inputTextString);
     if(exitBool == true)
     {
         std::cout << "Test1" << std::endl;
         QApplication::quit();
     }
-    else
-        std::cout << "Test2" << std::endl;
-
 }
 
 void saveDialog::loadFile()
@@ -356,8 +346,16 @@ void saveDialog::loadFile()
 
 void saveDialog::recordInputText(const QString input)
 {
-
     inputTextString = input;
+    for(saveFileLabel * labelPt : fileLabelVector)
+    {
+        if(labelPt->fileName != inputTextString)
+        {
+            labelPt->deselectLabel();
+        }
+        else
+            labelPt->selectLabel();
+    }
 
 }
 
@@ -365,4 +363,147 @@ void saveDialog::closeDialog()
 {
 
     close();
+}
+
+bool saveDialog::recordSave(QString fileName)
+{
+    QFile * saveFileListStream = new QFile("appData/saveFileList.xml");
+
+    if(saveFileListStream->open(QIODevice::ReadWrite))
+    {
+        QXmlStreamReader * fileReadStream = new QXmlStreamReader();
+        fileReadStream->setDevice(saveFileListStream);
+
+        if(fileReadStream->readNextStartElement() && (fileReadStream->name() == "fileList"))
+        {
+            std::vector<QString> fileListVector;
+            while(fileReadStream->readNextStartElement() && (fileReadStream->name() == "file"))
+            {
+                    QString readFileName = fileReadStream->readElementText();
+                    if(readFileName == fileName)
+                    {
+                        saveFileListStream->close();
+                        fileReadStream->~QXmlStreamReader();
+                        return true;
+                    }
+                    else
+                    {
+                        fileListVector.push_back(readFileName);
+
+                    }
+            }
+            fileReadStream->~QXmlStreamReader();
+            saveFileListStream->seek(0);
+            QXmlStreamWriter * fileWriteStream = new QXmlStreamWriter();
+            fileWriteStream->setDevice(saveFileListStream);
+            fileWriteStream->writeStartDocument();
+            fileWriteStream->writeStartElement("fileList");
+                if(fileListVector.size() > 0)
+                {
+                    for(QString readName : fileListVector)
+                    {
+                            fileWriteStream->writeTextElement("file", readName);
+                    }
+                }
+                    fileWriteStream->writeTextElement("file", fileName);
+            fileWriteStream->writeEndElement();
+            fileWriteStream->writeEndDocument();
+            saveFileListStream->close();
+        }
+        else
+            return false;
+    }
+    else
+        return false;
+    return false;
+
+}
+
+void saveDialog::displayFileList()
+{
+
+    QFile * saveFileListStream = new QFile("appData/saveFileList.xml");
+    std::vector<QString> fileListVector;
+    if(saveFileListStream->open(QIODevice::ReadWrite))
+    {
+        QXmlStreamReader * fileReadStream = new QXmlStreamReader();
+        fileReadStream->setDevice(saveFileListStream);
+
+        if(fileReadStream->readNextStartElement() && (fileReadStream->name() == "fileList"))
+        {
+
+            while(fileReadStream->readNextStartElement() && (fileReadStream->name() == "file"))
+            {
+                    QString readFileName = fileReadStream->readElementText();
+                    fileListVector.push_back(readFileName);
+            }
+        }
+    }
+    if(fileListVector.size() < 1)
+    {
+        QLabel * testLabel = new QLabel("No saved games");
+        gameSaveList->addWidget(testLabel);
+        gameSaveList->addSpacing(100);
+    }
+    else
+    {
+        fileLabelVector.clear();
+        for(QString readName : fileListVector)
+        {
+            saveFileLabel * tempLabel = new saveFileLabel(readName);
+            gameSaveList->addWidget(tempLabel);
+            fileLabelVector.push_back(tempLabel);
+            connect(tempLabel, SIGNAL(clicked(QString)), inputText, SLOT(setText(QString)));
+        }
+        for(saveFileLabel * labelPt : fileLabelVector)
+        {
+            labelPt->addVector(fileLabelVector);
+        }
+    }
+
+    gameSaveList->setContentsMargins(0,0,0,0);
+    gameSaveList->setAlignment(Qt::AlignHCenter);
+}
+
+saveFileLabel::saveFileLabel(QString givenFileName)
+{
+    fileName = givenFileName;
+    setText(fileName);
+    setAlignment(Qt::AlignCenter);
+
+}
+
+void saveFileLabel::addVector(std::vector<saveFileLabel *> givenVector)
+{
+    fileLabelVector = givenVector;
+}
+
+void saveFileLabel::mousePressEvent(QMouseEvent *)
+{
+    for(saveFileLabel * labelPt : fileLabelVector)
+    {
+        std::cout << labelPt->fileName.toStdString() << std::endl;
+        if(labelPt != this)
+        {
+            labelPt->deselectLabel();
+        }
+    }
+    emit clicked(fileName);
+}
+
+saveFileLabel::~saveFileLabel()
+{
+
+}
+
+void saveFileLabel::deselectLabel()
+{
+    setText("<font color=\"Black\">" + fileName + "</font>");
+    setStyleSheet("");
+}
+
+void saveFileLabel::selectLabel()
+{
+    setText("<font color=\"Goldenrod\">" + fileName + "</font>");
+    setStyleSheet("QLabel { background-color : blue; }");
 }

@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     interfaceWindow * w = new interfaceWindow(&a);
 
 
+
     w->show();
 
     return a.exec();

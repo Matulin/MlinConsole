@@ -4,6 +4,7 @@
 
 #include <QApplication>
 #include <QtGui>
+#include <QtCore>
 #include <QDialog>
 #include <board.h>
 #include <QPushButton>
@@ -21,6 +22,7 @@
 
 class QApplication;
 class gameData;
+class saveFileLabel;
 
 class optionFunctions : public QWidget
 {
@@ -55,12 +57,41 @@ public:
     QString inputTextString;
     gameData * thisGameData;
     bool exitBool;
+    QVBoxLayout * gameSaveList;
+    std::vector<saveFileLabel *> fileLabelVector;
 
 public slots:
     void createFile();
     void loadFile();
     void recordInputText(const QString input);
     void closeDialog();
+    bool recordSave(QString fileName);
+    void displayFileList();
+
+};
+
+class saveFileLabel : public QLabel
+{
+    Q_OBJECT
+
+public:
+    explicit saveFileLabel(QString givenFileName);
+    ~saveFileLabel();
+    void addVector(std::vector<saveFileLabel *> givenVector);
+    void selectLabel();
+
+public:
+    QString fileName;
+    std::vector<saveFileLabel *> fileLabelVector;
+
+protected:
+     void mousePressEvent(QMouseEvent *);
+
+signals:
+     void clicked(QString fileNameFromLabel);
+
+public slots:
+     void deselectLabel();
 
 };
 

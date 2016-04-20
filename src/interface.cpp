@@ -2,6 +2,7 @@
 
 interfaceWindow::interfaceWindow(QApplication * runningApplication)
 {
+
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
     gameSideBar = new QVBoxLayout;
