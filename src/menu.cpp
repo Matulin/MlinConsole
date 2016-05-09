@@ -9,6 +9,7 @@ mainMenu::mainMenu(MainWindow * givenWindow)
     settings = new QPushButton("Settings");
     exitButton = new QPushButton("Exit Button");
     connect(newGame, SIGNAL(clicked()), parentWindow, SLOT(startGame()));
+    connect(loadGame, SIGNAL(clicked()), parentWindow, SLOT(loadGame()));
 
     addWidget(newGame);
     addWidget(loadGame);
@@ -23,3 +24,12 @@ mainMenu::~mainMenu()
 
 }
 
+void mainMenu::deleteMainMenu()
+{
+    delete newGame;
+    delete loadGame;
+    delete howToPlay;
+    delete settings;
+    delete exitButton;
+    delete this;
+}

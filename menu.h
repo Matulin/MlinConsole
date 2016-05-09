@@ -15,6 +15,7 @@ class mainMenu : public QVBoxLayout
 
 public:
     explicit mainMenu(MainWindow * givenWindow);
+    void deleteMainMenu();
     ~mainMenu();
 
 private:

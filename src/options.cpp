@@ -1,14 +1,13 @@
 #include "options.h"
 
-optionFunctions::optionFunctions(gameData * gameData, QApplication * thisApp)
+optionFunctions::optionFunctions(gameData * gameData)
 {
     thisGameData = gameData;
-    runningApp = thisApp;
 }
 
 void optionFunctions::exitApp()
 {
-    runningApp->quit();
+    QApplication::quit();
 }
 
 void optionFunctions::restartGame()

@@ -1,6 +1,6 @@
 #include "interface.h"
 
-interfaceWindow::interfaceWindow(QApplication * runningApplication)
+interfaceWindow::interfaceWindow()
 {
 
     thisGameData = new gameData(this);
@@ -71,7 +71,7 @@ interfaceWindow::interfaceWindow(QApplication * runningApplication)
     gameSideBar->addWidget(whitePiecesTakenMessage);
     gameSideBar->addLayout(whitePiecesTakenBox);
 
-    optionFunctions * options = new optionFunctions(thisGameData, runningApplication);
+    optionFunctions * options = new optionFunctions(thisGameData);
     toolbar = new gameToolbar(options);
 
 

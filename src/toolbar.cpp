@@ -6,7 +6,7 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
     options = optionClass;
     //gameMenu = new QMenuBar(this);
     toolbarLayout = new QHBoxLayout;
-
+    setVisible(TRUE);
     gameButton = new QMenu("Game");
     addMenu(gameButton);
 
@@ -40,6 +40,11 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
 
     gameButton->addSeparator();
 
+    returnButton = new QAction(tr("&Return to menu"), this);
+    returnButton->setStatusTip(tr("Return to the main menu"));
+    //connect(returnButton, SIGNAL(triggered()), options, SLOT(returnToMenu()));
+    gameButton->addAction(returnButton);
+
     exitButton = new QAction(tr("&Exit"), this);
     exitButton->setStatusTip(tr("Close this application"));
     connect(exitButton, SIGNAL(triggered()), options, SLOT(exitApp()));
@@ -51,7 +56,6 @@ gameToolbar::gameToolbar(optionFunctions * optionClass)
     languageButton = new QAction(tr("&Language"), this);
     languageButton->setStatusTip(tr("Change the language settings"));
     optionButton->addAction(languageButton);
-
 }
 
 gameToolbar::~gameToolbar()

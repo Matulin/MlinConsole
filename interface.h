@@ -21,7 +21,7 @@ class interfaceWindow : public QVBoxLayout
 
 public:
 
-    explicit interfaceWindow(QApplication * runningApplication);
+    explicit interfaceWindow();
     explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
 public:

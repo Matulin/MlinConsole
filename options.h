@@ -28,9 +28,8 @@ class optionFunctions : public QWidget
 {
    Q_OBJECT
 public:
-    explicit optionFunctions(gameData * gameData, QApplication * thisApp);
+    explicit optionFunctions(gameData * gameData);
 public:
-    QApplication * runningApp;
     gameData * thisGameData;
 
 public slots:

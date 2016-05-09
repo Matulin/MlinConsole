@@ -20,13 +20,14 @@ class MainWindow : public QWidget
 
 public:
 
-    explicit MainWindow(QApplication * thisApp, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     QApplication * parentApplication;
     ~MainWindow();
     mainMenu * startUpMenu;
 
 public slots:
     void startGame();
+    void loadGame();
 };
 
 #endif // MAINWINDOW_H

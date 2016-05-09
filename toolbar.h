@@ -32,6 +32,7 @@ public:
     QAction * saveAndExitButton;
     QAction * loadButton;
     QAction * exitButton;
+    QAction * returnButton;
     QMenu * gameButton;
 
 
