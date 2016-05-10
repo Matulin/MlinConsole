@@ -10,10 +10,12 @@
 #include <QFont>
 #include "toolbar.h"
 #include "options.h"
+#include "mainwindow.h"
 
 class gameData;
 class gameToolbar;
 class optionFunctions;
+class MainWindow;
 
 class interfaceWindow : public QVBoxLayout
 {
@@ -21,8 +23,8 @@ class interfaceWindow : public QVBoxLayout
 
 public:
 
-    explicit interfaceWindow();
-    explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
+    explicit interfaceWindow(MainWindow *parent = 0);
+    //explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
 public:
     class gameData * thisGameData;
@@ -30,6 +32,7 @@ public:
     QHBoxLayout * gameWindow;
     bool setInterfaceWidgets();
     static void testPrint();
+    MainWindow * mainWindowWidget;
 
     QLabel * messageBox;
     QLabel * messageBox2;

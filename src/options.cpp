@@ -33,9 +33,13 @@ void optionFunctions::restartGame()
 
     thisGameData->outerWindow->setInterfaceWidgets();
 }
-void optionFunctions::loadOption()
+void optionFunctions::loadOption(bool fromMenu)
 {
-    saveDialog * loadWindow = new saveDialog(thisGameData, true);
+    saveDialog * loadWindow;
+    if(fromMenu == false)
+        loadWindow = new saveDialog(thisGameData, true);
+    else
+        loadWindow = new saveDialog(thisGameData, true, true, false, true);
 
     loadWindow->show();
 }
@@ -87,7 +91,7 @@ void optionFunctions::saveAndExit()
 }
 
 
-saveDialog::saveDialog(gameData * gameData, bool loadBool, bool saveAs, bool exit)
+saveDialog::saveDialog(gameData * gameData, bool loadBool, bool saveAs, bool exit, bool fromMenu)
 {
     thisGameData = gameData;
     exitBool = exit;
@@ -124,7 +128,12 @@ saveDialog::saveDialog(gameData * gameData, bool loadBool, bool saveAs, bool exi
              connect(saveButton, SIGNAL(clicked()), this, SLOT(createFile()));
         }
         else if(loadBool == true)
-            connect(saveButton, SIGNAL(clicked()), this, SLOT(loadFile()));
+        {
+            if(fromMenu == false)
+                connect(saveButton, SIGNAL(clicked()), this, SLOT(loadFile()));
+            else
+                connect(saveButton, SIGNAL(clicked()), this, SLOT(loadFilefromMenu()));
+        }
 
         connect(cancelButton, SIGNAL(clicked()), this, SLOT(closeDialog()));
 
@@ -341,6 +350,15 @@ void saveDialog::loadFile()
 
         closeDialog();
     }
+}
+
+
+void saveDialog::loadFilefromMenu()
+{
+    loadFile();
+    thisGameData->outerWindow->mainWindowWidget->startUpMenu->deleteMainMenu();
+    thisGameData->outerWindow->mainWindowWidget->setLayout(thisGameData->outerWindow);
+    thisGameData->outerWindow->toolbar->setVisible(TRUE);
 }
 
 void saveDialog::recordInputText(const QString input)

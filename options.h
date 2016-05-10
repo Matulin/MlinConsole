@@ -37,7 +37,7 @@ public slots:
     void restartGame();
     void saveGame(bool exit = false);
     void saveAsGame(bool exit = false);
-    void loadOption();
+    void loadOption(bool fromMenu = false);
     void saveAndExit();
 };
 
@@ -46,7 +46,7 @@ class saveDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit saveDialog(gameData * gameData, bool loadBool = false, bool saveAs = true, bool exit = false);
+    explicit saveDialog(gameData * gameData, bool loadBool = false, bool saveAs = true, bool exit = false, bool fromMenu = false);
 
 public:
     QPushButton * saveButton;
@@ -62,6 +62,7 @@ public:
 public slots:
     void createFile();
     void loadFile();
+    void loadFilefromMenu();
     void recordInputText(const QString input);
     void closeDialog();
     bool recordSave(QString fileName);

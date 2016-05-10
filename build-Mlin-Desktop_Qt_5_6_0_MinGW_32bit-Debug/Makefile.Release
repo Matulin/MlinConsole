@@ -3054,27 +3054,7 @@ release/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
 		../menu.h \
-		ui_mainwindow.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QStatusBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QToolBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\mainwindow.cpp
 
 release/board.o: ../src/board.cpp ../board.h \

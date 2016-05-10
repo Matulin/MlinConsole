@@ -23,5 +23,12 @@ void MainWindow::startGame()
 
 void MainWindow::loadGame()
 {
-    std::cout << "Loading" << std::endl;
+    interfaceWindow * w = new interfaceWindow(this);
+    w->toolbar->options->loadOption(true);
+
+}
+
+void MainWindow::exitApp()
+{
+    QApplication::quit();
 }

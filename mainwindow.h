@@ -28,6 +28,7 @@ public:
 public slots:
     void startGame();
     void loadGame();
+    void exitApp();
 };
 
 #endif // MAINWINDOW_H

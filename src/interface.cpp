@@ -1,12 +1,12 @@
 #include "interface.h"
 
-interfaceWindow::interfaceWindow()
+interfaceWindow::interfaceWindow(MainWindow *parent)
 {
 
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
     gameSideBar = new QVBoxLayout;
-
+    mainWindowWidget = parent;
     QFont * boldFont = new QFont;
     boldFont->setBold(true);
     QFont * boldRedFont = new QFont;
