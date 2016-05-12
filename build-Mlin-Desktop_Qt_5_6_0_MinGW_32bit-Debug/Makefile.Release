@@ -490,8 +490,8 @@ release/moc_mainwindow.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
-		../menu.h \
 		../mainwindow.h \
+		../menu.h \
 		../mainwindow.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\mainwindow.h -o release\moc_mainwindow.cpp
 
@@ -854,6 +854,9 @@ release/moc_graphics.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		../graphics.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\graphics.h -o release\moc_graphics.cpp
 
@@ -1216,6 +1219,9 @@ release/moc_interface.cpp: ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		../interface.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\interface.h -o release\moc_interface.cpp
 
@@ -1572,15 +1578,15 @@ release/moc_menu.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
-		../mainwindow.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
-		../menu.h \
 		../menu.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\menu.h -o release\moc_menu.cpp
 
@@ -1943,6 +1949,9 @@ release/moc_toolbar.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		../toolbar.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\toolbar.h -o release\moc_toolbar.cpp
 
@@ -2305,6 +2314,9 @@ release/moc_options.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		../options.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/User/Desktop/C++/Mlin -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtCore -I. ..\options.h -o release\moc_options.cpp
 
@@ -3415,7 +3427,10 @@ release/board.o: ../src/board.cpp ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\board.o ..\src\board.cpp
 
 release/game.o: ../src/game.cpp ../game.h \
@@ -3776,7 +3791,10 @@ release/game.o: ../src/game.cpp ../game.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\game.o ..\src\game.cpp
 
 release/graphics.o: ../src/graphics.cpp ../graphics.h \
@@ -4137,7 +4155,10 @@ release/graphics.o: ../src/graphics.cpp ../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\graphics.o ..\src\graphics.cpp
 
 release/interface.o: ../src/interface.cpp ../interface.h \
@@ -4498,7 +4519,10 @@ release/interface.o: ../src/interface.cpp ../interface.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\interface.o ..\src\interface.cpp
 
 release/menu.o: ../src/menu.cpp ../menu.h \
@@ -4855,14 +4879,14 @@ release/menu.o: ../src/menu.cpp ../menu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
-		../mainwindow.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\menu.o ..\src\menu.cpp
 
 release/toolbar.o: ../src/toolbar.cpp ../toolbar.h \
@@ -5223,7 +5247,10 @@ release/toolbar.o: ../src/toolbar.cpp ../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QFile \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QIODevice \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QXmlStreamWriter \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression
+		C:/Qt/5.6/mingw49_32/include/QtCore/QRegularExpression \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\toolbar.o ..\src\toolbar.cpp
 
 release/options.o: ../src/options.cpp ../options.h \
@@ -5576,6 +5603,9 @@ release/options.o: ../src/options.cpp ../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
+		../mainwindow.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPainter \
+		../menu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \

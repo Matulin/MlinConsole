@@ -31,8 +31,8 @@ public:
     QVBoxLayout * gameSideBar;
     QHBoxLayout * gameWindow;
     bool setInterfaceWidgets();
-    static void testPrint();
     MainWindow * mainWindowWidget;
+
 
     QLabel * messageBox;
     QLabel * messageBox2;

@@ -127,6 +127,27 @@ struct tokenImage
 
 };
 
+class moveNode
+{
+private:
+    unsigned int moveNum;
+    unsigned int layNum;
+    unsigned int xCoord;
+    unsigned int YCoord;
+    enum status moveType;
+    unsigned int oldlayNum;
+    unsigned int oldxCoord;
+    unsigned int oldYCoord;
+    posColour moveColour;
+
+public:
+    explicit moveNode();
+    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType = placing);
+    //explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode = NULL);
+    moveNode * lastNode;
+    moveNode * nextNode;
+};
+
 
 class gameData
 {
@@ -146,6 +167,8 @@ public:
     bool checkForMove(unsigned int count, unsigned int count2, unsigned int count3);
     void changeTurns();
     struct saveData saveData;
+    class moveNode * gameMoveHead;
+    class moveNode * currentMoveNode;
 
 
 public:

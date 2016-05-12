@@ -15,6 +15,8 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     outerWindow = parentWindow;
     saveData.saveStatus = false;
     saveData.saveName = "";
+    gameMoveHead = new moveNode();
+    currentMoveNode = gameMoveHead;
 
     // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
@@ -251,6 +253,10 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
         return true;
     }
+
+    moveNode * tempNode = new moveNode(lay, xcoord, ycoord, currentMoveNode, currentTurn);
+    currentMoveNode = tempNode;
+
     return false;
 }
 
@@ -769,4 +775,21 @@ void gameData::changeTurns()
         gameStatus = moving;
     }
     checkForWin();
+}
+
+moveNode::moveNode()
+{
+    moveNum = 0;
+    lastNode = NULL;
+}
+
+moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType)
+{
+        lastNode = givenLastNode;
+        moveNum = lastNode->moveNum + 1;
+        layNum = inputLay;
+        xCoord = inputX;
+        YCoord = inputY;
+        moveType = givenMoveType;
+        moveColour = turn;
 }

@@ -194,7 +194,4 @@ bool interfaceWindow::setInterfaceWidgets()
     return true;
 }
 
-void interfaceWindow::testPrint()
-{
-    std::cout << "test" << std::endl;
-}
+
