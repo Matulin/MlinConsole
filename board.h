@@ -127,23 +127,29 @@ struct tokenImage
 
 };
 
+enum coordType
+{
+    layer,
+    x,
+    y
+};
+
 class moveNode
 {
-private:
+public:
     unsigned int moveNum;
     unsigned int layNum;
     unsigned int xCoord;
     unsigned int YCoord;
     enum status moveType;
-    unsigned int oldlayNum;
-    unsigned int oldxCoord;
-    unsigned int oldYCoord;
+    enum coordType movedCoord;
+    int change;
     posColour moveColour;
 
 public:
     explicit moveNode();
     explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType = placing);
-    //explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode = NULL);
+    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn);
     moveNode * lastNode;
     moveNode * nextNode;
 };
@@ -169,6 +175,9 @@ public:
     struct saveData saveData;
     class moveNode * gameMoveHead;
     class moveNode * currentMoveNode;
+    class moveNode * selectedMoveNode;
+    unsigned int moveListSize;
+    void appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord);
 
 
 public:

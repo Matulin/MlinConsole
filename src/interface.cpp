@@ -74,9 +74,11 @@ interfaceWindow::interfaceWindow(MainWindow *parent)
     optionFunctions * options = new optionFunctions(thisGameData);
     toolbar = new gameToolbar(options);
 
+    gameMoveListLayout = new QVBoxLayout;
 
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
+    gameWindow->addLayout(gameMoveListLayout);
     addLayout(gameWindow);
     setMenuBar(toolbar);
 
@@ -191,7 +193,49 @@ bool interfaceWindow::setInterfaceWidgets()
         whitePiecesTaken->clear();
         whitePiecesTaken2->clear();
     }
+
+    setMoveList();
+
     return true;
 }
 
 
+void interfaceWindow::setMoveList()
+{
+    QLayoutItem * layoutWidget;
+    while((layoutWidget = gameMoveListLayout->takeAt(0)) != 0 )
+    {
+        delete layoutWidget;
+    }
+
+    QHBoxLayout * moveListTitleBox = new QHBoxLayout;
+    QLabel * titleBox1 = new QLabel("Black");
+    QLabel * titleBox2 = new QLabel("White");
+    moveListTitleBox->addWidget(titleBox1);
+    moveListTitleBox->addWidget(titleBox2);
+    gameMoveListLayout->addLayout(moveListTitleBox);
+    std::cout << "Print test" << std::endl;
+
+    if(thisGameData->gameMoveHead->nextNode != NULL)
+    {
+
+        QLabel * placingLabel = new QLabel("Placing");
+        gameMoveListLayout->addWidget(placingLabel);
+        moveNode * tempNode = thisGameData->gameMoveHead->nextNode;
+        while(tempNode->nextNode != NULL)
+        {
+            // std::cout << thisGameData->moveListSize << std::endl;
+            tempNode = tempNode->nextNode;
+        }
+    }
+
+        
+
+        /*thisGameData
+        QHBoxLayout * tempRowBox = new QHBoxLayout;
+        QLabel * n = new QLabel("Black");
+        QLabel * titleBox2 = new QLabel("White");
+        moveListTitleBox->addWidget(titleBox1);
+        moveListTitleBox->addWidget(titleBox2);*/
+
+};

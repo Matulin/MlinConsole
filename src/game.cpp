@@ -17,6 +17,8 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     saveData.saveName = "";
     gameMoveHead = new moveNode();
     currentMoveNode = gameMoveHead;
+    selectedMoveNode = gameMoveHead;
+    moveListSize = 0;
 
     // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
@@ -244,6 +246,7 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         blackPieces.piecesOnBoard++;
         blackPieces.piecesUnplaced--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
+        appendMoveList(lay, xcoord, ycoord);
         return true;
     }
     else if(newToken == whiteToken)
@@ -251,13 +254,21 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         whitePieces.piecesOnBoard++;
         whitePieces.piecesUnplaced--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
+        appendMoveList(lay, xcoord, ycoord);
         return true;
     }
 
-    moveNode * tempNode = new moveNode(lay, xcoord, ycoord, currentMoveNode, currentTurn);
-    currentMoveNode = tempNode;
+
 
     return false;
+}
+
+void gameData::appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord)
+{
+    moveNode * tempNode = new moveNode(layNum, xCoord, yCoord, currentMoveNode, currentTurn);
+    currentMoveNode = tempNode;
+    selectedMoveNode = currentMoveNode;
+    moveListSize++;
 }
 
 /*bool position::placePiece(enum posColour newToken)
@@ -314,6 +325,13 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
     {
         board[newlay][newx][newy].locImg->setPixmap(*tokenImage.whiteTokenMap);
     }
+
+
+    moveNode * tempNode = new moveNode(newlay, newx, newy, oldlay, oldx, oldy, currentMoveNode, currentTurn);
+    currentMoveNode = tempNode;
+    selectedMoveNode = currentMoveNode;
+
+
     return true;
 }
 
@@ -471,6 +489,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum)
             board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
             whitePieces.piecesOnBoard--;
             whitePieces.piecesTaken++;
+            appendMoveList(laynum, xcoord, ycoord);
             return true;
         }
     }
@@ -482,6 +501,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum)
             blackPieces.piecesOnBoard--;
             blackPieces.piecesTaken++;
             board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
+            appendMoveList(laynum, xcoord, ycoord);
             return true;
         }
     }
@@ -781,6 +801,7 @@ moveNode::moveNode()
 {
     moveNum = 0;
     lastNode = NULL;
+    nextNode = NULL;
 }
 
 moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType)
@@ -792,4 +813,58 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
         YCoord = inputY;
         moveType = givenMoveType;
         moveColour = turn;
+        lastNode->nextNode = this;
+        nextNode = NULL;
+
+}
+
+moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn)
+{
+    lastNode = givenLastNode;
+    moveNum = lastNode->moveNum + 1;
+    layNum = inputLay;
+    xCoord = inputX;
+    YCoord = inputY;
+    moveType = moving;
+    moveColour = turn;
+    lastNode->nextNode = this;
+    nextNode = NULL;
+
+    if(inputLay != oldInputLay)
+    {
+        movedCoord = layer;
+        if(inputLay > oldInputLay)
+        {
+            change = 1;
+        }
+        else
+        {
+            change = -1;
+        }
+    }
+    else if(inputX != oldInputX)
+    {
+        movedCoord = x;
+        if(inputX > oldInputX)
+        {
+            change = 1;
+        }
+        else
+        {
+            change = -1;
+        }
+    }
+    else if(inputY != oldInputY)
+    {
+        movedCoord = y;
+        movedCoord = x;
+        if(inputY > oldInputY)
+        {
+            change = 1;
+        }
+        else
+        {
+            change = -1;
+        }
+    }
 }

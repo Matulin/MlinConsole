@@ -8,6 +8,7 @@
 #include <QtGui>
 #include <QString>
 #include <QFont>
+#include <typeinfo>
 #include "toolbar.h"
 #include "options.h"
 #include "mainwindow.h"
@@ -26,12 +27,15 @@ public:
     explicit interfaceWindow(MainWindow *parent = 0);
     //explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
+    void setMoveList();
+
 public:
     class gameData * thisGameData;
     QVBoxLayout * gameSideBar;
     QHBoxLayout * gameWindow;
     bool setInterfaceWidgets();
     MainWindow * mainWindowWidget;
+    QVBoxLayout * gameMoveListLayout;
 
 
     QLabel * messageBox;
