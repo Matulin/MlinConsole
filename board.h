@@ -71,7 +71,8 @@ enum status
     taking,
     blackWin,
     whiteWin,
-    draw
+    draw,
+    beginning
 };
 
 enum currentTurn
@@ -140,11 +141,12 @@ public:
     unsigned int moveNum;
     unsigned int layNum;
     unsigned int xCoord;
-    unsigned int YCoord;
+    unsigned int yCoord;
     enum status moveType;
     enum coordType movedCoord;
     int change;
     posColour moveColour;
+    QString genString();
 
 public:
     explicit moveNode();

@@ -193,9 +193,7 @@ bool interfaceWindow::setInterfaceWidgets()
         whitePiecesTaken->clear();
         whitePiecesTaken2->clear();
     }
-
     setMoveList();
-
     return true;
 }
 
@@ -205,37 +203,82 @@ void interfaceWindow::setMoveList()
     QLayoutItem * layoutWidget;
     while((layoutWidget = gameMoveListLayout->takeAt(0)) != 0 )
     {
+        QLayout * innerLayout;
+        innerLayout = layoutWidget->layout();
+        QLayoutItem * innerLayoutWidget;
+        while((innerLayoutWidget = innerLayout->takeAt(0)) != 0 )
+        {
+            QWidget * tempWidget;
+            tempWidget = innerLayoutWidget->widget();
+            delete tempWidget;
+        }
         delete layoutWidget;
     }
-
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
-    QLabel * titleBox1 = new QLabel("Black");
-    QLabel * titleBox2 = new QLabel("White");
+    QLabel * titleBox1 = new QLabel(" Black ");
+    QLabel * titleBox2 = new QLabel(" White ");
     moveListTitleBox->addWidget(titleBox1);
     moveListTitleBox->addWidget(titleBox2);
     gameMoveListLayout->addLayout(moveListTitleBox);
-    std::cout << "Print test" << std::endl;
 
     if(thisGameData->gameMoveHead->nextNode != NULL)
     {
-
+        QHBoxLayout * gameStatusBox = new QHBoxLayout;
         QLabel * placingLabel = new QLabel("Placing");
-        gameMoveListLayout->addWidget(placingLabel);
-        moveNode * tempNode = thisGameData->gameMoveHead->nextNode;
-        while(tempNode->nextNode != NULL)
+        gameStatusBox->addWidget(placingLabel);
+        gameMoveListLayout->addLayout(gameStatusBox);
+
+        moveNode * tempNode = thisGameData->gameMoveHead;
+
+        while((tempNode->nextNode) != NULL)
         {
-            // std::cout << thisGameData->moveListSize << std::endl;
             tempNode = tempNode->nextNode;
+
+            if(tempNode->moveType == placing)
+            {
+                QString moveName1 = tempNode->genString();
+                QHBoxLayout * tempRowBox = new QHBoxLayout;
+                QLabel * rowLabel1 = new QLabel(moveName1);
+                tempRowBox->addWidget(rowLabel1);
+                gameMoveListLayout->addLayout(tempRowBox);
+                if(tempNode->nextNode != NULL)
+                {
+                    if(tempNode->nextNode->moveType == placing)
+                    {
+                        tempNode = tempNode->nextNode;
+                        QString moveName2 = tempNode->genString();
+                        QLabel * rowLabel2 = new QLabel(moveName2);
+                        tempRowBox->addWidget(rowLabel2);
+                    }
+
+                    if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == moving))
+                    {
+                        QHBoxLayout * gameStatusBox2 = new QHBoxLayout;
+                        QLabel * movingLabel = new QLabel("Moving");
+                        gameStatusBox2->addWidget(movingLabel);
+                        gameMoveListLayout->addLayout(gameStatusBox2);
+                    }
+                }
+
+
+
+            }
+            else if(tempNode->moveType == moving)
+            {
+                QString moveName1 = tempNode->genString();
+                QHBoxLayout * tempRowBox = new QHBoxLayout;
+                QLabel * rowLabel1 = new QLabel(moveName1);
+                tempRowBox->addWidget(rowLabel1);
+                gameMoveListLayout->addLayout(tempRowBox);
+                if(tempNode->nextNode != NULL)
+                {
+                    tempNode = tempNode->nextNode;
+                    QString moveName2 = tempNode->genString();
+                    QLabel * rowLabel2 = new QLabel(moveName2);
+                    tempRowBox->addWidget(rowLabel2);
+                }
+
+            }
         }
-    }
-
-        
-
-        /*thisGameData
-        QHBoxLayout * tempRowBox = new QHBoxLayout;
-        QLabel * n = new QLabel("Black");
-        QLabel * titleBox2 = new QLabel("White");
-        moveListTitleBox->addWidget(titleBox1);
-        moveListTitleBox->addWidget(titleBox2);*/
-
+    }  
 };
