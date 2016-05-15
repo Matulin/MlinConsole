@@ -9,14 +9,17 @@
 #include <QString>
 #include <QFont>
 #include <typeinfo>
+#include <QPalette>
 #include "toolbar.h"
 #include "options.h"
 #include "mainwindow.h"
+#include "board.h"
 
 class gameData;
 class gameToolbar;
 class optionFunctions;
 class MainWindow;
+class moveNode;
 
 class interfaceWindow : public QVBoxLayout
 {
@@ -28,6 +31,7 @@ public:
     //explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
     void setMoveList();
+    void addTakingMove(moveNode * tempNode);
 
 public:
     class gameData * thisGameData;

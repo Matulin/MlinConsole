@@ -144,10 +144,14 @@ bool interfaceWindow::setInterfaceWidgets()
     else if(thisGameData->blackPieces.piecesUnplaced == 0)
     {
         blackPiecesUnplacedMessage->clear();
-        //blackPiecesUnplaced->setPixmap(*thisGameData->tokenImage.emptyTokenMap);
         blackPiecesUnplaced->clear();
         blackPiecesUnplaced2->clear();
     }
+
+    if((thisGameData->blackPieces.piecesUnplaced == 0) && (thisGameData->blackPieces.piecesTaken == 0))
+        blackPiecesMessage->hide();
+    else
+        blackPiecesMessage->show();
 
     if(thisGameData->whitePieces.piecesUnplaced > 0)
     {
@@ -159,7 +163,6 @@ bool interfaceWindow::setInterfaceWidgets()
     else if(thisGameData->blackPieces.piecesUnplaced == 0)
     {
         whitePiecesUnplacedMessage->clear();
-        // whitePiecesUnplaced->setPixmap(*thisGameData->tokenImage.emptyTokenMap);
         whitePiecesUnplaced->clear();
         whitePiecesUnplaced2->clear();
     }
@@ -189,10 +192,15 @@ bool interfaceWindow::setInterfaceWidgets()
     else if(thisGameData->whitePieces.piecesUnplaced == 0)
     {
         whitePiecesTakenMessage->clear();
-        //whitePiecesTaken->setPixmap(*thisGameData->tokenImage.emptyTokenMap);
         whitePiecesTaken->clear();
         whitePiecesTaken2->clear();
     }
+
+    if((thisGameData->whitePieces.piecesUnplaced == 0) && (thisGameData->whitePieces.piecesTaken == 0))
+        whitePiecesMessage->hide();
+    else
+        whitePiecesMessage->show();
+
     setMoveList();
     return true;
 }
@@ -215,10 +223,18 @@ void interfaceWindow::setMoveList()
         delete layoutWidget;
     }
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
-    QLabel * titleBox1 = new QLabel(" Black ");
-    QLabel * titleBox2 = new QLabel(" White ");
-    moveListTitleBox->addWidget(titleBox1);
-    moveListTitleBox->addWidget(titleBox2);
+    QLabel * titleBox1 = new QLabel("  Black  ");
+    QLabel * titleBox2 = new QLabel("  White  ");
+    if(thisGameData->startingColour == blackToken)
+    {
+        moveListTitleBox->addWidget(titleBox1);
+        moveListTitleBox->addWidget(titleBox2);
+    }
+    else if(thisGameData->startingColour == whiteToken)
+    {
+        moveListTitleBox->addWidget(titleBox2);
+        moveListTitleBox->addWidget(titleBox1);
+    }
     gameMoveListLayout->addLayout(moveListTitleBox);
 
     if(thisGameData->gameMoveHead->nextNode != NULL)
@@ -243,14 +259,34 @@ void interfaceWindow::setMoveList()
                 gameMoveListLayout->addLayout(tempRowBox);
                 if(tempNode->nextNode != NULL)
                 {
-                    if(tempNode->nextNode->moveType == placing)
+                    QHBoxLayout * tempRowBox2;
+                    if(tempNode->nextNode->moveType == taking)
+                    {
+                        tempNode = tempNode->nextNode;
+                        addTakingMove(tempNode);
+                        tempRowBox2 = new QHBoxLayout;
+                        QLabel * emptyLabel = new QLabel("      ");
+                        tempRowBox2->addWidget(emptyLabel);
+                    }
+                    else
+                        tempRowBox2 = tempRowBox;
+
+                    if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == placing))
                     {
                         tempNode = tempNode->nextNode;
                         QString moveName2 = tempNode->genString();
                         QLabel * rowLabel2 = new QLabel(moveName2);
-                        tempRowBox->addWidget(rowLabel2);
+                        tempRowBox2->addWidget(rowLabel2);
+                        if(tempRowBox2 != tempRowBox)
+                            gameMoveListLayout->addLayout(tempRowBox2);
+
+                        if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
+                        {
+                            addTakingMove(tempNode);
+                        }
                     }
 
+                    // This should also be an "else if".
                     if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == moving))
                     {
                         QHBoxLayout * gameStatusBox2 = new QHBoxLayout;
@@ -259,9 +295,6 @@ void interfaceWindow::setMoveList()
                         gameMoveListLayout->addLayout(gameStatusBox2);
                     }
                 }
-
-
-
             }
             else if(tempNode->moveType == moving)
             {
@@ -270,15 +303,69 @@ void interfaceWindow::setMoveList()
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
                 gameMoveListLayout->addLayout(tempRowBox);
+
                 if(tempNode->nextNode != NULL)
                 {
-                    tempNode = tempNode->nextNode;
-                    QString moveName2 = tempNode->genString();
-                    QLabel * rowLabel2 = new QLabel(moveName2);
-                    tempRowBox->addWidget(rowLabel2);
-                }
+                    QHBoxLayout * tempRowBox2;
+                    if(tempNode->nextNode->moveType == taking)
+                    {
+                        tempNode = tempNode->nextNode;
+                        addTakingMove(tempNode);
+                        tempRowBox2 = new QHBoxLayout;
+                        QLabel * emptyLabel = new QLabel("      ");
+                        tempRowBox2->addWidget(emptyLabel);
+                    }
+                    else
+                        tempRowBox2 = tempRowBox;
 
+                    if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == moving))
+                    {
+                        tempNode = tempNode->nextNode;
+                        QString moveName2 = tempNode->genString();
+                        QLabel * rowLabel2 = new QLabel(moveName2);
+                        tempRowBox2->addWidget(rowLabel2);
+                        if(tempRowBox2 != tempRowBox)
+                            gameMoveListLayout->addLayout(tempRowBox2);
+                    }
+
+                    if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
+                        addTakingMove(tempNode);
+                }
             }
         }
     }  
 };
+
+void interfaceWindow::addTakingMove(moveNode * tempNode)
+{
+    if(thisGameData->startingColour != tempNode->moveColour)
+    {
+        QHBoxLayout * takingMoveBox = new QHBoxLayout;
+        QString takingMoveName = tempNode->genString();
+        QLabel * takingLabel1 = new QLabel("      ");
+        QLabel * takingLabel2 = new QLabel(takingMoveName);
+
+        QPalette takingPalette;
+        takingPalette.setColor(QPalette::WindowText, Qt::red);
+        takingLabel2->setPalette(takingPalette);
+
+        takingMoveBox->addWidget(takingLabel1);
+        takingMoveBox->addWidget(takingLabel2);
+        gameMoveListLayout->addLayout(takingMoveBox);
+    }
+    else if(thisGameData->startingColour == tempNode->moveColour)
+    {
+        QHBoxLayout * takingMoveBox = new QHBoxLayout;
+        QString takingMoveName = tempNode->genString();
+        QLabel * takingLabel1 = new QLabel(takingMoveName);
+        QLabel * takingLabel2 = new QLabel("      ");
+
+        QPalette takingPalette;
+        takingPalette.setColor(QPalette::WindowText, Qt::red);
+        takingLabel1->setPalette(takingPalette);
+
+        takingMoveBox->addWidget(takingLabel1);
+        takingMoveBox->addWidget(takingLabel2);
+        gameMoveListLayout->addLayout(takingMoveBox);
+    }
+}

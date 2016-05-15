@@ -75,12 +75,6 @@ enum status
     beginning
 };
 
-enum currentTurn
-{
-    black,
-    white
-};
-
 struct saveData
 {
     bool saveStatus;
@@ -171,6 +165,8 @@ public:
     enum posColour currentTurn;
     enum posColour selectedToken;
     struct position selectedPosition;
+    enum posColour startingColour;
+
     interfaceWindow * outerWindow;
     bool checkForMove(unsigned int count, unsigned int count2, unsigned int count3);
     void changeTurns();

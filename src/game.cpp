@@ -19,6 +19,7 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     currentMoveNode = gameMoveHead;
     selectedMoveNode = gameMoveHead;
     moveListSize = 0;
+    startingColour = blackToken;
 
     // These will be eventually all converted to pngs to preserve image quality
     tokenImage.blackTokenMap = new QPixmap("resources/blackToken.jpg");
@@ -857,7 +858,6 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
     else if(inputY != oldInputY)
     {
         movedCoord = y;
-        movedCoord = x;
         if(inputY > oldInputY)
         {
             change = 1;
@@ -872,30 +872,30 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
 QString moveNode::genString()
 {
     QString moveName;
-    if(moveType == placing)
-        moveName = QString::number(layNum) + "-" + QString::number(xCoord) + "-" + QString::number(yCoord);
+    if((moveType == placing) || (moveType == taking))
+        moveName = QString::number(layNum + 1) + "-" + QString::number(xCoord + 1) + "-" + QString::number(yCoord + 1);
     if(moveType == moving)
     {
         if(movedCoord == x)
         {
             if(change == 1)
-                moveName = QString::number(layNum) + "-" + "+" + QString::number(xCoord) + "-" + QString::number(yCoord);
+                moveName = QString::number(layNum + 1) + "-" + "+" + QString::number(xCoord + 1) + "-" + QString::number(yCoord + 1);
             else if(change == -1)
-                moveName = QString::number(layNum) + "-" + "~" + QString::number(xCoord) + "-" + QString::number(yCoord);
+                moveName = QString::number(layNum + 1) + "-" + "~" + QString::number(xCoord + 1) + "-" + QString::number(yCoord + 1);
         }
         else if(movedCoord == y)
         {
             if(change == 1)
-                moveName = QString::number(layNum) + "-" + QString::number(xCoord) + "-" + "+" + QString::number(yCoord);
+                moveName = QString::number(layNum + 1) + "-" + QString::number(xCoord + 1) + "-" + "+" + QString::number(yCoord + 1);
             else if(change == -1)
-                moveName = QString::number(layNum) + "-" + QString::number(xCoord) + "-" + "~" + QString::number(yCoord);
+                moveName = QString::number(layNum + 1) + "-" + QString::number(xCoord + 1) + "-" + "~" + QString::number(yCoord + 1);
         }
         else if(movedCoord == layer)
         {
             if(change == 1)
-                moveName = "+" + QString::number(layNum) + "-" + QString::number(xCoord) + "-" + QString::number(yCoord);
+                moveName = "+" + QString::number(layNum + 1) + "-" + QString::number(xCoord + 1) + "-" + QString::number(yCoord + 1);
             else if(change == -1)
-                moveName = "~" +QString::number(layNum) + "-" + QString::number(xCoord) + "-" + QString::number(yCoord);
+                moveName = "~" +QString::number(layNum + 1) + "-" + QString::number(xCoord + 1) + "-" + QString::number(yCoord + 1);
         }
     }
     return moveName;
