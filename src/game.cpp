@@ -97,7 +97,10 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
                 if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
                 {
                     movedBool = true;
+                    appendMoveList(arrayLayNum, arrayXCoord, arrayYCoord, placing, false);
                 }
+                else
+                    appendMoveList(arrayLayNum, arrayXCoord, arrayYCoord, placing, true);
             }
         }
     }
@@ -109,6 +112,15 @@ bool gameData::gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, 
             if(checkForNewMlin(arrayXCoord, arrayYCoord, arrayLayNum) < 1)
             {
                 movedBool = true;
+                moveNode * tempNode = new moveNode(arrayLayNum, arrayXCoord, arrayYCoord, selectedPosition.arrayLayNum, selectedPosition.arrayXCoord, selectedPosition.arrayYCoord, currentMoveNode, currentTurn, false);
+                currentMoveNode = tempNode;
+                selectedMoveNode = currentMoveNode;
+            }
+            else
+            {
+                moveNode * tempNode = new moveNode(arrayLayNum, arrayXCoord, arrayYCoord, selectedPosition.arrayLayNum, selectedPosition.arrayXCoord, selectedPosition.arrayYCoord, currentMoveNode, currentTurn, true);
+                currentMoveNode = tempNode;
+                selectedMoveNode = currentMoveNode;
             }
 
         }
@@ -246,7 +258,6 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         blackPieces.piecesOnBoard++;
         blackPieces.piecesUnplaced--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
-        appendMoveList(lay, xcoord, ycoord);
         return true;
     }
     else if(newToken == whiteToken)
@@ -254,18 +265,15 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
         whitePieces.piecesOnBoard++;
         whitePieces.piecesUnplaced--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
-        appendMoveList(lay, xcoord, ycoord);
         return true;
     }
-
-
 
     return false;
 }
 
-void gameData::appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord)
+void gameData::appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord, enum status givenGameStatus, bool givenMlinStatus)
 {
-    moveNode * tempNode = new moveNode(layNum, xCoord, yCoord, currentMoveNode, currentTurn, gameStatus);
+    moveNode * tempNode = new moveNode(layNum, xCoord, yCoord, currentMoveNode, currentTurn, givenGameStatus, givenMlinStatus);
     currentMoveNode = tempNode;
     selectedMoveNode = currentMoveNode;
     moveListSize++;
@@ -326,11 +334,11 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
         board[newlay][newx][newy].locImg->setPixmap(*tokenImage.whiteTokenMap);
     }
 
-
+    /*
     moveNode * tempNode = new moveNode(newlay, newx, newy, oldlay, oldx, oldy, currentMoveNode, currentTurn);
     currentMoveNode = tempNode;
     selectedMoveNode = currentMoveNode;
-
+    */
 
     return true;
 }
@@ -489,7 +497,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum)
             board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
             whitePieces.piecesOnBoard--;
             whitePieces.piecesTaken++;
-            appendMoveList(laynum, xcoord, ycoord);
+            appendMoveList(laynum, xcoord, ycoord, taking);
             return true;
         }
     }
@@ -501,7 +509,7 @@ bool gameData::takeToken(int xcoord, int ycoord, int laynum)
             blackPieces.piecesOnBoard--;
             blackPieces.piecesTaken++;
             board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
-            appendMoveList(laynum, xcoord, ycoord);
+            appendMoveList(laynum, xcoord, ycoord, taking);
             return true;
         }
     }
@@ -805,7 +813,7 @@ moveNode::moveNode()
     moveType = beginning;
 }
 
-moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType)
+moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType, bool givenMlinStatus)
 {
         lastNode = givenLastNode;
         moveNum = lastNode->moveNum + 1;
@@ -816,10 +824,10 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
         moveColour = turn;
         lastNode->nextNode = this;
         nextNode = NULL;
-
+        mlinStatus = givenMlinStatus;
 }
 
-moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn)
+moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn, bool givenMlinStatus)
 {
     lastNode = givenLastNode;
     moveNum = lastNode->moveNum + 1;
@@ -830,6 +838,7 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
     moveColour = turn;
     lastNode->nextNode = this;
     nextNode = NULL;
+    mlinStatus = givenMlinStatus;
 
     if(inputLay != oldInputLay)
     {

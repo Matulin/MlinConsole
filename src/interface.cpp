@@ -75,6 +75,7 @@ interfaceWindow::interfaceWindow(MainWindow *parent)
     toolbar = new gameToolbar(options);
 
     gameMoveListLayout = new QVBoxLayout;
+    gameMoveListLayout->setAlignment(Qt::AlignTop);
 
     gameWindow->addWidget(thisGameData->boardWidget);
     gameWindow->addLayout(gameSideBar);
@@ -225,6 +226,9 @@ void interfaceWindow::setMoveList()
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
     QLabel * titleBox1 = new QLabel("  Black  ");
     QLabel * titleBox2 = new QLabel("  White  ");
+    QPalette whiteTitlePalette;
+    whiteTitlePalette.setColor(QPalette::WindowText, Qt::white);
+    titleBox2->setPalette(whiteTitlePalette);
     if(thisGameData->startingColour == blackToken)
     {
         moveListTitleBox->addWidget(titleBox1);
@@ -242,6 +246,7 @@ void interfaceWindow::setMoveList()
         QHBoxLayout * gameStatusBox = new QHBoxLayout;
         QLabel * placingLabel = new QLabel("Placing");
         gameStatusBox->addWidget(placingLabel);
+        gameStatusBox->setAlignment(placingLabel, Qt::AlignHCenter);
         gameMoveListLayout->addLayout(gameStatusBox);
 
         moveNode * tempNode = thisGameData->gameMoveHead;
@@ -257,6 +262,13 @@ void interfaceWindow::setMoveList()
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
                 gameMoveListLayout->addLayout(tempRowBox);
+                if(tempNode->mlinStatus == true)
+                {
+                    QPalette mlinPalette;
+                    mlinPalette.setColor(QPalette::WindowText, Qt::blue);
+                    rowLabel1->setPalette(mlinPalette);
+
+                }
                 if(tempNode->nextNode != NULL)
                 {
                     QHBoxLayout * tempRowBox2;
@@ -280,6 +292,14 @@ void interfaceWindow::setMoveList()
                         if(tempRowBox2 != tempRowBox)
                             gameMoveListLayout->addLayout(tempRowBox2);
 
+                        if(tempNode->mlinStatus == true)
+                        {
+                            QPalette mlinPalette;
+                            mlinPalette.setColor(QPalette::WindowText, Qt::blue);
+                            rowLabel2->setPalette(mlinPalette);
+
+                        }
+
                         if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
                         {
                             addTakingMove(tempNode);
@@ -292,6 +312,7 @@ void interfaceWindow::setMoveList()
                         QHBoxLayout * gameStatusBox2 = new QHBoxLayout;
                         QLabel * movingLabel = new QLabel("Moving");
                         gameStatusBox2->addWidget(movingLabel);
+                        gameStatusBox2->setAlignment(movingLabel, Qt::AlignHCenter);
                         gameMoveListLayout->addLayout(gameStatusBox2);
                     }
                 }
@@ -303,6 +324,13 @@ void interfaceWindow::setMoveList()
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
                 gameMoveListLayout->addLayout(tempRowBox);
+                if(tempNode->mlinStatus == true)
+                {
+                    QPalette mlinPalette;
+                    mlinPalette.setColor(QPalette::WindowText, Qt::blue);
+                    rowLabel1->setPalette(mlinPalette);
+
+                }
 
                 if(tempNode->nextNode != NULL)
                 {
@@ -326,6 +354,14 @@ void interfaceWindow::setMoveList()
                         tempRowBox2->addWidget(rowLabel2);
                         if(tempRowBox2 != tempRowBox)
                             gameMoveListLayout->addLayout(tempRowBox2);
+
+                        if(tempNode->mlinStatus == true)
+                        {
+                            QPalette mlinPalette;
+                            mlinPalette.setColor(QPalette::WindowText, Qt::blue);
+                            rowLabel2->setPalette(mlinPalette);
+
+                        }
                     }
 
                     if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))

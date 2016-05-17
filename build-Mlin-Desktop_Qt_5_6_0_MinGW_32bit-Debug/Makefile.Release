@@ -467,6 +467,7 @@ release/moc_mainwindow.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -831,6 +832,7 @@ release/moc_graphics.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -1196,6 +1198,7 @@ release/moc_interface.cpp: ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -1570,6 +1573,7 @@ release/moc_menu.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -1933,6 +1937,7 @@ release/moc_toolbar.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
@@ -2296,6 +2301,7 @@ release/moc_options.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -2678,6 +2684,7 @@ release/main.o: ../main.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -3042,6 +3049,7 @@ release/mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -3405,6 +3413,7 @@ release/board.o: ../src/board.cpp ../board.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -3769,6 +3778,7 @@ release/game.o: ../src/game.cpp ../game.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -4133,6 +4143,7 @@ release/graphics.o: ../src/graphics.cpp ../graphics.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -4497,6 +4508,7 @@ release/interface.o: ../src/interface.cpp ../interface.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -4871,6 +4883,7 @@ release/menu.o: ../src/menu.cpp ../menu.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -5233,6 +5246,7 @@ release/toolbar.o: ../src/toolbar.cpp ../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
@@ -5595,6 +5609,7 @@ release/options.o: ../src/options.cpp ../options.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtGui/QFont \
+		C:/Qt/5.6/mingw49_32/include/QtGui/QPalette \
 		../toolbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \

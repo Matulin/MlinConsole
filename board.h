@@ -141,11 +141,12 @@ public:
     int change;
     posColour moveColour;
     QString genString();
+    bool mlinStatus;
 
 public:
     explicit moveNode();
-    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType = placing);
-    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn);
+    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType = placing, bool givenMlinStatus = false);
+    explicit moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn, bool givenMlinStatus = false);
     moveNode * lastNode;
     moveNode * nextNode;
 };
@@ -175,7 +176,7 @@ public:
     class moveNode * currentMoveNode;
     class moveNode * selectedMoveNode;
     unsigned int moveListSize;
-    void appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord);
+    void appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord, status givenGameStatus, bool givenMlinStatus = false);
 
 
 public:
