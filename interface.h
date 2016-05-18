@@ -4,12 +4,14 @@
 #include "board.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QLayout>
 #include <QLabel>
 #include <QtGui>
 #include <QString>
 #include <QFont>
 #include <typeinfo>
 #include <QPalette>
+#include <QScrollArea>
 #include "toolbar.h"
 #include "options.h"
 #include "mainwindow.h"
@@ -31,7 +33,7 @@ public:
     //explicit interfaceWindow(class gameData * data, QWidget *parent = 0);
     ~interfaceWindow();
     void setMoveList();
-    void addTakingMove(moveNode * tempNode);
+    void addTakingMove(moveNode * tempNode, QVBoxLayout * listLayout);
 
 public:
     class gameData * thisGameData;

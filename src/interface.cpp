@@ -82,8 +82,6 @@ interfaceWindow::interfaceWindow(MainWindow *parent)
     gameWindow->addLayout(gameMoveListLayout);
     addLayout(gameWindow);
     setMenuBar(toolbar);
-
-
     setInterfaceWidgets();
 }
 
@@ -224,11 +222,12 @@ void interfaceWindow::setMoveList()
         delete layoutWidget;
     }
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
-    QLabel * titleBox1 = new QLabel("  Black  ");
-    QLabel * titleBox2 = new QLabel("  White  ");
+    QLabel * titleBox1 = new QLabel("   Black   ");
+    QLabel * titleBox2 = new QLabel("   White   ");
     QPalette whiteTitlePalette;
     whiteTitlePalette.setColor(QPalette::WindowText, Qt::white);
     titleBox2->setPalette(whiteTitlePalette);
+
     if(thisGameData->startingColour == blackToken)
     {
         moveListTitleBox->addWidget(titleBox1);
@@ -241,14 +240,31 @@ void interfaceWindow::setMoveList()
     }
     gameMoveListLayout->addLayout(moveListTitleBox);
 
+
+    QScrollArea * moveListScrollArea = new QScrollArea;
+    QVBoxLayout * moveListInnerLayout = new QVBoxLayout;
+    QWidget * moveListWidget = new QWidget;
+    moveListWidget->setLayout(moveListInnerLayout);
+
+    moveListScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    moveListScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //moveListScrollArea->
+    QVBoxLayout * scrollAreaLayout = new QVBoxLayout;
+    scrollAreaLayout->addWidget(moveListScrollArea);
+    gameMoveListLayout->addLayout(scrollAreaLayout);
+    gameMoveListLayout->setAlignment(scrollAreaLayout, Qt::AlignHCenter);
+    scrollAreaLayout->setAlignment(moveListScrollArea, Qt::AlignHCenter);
+    moveListInnerLayout->setGeometry(gameMoveListLayout->geometry());
+
     if(thisGameData->gameMoveHead->nextNode != NULL)
     {
         QHBoxLayout * gameStatusBox = new QHBoxLayout;
         QLabel * placingLabel = new QLabel("Placing");
         gameStatusBox->addWidget(placingLabel);
         gameStatusBox->setAlignment(placingLabel, Qt::AlignHCenter);
-        gameMoveListLayout->addLayout(gameStatusBox);
 
+        moveListInnerLayout->addLayout(gameStatusBox);
+        moveListInnerLayout->setAlignment(gameStatusBox, Qt::AlignHCenter);
         moveNode * tempNode = thisGameData->gameMoveHead;
 
         while((tempNode->nextNode) != NULL)
@@ -261,7 +277,7 @@ void interfaceWindow::setMoveList()
                 QHBoxLayout * tempRowBox = new QHBoxLayout;
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
-                gameMoveListLayout->addLayout(tempRowBox);
+                moveListInnerLayout->addLayout(tempRowBox);
                 if(tempNode->mlinStatus == true)
                 {
                     QPalette mlinPalette;
@@ -275,7 +291,7 @@ void interfaceWindow::setMoveList()
                     if(tempNode->nextNode->moveType == taking)
                     {
                         tempNode = tempNode->nextNode;
-                        addTakingMove(tempNode);
+                        addTakingMove(tempNode, moveListInnerLayout);
                         tempRowBox2 = new QHBoxLayout;
                         QLabel * emptyLabel = new QLabel("      ");
                         tempRowBox2->addWidget(emptyLabel);
@@ -290,7 +306,7 @@ void interfaceWindow::setMoveList()
                         QLabel * rowLabel2 = new QLabel(moveName2);
                         tempRowBox2->addWidget(rowLabel2);
                         if(tempRowBox2 != tempRowBox)
-                            gameMoveListLayout->addLayout(tempRowBox2);
+                            moveListInnerLayout->addLayout(tempRowBox2);
 
                         if(tempNode->mlinStatus == true)
                         {
@@ -302,7 +318,7 @@ void interfaceWindow::setMoveList()
 
                         if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
                         {
-                            addTakingMove(tempNode);
+                            addTakingMove(tempNode, moveListInnerLayout);
                         }
                     }
 
@@ -313,7 +329,7 @@ void interfaceWindow::setMoveList()
                         QLabel * movingLabel = new QLabel("Moving");
                         gameStatusBox2->addWidget(movingLabel);
                         gameStatusBox2->setAlignment(movingLabel, Qt::AlignHCenter);
-                        gameMoveListLayout->addLayout(gameStatusBox2);
+                        moveListInnerLayout->addLayout(gameStatusBox2);
                     }
                 }
             }
@@ -323,7 +339,7 @@ void interfaceWindow::setMoveList()
                 QHBoxLayout * tempRowBox = new QHBoxLayout;
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
-                gameMoveListLayout->addLayout(tempRowBox);
+                moveListInnerLayout->addLayout(tempRowBox);
                 if(tempNode->mlinStatus == true)
                 {
                     QPalette mlinPalette;
@@ -338,7 +354,7 @@ void interfaceWindow::setMoveList()
                     if(tempNode->nextNode->moveType == taking)
                     {
                         tempNode = tempNode->nextNode;
-                        addTakingMove(tempNode);
+                        addTakingMove(tempNode, moveListInnerLayout);
                         tempRowBox2 = new QHBoxLayout;
                         QLabel * emptyLabel = new QLabel("      ");
                         tempRowBox2->addWidget(emptyLabel);
@@ -353,7 +369,7 @@ void interfaceWindow::setMoveList()
                         QLabel * rowLabel2 = new QLabel(moveName2);
                         tempRowBox2->addWidget(rowLabel2);
                         if(tempRowBox2 != tempRowBox)
-                            gameMoveListLayout->addLayout(tempRowBox2);
+                            moveListInnerLayout->addLayout(tempRowBox2);
 
                         if(tempNode->mlinStatus == true)
                         {
@@ -365,14 +381,19 @@ void interfaceWindow::setMoveList()
                     }
 
                     if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
-                        addTakingMove(tempNode);
+                        addTakingMove(tempNode, moveListInnerLayout);
                 }
             }
         }
     }  
+    QLabel * emptyLabel = new QLabel("                      ");
+    QHBoxLayout * emptyLayout = new QHBoxLayout;
+    emptyLayout->addWidget(emptyLabel);
+    moveListInnerLayout->addLayout(emptyLayout);
+    moveListScrollArea->setWidget(moveListWidget);
 };
 
-void interfaceWindow::addTakingMove(moveNode * tempNode)
+void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayout)
 {
     if(thisGameData->startingColour != tempNode->moveColour)
     {
@@ -387,7 +408,7 @@ void interfaceWindow::addTakingMove(moveNode * tempNode)
 
         takingMoveBox->addWidget(takingLabel1);
         takingMoveBox->addWidget(takingLabel2);
-        gameMoveListLayout->addLayout(takingMoveBox);
+        listLayout->addLayout(takingMoveBox);
     }
     else if(thisGameData->startingColour == tempNode->moveColour)
     {
@@ -402,6 +423,6 @@ void interfaceWindow::addTakingMove(moveNode * tempNode)
 
         takingMoveBox->addWidget(takingLabel1);
         takingMoveBox->addWidget(takingLabel2);
-        gameMoveListLayout->addLayout(takingMoveBox);
+        listLayout->addLayout(takingMoveBox);
     }
 }
