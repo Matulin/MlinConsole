@@ -221,6 +221,26 @@ void interfaceWindow::setMoveList()
         }
         delete layoutWidget;
     }
+
+    QHBoxLayout * arrowBox = new QHBoxLayout;
+    QPushButton * backAllButton = new QPushButton;
+    QPushButton * backOneButton = new QPushButton;
+    QPushButton * forwardOneButton = new QPushButton;
+    QPushButton * forwardAllButton = new QPushButton;
+    backAllButton->setStyleSheet("background-image:url(resources/backAllArrow.png);");
+    backOneButton->setStyleSheet("background-image:url(resources/backArrow.png);");
+    forwardOneButton->setStyleSheet("background-image:url(resources/forwardArrow.png);");
+    forwardAllButton->setStyleSheet("background-image:url(resources/forwardAllArrow.png);");
+    formatArrowButton(backAllButton);
+    formatArrowButton(backOneButton);
+    formatArrowButton(forwardAllButton);
+    formatArrowButton(forwardOneButton);
+    arrowBox->addWidget(backAllButton);
+    arrowBox->addWidget(backOneButton);
+    arrowBox->addWidget(forwardOneButton);
+    arrowBox->addWidget(forwardAllButton);
+
+
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
     QLabel * titleBox1 = new QLabel("   Black   ");
     QLabel * titleBox2 = new QLabel("   White   ");
@@ -238,17 +258,18 @@ void interfaceWindow::setMoveList()
         moveListTitleBox->addWidget(titleBox2);
         moveListTitleBox->addWidget(titleBox1);
     }
+    gameMoveListLayout->addLayout(arrowBox);
     gameMoveListLayout->addLayout(moveListTitleBox);
 
 
     QScrollArea * moveListScrollArea = new QScrollArea;
+    moveListScrollArea->setFrameShape(QFrame::NoFrame);
     QVBoxLayout * moveListInnerLayout = new QVBoxLayout;
     QWidget * moveListWidget = new QWidget;
     moveListWidget->setLayout(moveListInnerLayout);
 
     moveListScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    moveListScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    //moveListScrollArea->
+    moveListScrollArea->setVerticalScrollBarPolicy(Qt::	ScrollBarAsNeeded);
     QVBoxLayout * scrollAreaLayout = new QVBoxLayout;
     scrollAreaLayout->addWidget(moveListScrollArea);
     gameMoveListLayout->addLayout(scrollAreaLayout);
@@ -392,6 +413,17 @@ void interfaceWindow::setMoveList()
     moveListInnerLayout->addLayout(emptyLayout);
     moveListScrollArea->setWidget(moveListWidget);
 };
+
+
+void interfaceWindow::formatArrowButton(QPushButton * thisButton)
+{
+    thisButton->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
+    thisButton->setMaximumWidth (arrowBorderSize);
+    thisButton->setMinimumWidth (arrowBorderSize);
+    thisButton->setMaximumHeight(arrowBorderSize);
+    thisButton->setMinimumHeight(arrowBorderSize);
+};
+
 
 void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayout)
 {

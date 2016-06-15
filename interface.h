@@ -17,6 +17,8 @@
 #include "mainwindow.h"
 #include "board.h"
 
+#define arrowBorderSize 23
+
 class gameData;
 class gameToolbar;
 class optionFunctions;
@@ -42,6 +44,7 @@ public:
     bool setInterfaceWidgets();
     MainWindow * mainWindowWidget;
     QVBoxLayout * gameMoveListLayout;
+    void formatArrowButton(QPushButton * thisButton);
 
 
     QLabel * messageBox;
