@@ -36,6 +36,7 @@ public:
     ~interfaceWindow();
     void setMoveList();
     void addTakingMove(moveNode * tempNode, QVBoxLayout * listLayout);
+    void styleMoveLabel(moveNode * tempNode, QLabel * rowLabel);
 
 public:
     class gameData * thisGameData;

@@ -244,6 +244,8 @@ void interfaceWindow::setMoveList()
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
     QLabel * titleBox1 = new QLabel("   Black   ");
     QLabel * titleBox2 = new QLabel("   White   ");
+    titleBox1->setAlignment(Qt::AlignHCenter);
+    titleBox2->setAlignment(Qt::AlignHCenter);
     QPalette whiteTitlePalette;
     whiteTitlePalette.setColor(QPalette::WindowText, Qt::white);
     titleBox2->setPalette(whiteTitlePalette);
@@ -298,14 +300,15 @@ void interfaceWindow::setMoveList()
                 QHBoxLayout * tempRowBox = new QHBoxLayout;
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
+                QLabel * rowLabel2 = new QLabel();
+                tempRowBox->addWidget(rowLabel2);
+                rowLabel1->setAlignment(Qt::AlignHCenter);
+                rowLabel2->setAlignment(Qt::AlignHCenter);
                 moveListInnerLayout->addLayout(tempRowBox);
-                if(tempNode->mlinStatus == true)
-                {
-                    QPalette mlinPalette;
-                    mlinPalette.setColor(QPalette::WindowText, Qt::blue);
-                    rowLabel1->setPalette(mlinPalette);
+                styleMoveLabel(tempNode, rowLabel1);
+                //gameStatusBox->setAlignment(placingLabel, Qt::AlignHCenter);
 
-                }
+
                 if(tempNode->nextNode != NULL)
                 {
                     QHBoxLayout * tempRowBox2;
@@ -324,18 +327,12 @@ void interfaceWindow::setMoveList()
                     {
                         tempNode = tempNode->nextNode;
                         QString moveName2 = tempNode->genString();
-                        QLabel * rowLabel2 = new QLabel(moveName2);
+                        rowLabel2->setText(moveName2);
                         tempRowBox2->addWidget(rowLabel2);
                         if(tempRowBox2 != tempRowBox)
                             moveListInnerLayout->addLayout(tempRowBox2);
 
-                        if(tempNode->mlinStatus == true)
-                        {
-                            QPalette mlinPalette;
-                            mlinPalette.setColor(QPalette::WindowText, Qt::blue);
-                            rowLabel2->setPalette(mlinPalette);
-
-                        }
+                        styleMoveLabel(tempNode, rowLabel2);
 
                         if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
                         {
@@ -360,14 +357,12 @@ void interfaceWindow::setMoveList()
                 QHBoxLayout * tempRowBox = new QHBoxLayout;
                 QLabel * rowLabel1 = new QLabel(moveName1);
                 tempRowBox->addWidget(rowLabel1);
+                QLabel * rowLabel2 = new QLabel();
+                rowLabel1->setAlignment(Qt::AlignHCenter);
+                rowLabel2->setAlignment(Qt::AlignHCenter);
+                tempRowBox->addWidget(rowLabel2);
                 moveListInnerLayout->addLayout(tempRowBox);
-                if(tempNode->mlinStatus == true)
-                {
-                    QPalette mlinPalette;
-                    mlinPalette.setColor(QPalette::WindowText, Qt::blue);
-                    rowLabel1->setPalette(mlinPalette);
-
-                }
+                styleMoveLabel(tempNode, rowLabel1);
 
                 if(tempNode->nextNode != NULL)
                 {
@@ -387,18 +382,12 @@ void interfaceWindow::setMoveList()
                     {
                         tempNode = tempNode->nextNode;
                         QString moveName2 = tempNode->genString();
-                        QLabel * rowLabel2 = new QLabel(moveName2);
+                        rowLabel2->setText(moveName2);
                         tempRowBox2->addWidget(rowLabel2);
                         if(tempRowBox2 != tempRowBox)
                             moveListInnerLayout->addLayout(tempRowBox2);
 
-                        if(tempNode->mlinStatus == true)
-                        {
-                            QPalette mlinPalette;
-                            mlinPalette.setColor(QPalette::WindowText, Qt::blue);
-                            rowLabel2->setPalette(mlinPalette);
-
-                        }
+                        styleMoveLabel(tempNode, rowLabel2);
                     }
 
                     if((tempNode->nextNode != NULL) && (tempNode->nextNode->moveType == taking))
@@ -433,6 +422,7 @@ void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayou
         QString takingMoveName = tempNode->genString();
         QLabel * takingLabel1 = new QLabel("      ");
         QLabel * takingLabel2 = new QLabel(takingMoveName);
+        takingLabel2->setAlignment(Qt::AlignHCenter);
 
         QPalette takingPalette;
         takingPalette.setColor(QPalette::WindowText, Qt::red);
@@ -448,6 +438,7 @@ void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayou
         QString takingMoveName = tempNode->genString();
         QLabel * takingLabel1 = new QLabel(takingMoveName);
         QLabel * takingLabel2 = new QLabel("      ");
+        takingLabel1->setAlignment(Qt::AlignHCenter);
 
         QPalette takingPalette;
         takingPalette.setColor(QPalette::WindowText, Qt::red);
@@ -456,5 +447,22 @@ void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayou
         takingMoveBox->addWidget(takingLabel1);
         takingMoveBox->addWidget(takingLabel2);
         listLayout->addLayout(takingMoveBox);
+    }
+}
+
+void interfaceWindow::styleMoveLabel(moveNode * tempNode, QLabel * rowLabel)
+{
+    if(tempNode->mlinStatus == true)
+    {
+        QPalette mlinPalette;
+        mlinPalette.setColor(QPalette::WindowText, Qt::blue);
+        rowLabel->setPalette(mlinPalette);
+    }
+    else if(tempNode == thisGameData->selectedMoveNode)
+    {
+        QPalette mlinPalette;
+        mlinPalette.setColor(QPalette::Window, Qt::yellow);
+        rowLabel->setPalette(mlinPalette);
+        rowLabel->setAutoFillBackground(TRUE);
     }
 }
