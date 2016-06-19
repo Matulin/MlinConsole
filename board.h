@@ -168,6 +168,7 @@ public:
     struct position selectedPosition;
     enum posColour startingColour;
 
+
     interfaceWindow * outerWindow;
     bool checkForMove(unsigned int count, unsigned int count2, unsigned int count3);
     void changeTurns();
@@ -196,7 +197,6 @@ public:
     bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken);
     bool moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum, enum posColour currentColour);
     bool checkForTakableToken();
-
 
 
 };

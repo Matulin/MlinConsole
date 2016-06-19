@@ -909,3 +909,4 @@ QString moveNode::genString()
     }
     return moveName;
 }
+

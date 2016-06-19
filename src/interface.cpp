@@ -240,6 +240,11 @@ void interfaceWindow::setMoveList()
     arrowBox->addWidget(forwardOneButton);
     arrowBox->addWidget(forwardAllButton);
 
+    connect(backOneButton, SIGNAL(clicked()), this, SLOT(scrollBack()));
+    connect(forwardOneButton, SIGNAL(clicked()), this, SLOT(scrollForward()));
+    connect(backAllButton, SIGNAL(clicked()), this, SLOT(scrollBackAll()));
+    connect(forwardAllButton, SIGNAL(clicked()), this, SLOT(scrollForwardAll()));
+
 
     QHBoxLayout * moveListTitleBox = new QHBoxLayout;
     QLabel * titleBox1 = new QLabel("   Black   ");
@@ -465,4 +470,37 @@ void interfaceWindow::styleMoveLabel(moveNode * tempNode, QLabel * rowLabel)
         rowLabel->setPalette(mlinPalette);
         rowLabel->setAutoFillBackground(TRUE);
     }
+}
+
+void interfaceWindow::scrollBack()
+{
+    if(thisGameData->selectedMoveNode->lastNode->lastNode != NULL)
+    {
+        thisGameData->selectedMoveNode = thisGameData->selectedMoveNode->lastNode;
+        setInterfaceWidgets();
+    }
+}
+
+void interfaceWindow::scrollForward()
+{
+    if(thisGameData->selectedMoveNode->nextNode != NULL)
+    {
+        thisGameData->selectedMoveNode = thisGameData->selectedMoveNode->nextNode;
+        setInterfaceWidgets();
+    }
+}
+
+void interfaceWindow::scrollBackAll()
+{
+    if(thisGameData->gameMoveHead->nextNode != NULL)
+    {
+        thisGameData->selectedMoveNode = thisGameData->gameMoveHead->nextNode;
+        setInterfaceWidgets();
+    }
+}
+
+void interfaceWindow::scrollForwardAll()
+{
+    thisGameData->selectedMoveNode = thisGameData->currentMoveNode;
+    setInterfaceWidgets();
 }

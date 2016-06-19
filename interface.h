@@ -76,6 +76,12 @@ public:
     QLabel * whitePiecesUnplacedMessage;
     QLabel * whitePiecesTakenMessage;
 
+public slots:
+    void scrollBack();
+    void scrollForward();
+    void scrollBackAll();
+    void scrollForwardAll();
+
 };
 
 
