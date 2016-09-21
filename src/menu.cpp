@@ -7,7 +7,7 @@ mainMenu::mainMenu(MainWindow * givenWindow)
     loadGame = new QPushButton("Load Game");
     howToPlay = new QPushButton("How to Play");
     settings = new QPushButton("Settings");
-    exitButton = new QPushButton("Exit Button");
+    exitButton = new QPushButton("Exit");
     connect(newGame, SIGNAL(clicked()), parentWindow, SLOT(startGame()));
     connect(loadGame, SIGNAL(clicked()), parentWindow, SLOT(loadGame()));
     connect(exitButton, SIGNAL(clicked()), parentWindow, SLOT(exitApp()));

@@ -34,7 +34,7 @@ public:
     void setCoords(unsigned int layNum, unsigned int XCoord, unsigned int YCoord);
     void setDefaults(QPixmap * defaultImage, QPixmap * hoverImage);
     bool tokenCheck;
-    gameLoop();
+    void gameLoop();
 
 protected:
      void mousePressEvent(QMouseEvent *);

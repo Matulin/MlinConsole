@@ -62,8 +62,6 @@ gameData::gameData(interfaceWindow * parentWindow, bool restart)
     tokenImage.intersectionRightHoverMap = new QPixmap("resources/intersectionRightHover.jpg");
     tokenImage.intersectionMiddleHoverMap = new QPixmap("resources/intersectionMiddleHover.jpg");
 
-
-
     initBoard();
     if(restart != true)
        initBoardWidget();
@@ -172,7 +170,7 @@ bool gameData::moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, un
         else
         {
 
-            return moveToken(selectedPosition.arrayXCoord, selectedPosition.arrayYCoord, selectedPosition.arrayLayNum, arrayXCoord, arrayYCoord, arrayLayNum, selectedToken);
+            return moveToken(selectedPosition.arrayXCoord, selectedPosition.arrayYCoord, selectedPosition.arrayLayNum, arrayXCoord, arrayYCoord, arrayLayNum);
         }
     }
     return false;
@@ -248,22 +246,27 @@ bool gameData::valMove(int oldx, int oldy, int oldlay, int newx, int newy, int n
     return false;
 }
 
-bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken)
+bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour newToken, bool playing)
 {
 
     board[lay][xcoord][ycoord].colour = newToken;
-    board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
     if(newToken == blackToken)
     {
         blackPieces.piecesOnBoard++;
-        blackPieces.piecesUnplaced--;
+        if(playing == TRUE)
+            blackPieces.piecesUnplaced--;
+        else
+            blackPieces.piecesTaken--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.blackTokenMap));
         return true;
     }
     else if(newToken == whiteToken)
     {
         whitePieces.piecesOnBoard++;
-        whitePieces.piecesUnplaced--;
+        if(playing == TRUE)
+            whitePieces.piecesUnplaced--;
+        else
+           whitePieces.piecesTaken--;
         board[lay][xcoord][ycoord].locImg->setPixmap(*(tokenImage.whiteTokenMap));
         return true;
     }
@@ -273,7 +276,14 @@ bool gameData::placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int
 
 void gameData::appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord, enum status givenGameStatus, bool givenMlinStatus)
 {
-    moveNode * tempNode = new moveNode(layNum, xCoord, yCoord, currentMoveNode, currentTurn, givenGameStatus, givenMlinStatus);
+    posColour relevantPiece;
+    if(givenGameStatus == taking && currentTurn == blackToken)
+        relevantPiece = whiteToken;
+    else if(givenGameStatus == taking && currentTurn == whiteToken)
+        relevantPiece = blackToken;
+    else
+        relevantPiece = currentTurn;
+    moveNode * tempNode = new moveNode(layNum, xCoord, yCoord, currentMoveNode, relevantPiece, givenGameStatus, givenMlinStatus);
     currentMoveNode = tempNode;
     selectedMoveNode = currentMoveNode;
     moveListSize++;
@@ -309,7 +319,7 @@ void gameData::appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned
 // Attempting to move a token outside the size of the array from a middle-position will result in moving the piece to the next layer.
 // A player cannot of course move outwards from the outer-most layer, or inwards from the inner-most layer.
 // It is also impossible to move between layers from the corners of a layer.
-bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken)
+bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay)
 {
 
     if(valMove(oldx, oldy, oldlay, newx, newy, newlay) != true)
@@ -321,6 +331,7 @@ bool gameData::moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int
     selectedPosition.colour = noToken;
     selectedToken = noToken;*/
     removeMlin(oldx, oldy, oldlay);
+    posColour newToken = board[oldlay][oldx][oldy].colour;
     board[oldlay][oldx][oldy].colour = noToken;
     board[newlay][newx][newy].colour = newToken;
 
@@ -478,40 +489,47 @@ enum posColour gameData::checkForMlin()
 }
 
 // After a mlin, this takes a piece if allowed.
-bool gameData::takeToken(int xcoord, int ycoord, int laynum)
+// If reversing through the game, this will also remove a piece placed the previous turn if "playing" is FALSE
+bool gameData::takeToken(int xcoord, int ycoord, int laynum, bool playing)
 {
-    enum posColour token = currentTurn;
-    /*if(valPos(xcoord, ycoord, laynum) == 0)
-    {
-        return false;
-    }*/
-    if(board[laynum][xcoord][ycoord].mlinStatus > 0)
+    if((board[laynum][xcoord][ycoord].mlinStatus > 0) && (playing == TRUE))
     {
         return false;
     }
-    if(token == blackToken)
+    if((((currentTurn == blackToken) && (board[laynum][xcoord][ycoord].colour == whiteToken)) || ((currentTurn == whiteToken) && (board[laynum][xcoord][ycoord].colour == blackToken))) || (playing == FALSE))
     {
-        if(board[laynum][xcoord][ycoord].colour == whiteToken)
-        {
-            board[laynum][xcoord][ycoord].colour = noToken;
+
+            if(playing != false)
+            {
+                appendMoveList(laynum, xcoord, ycoord, taking);
+                if(board[laynum][xcoord][ycoord].colour == whiteToken)
+                {
+                    whitePieces.piecesTaken++;
+                    whitePieces.piecesOnBoard--;
+                }
+                else
+                {
+                    blackPieces.piecesTaken++;
+                    blackPieces.piecesOnBoard--;
+                }
+            }
+            else
+            {
+                if(board[laynum][xcoord][ycoord].colour == whiteToken)
+                {
+                    whitePieces.piecesUnplaced++;
+                    whitePieces.piecesOnBoard--;
+                }
+                else if(board[laynum][xcoord][ycoord].colour == blackToken)
+                {
+                    blackPieces.piecesUnplaced++;
+                    blackPieces.piecesOnBoard--;
+                }
+                removeMlin(xcoord, ycoord, laynum);
+            }
             board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
-            whitePieces.piecesOnBoard--;
-            whitePieces.piecesTaken++;
-            appendMoveList(laynum, xcoord, ycoord, taking);
-            return true;
-        }
-    }
-    else if(token == whiteToken)
-    {
-        if(board[laynum][xcoord][ycoord].colour == blackToken)
-        {
             board[laynum][xcoord][ycoord].colour = noToken;
-            blackPieces.piecesOnBoard--;
-            blackPieces.piecesTaken++;
-            board[laynum][xcoord][ycoord].locImg->setPixmap(*board[laynum][xcoord][ycoord].locImg->defaultImg);
-            appendMoveList(laynum, xcoord, ycoord, taking);
             return true;
-        }
     }
     return false;
 }
@@ -787,6 +805,7 @@ bool gameData::checkForTakableToken()
     return false;
 }
 
+
 void gameData::changeTurns()
 {
     if(currentTurn == blackToken)
@@ -805,6 +824,31 @@ void gameData::changeTurns()
     checkForWin();
 }
 
+void gameData::reverseMove() {
+    if(selectedMoveNode->moveType == placing)
+    {
+        takeToken(selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum, FALSE);
+    }
+    else if(selectedMoveNode->moveType == taking)
+    {
+        placePiece(selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum, selectedMoveNode->moveColour, FALSE);
+    }
+    else if(selectedMoveNode->moveType == moving)
+    {
+        if(selectedMoveNode->movedCoord == x)
+            moveToken(selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum, selectedMoveNode->xCoord - selectedMoveNode->change, selectedMoveNode->yCoord, selectedMoveNode->layNum);
+        else if(selectedMoveNode->movedCoord == y)
+            moveToken(selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum, selectedMoveNode->xCoord, selectedMoveNode->yCoord - selectedMoveNode->change, selectedMoveNode->layNum);
+        else if(selectedMoveNode->movedCoord == layer)
+            moveToken(selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum, selectedMoveNode->xCoord, selectedMoveNode->yCoord, selectedMoveNode->layNum - selectedMoveNode->change);
+    }
+}
+
+void gameData::advanceMove() {
+
+}
+
+// Constructor for the first moveNode of the game
 moveNode::moveNode()
 {
     moveNum = 0;
@@ -813,6 +857,7 @@ moveNode::moveNode()
     moveType = beginning;
 }
 
+// Constructor for moves of type "placing" or "taking"
 moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, moveNode * givenLastNode, enum posColour turn, enum status givenMoveType, bool givenMlinStatus)
 {
         lastNode = givenLastNode;
@@ -827,6 +872,7 @@ moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inpu
         mlinStatus = givenMlinStatus;
 }
 
+// Constructor for moves of type "moving"
 moveNode::moveNode(unsigned int inputLay, unsigned int inputX, unsigned int inputY, unsigned int oldInputLay, unsigned int oldInputX, unsigned int oldInputY, moveNode * givenLastNode, enum posColour turn, bool givenMlinStatus)
 {
     lastNode = givenLastNode;

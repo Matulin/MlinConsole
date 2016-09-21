@@ -2,7 +2,6 @@
 
 interfaceWindow::interfaceWindow(MainWindow *parent)
 {
-
     thisGameData = new gameData(this);
     gameWindow = new QHBoxLayout;
     gameSideBar = new QVBoxLayout;
@@ -159,7 +158,7 @@ bool interfaceWindow::setInterfaceWidgets()
        QString tokenText = QString::fromStdString("x" + std::to_string(thisGameData->whitePieces.piecesUnplaced));
        whitePiecesUnplaced2->setText(tokenText);
     }
-    else if(thisGameData->blackPieces.piecesUnplaced == 0)
+    else if(thisGameData->whitePieces.piecesUnplaced == 0)
     {
         whitePiecesUnplacedMessage->clear();
         whitePiecesUnplaced->clear();
@@ -188,7 +187,7 @@ bool interfaceWindow::setInterfaceWidgets()
         QString tokenText = QString::fromStdString("x" + std::to_string(thisGameData->whitePieces.piecesTaken));
         whitePiecesTaken2->setText(tokenText);
     }
-    else if(thisGameData->whitePieces.piecesUnplaced == 0)
+    else if(thisGameData->whitePieces.piecesTaken == 0)
     {
         whitePiecesTakenMessage->clear();
         whitePiecesTaken->clear();
@@ -418,7 +417,6 @@ void interfaceWindow::formatArrowButton(QPushButton * thisButton)
     thisButton->setMinimumHeight(arrowBorderSize);
 };
 
-
 void interfaceWindow::addTakingMove(moveNode * tempNode, QVBoxLayout * listLayout)
 {
     if(thisGameData->startingColour != tempNode->moveColour)
@@ -463,7 +461,7 @@ void interfaceWindow::styleMoveLabel(moveNode * tempNode, QLabel * rowLabel)
         mlinPalette.setColor(QPalette::WindowText, Qt::blue);
         rowLabel->setPalette(mlinPalette);
     }
-    else if(tempNode == thisGameData->selectedMoveNode)
+    if(tempNode == thisGameData->selectedMoveNode)
     {
         QPalette mlinPalette;
         mlinPalette.setColor(QPalette::Window, Qt::yellow);
@@ -474,10 +472,14 @@ void interfaceWindow::styleMoveLabel(moveNode * tempNode, QLabel * rowLabel)
 
 void interfaceWindow::scrollBack()
 {
-    if(thisGameData->selectedMoveNode->lastNode->lastNode != NULL)
+    if(thisGameData->selectedMoveNode->lastNode != NULL)
     {
+        thisGameData->reverseMove();
         thisGameData->selectedMoveNode = thisGameData->selectedMoveNode->lastNode;
         setInterfaceWidgets();
+
+        if(thisGameData->selectedMoveNode->nextNode->moveType == taking)
+            scrollBack();
     }
 }
 
@@ -486,21 +488,23 @@ void interfaceWindow::scrollForward()
     if(thisGameData->selectedMoveNode->nextNode != NULL)
     {
         thisGameData->selectedMoveNode = thisGameData->selectedMoveNode->nextNode;
+        thisGameData->advanceMove();
         setInterfaceWidgets();
     }
 }
 
 void interfaceWindow::scrollBackAll()
 {
-    if(thisGameData->gameMoveHead->nextNode != NULL)
+    while(thisGameData->selectedMoveNode->lastNode != NULL)
     {
-        thisGameData->selectedMoveNode = thisGameData->gameMoveHead->nextNode;
-        setInterfaceWidgets();
+        scrollBack();
     }
 }
 
 void interfaceWindow::scrollForwardAll()
 {
-    thisGameData->selectedMoveNode = thisGameData->currentMoveNode;
-    setInterfaceWidgets();
+    while(thisGameData->selectedMoveNode != thisGameData->currentMoveNode)
+    {
+        scrollForward();
+    }
 }

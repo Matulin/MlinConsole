@@ -178,23 +178,25 @@ public:
     class moveNode * selectedMoveNode;
     unsigned int moveListSize;
     void appendMoveList(unsigned int layNum, unsigned int xCoord, unsigned int yCoord, status givenGameStatus, bool givenMlinStatus = false);
+    void reverseMove();
+    void advanceMove();
 
 
 public:
     bool valPos(int xcoord, int ycoord, int layerNum);
     void displayBoard();
 
-    bool moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay, enum posColour newToken);
+    bool moveToken(int oldx, int oldy, int oldlay, int newx, int newy, int newlay);
     bool initBoard();
     gameData();
-    bool takeToken(int xcoord, int ycoord, int laynum);
+    bool takeToken(int xcoord, int ycoord, int laynum, bool playing = TRUE);
     enum posColour checkForMlin();
     void removeMlin(int xcoord, int ycoord, int laynum);
     void checkForWin();
     int checkForNewMlin(unsigned int xcoord, unsigned int ycoord, unsigned int laynum);
     bool initBoardWidget();
     bool gameFunction(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum);
-    bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken);
+    bool placePiece(unsigned int xcoord, unsigned int ycoord, unsigned int lay, enum posColour blackToken, bool playing = TRUE);
     bool moveSelect(unsigned int arrayXCoord, unsigned int arrayYCoord, unsigned int arrayLayNum, enum posColour currentColour);
     bool checkForTakableToken();
 

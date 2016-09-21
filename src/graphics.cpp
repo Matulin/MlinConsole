@@ -45,69 +45,73 @@ void squareGraphic::setDefaults(QPixmap * defaultImage, QPixmap * hoverImage)
 
 void squareGraphic::mousePressEvent(QMouseEvent *)
 {
-    if(tokenCheck == true)
+    if(gameData->currentMoveNode == gameData->selectedMoveNode)
     {
-        gameData->gameFunction(arrayXCoord, arrayYCoord, arrayLayNum);
-
-    }
-   else if((gameData->gameStatus == moving) && (gameData->selectedToken != noToken))
-    {
-        gameData->selectedToken = noToken;
-
-        if(gameData->selectedPosition.colour == blackToken)
+        if(tokenCheck == true)
         {
-            if(gameData->selectedPosition.mlinStatus < 1)
-                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMap));
-            else
-                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
+            gameData->gameFunction(arrayXCoord, arrayYCoord, arrayLayNum);
         }
-        else if(gameData->selectedPosition.colour == whiteToken)
+       else if((gameData->gameStatus == moving) && (gameData->selectedToken != noToken))
         {
-            if(gameData->selectedPosition.mlinStatus < 1)
-                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMap));
-            else
-                gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
-        }
-        gameData->selectedPosition = gameData->board[1][1][1];
+            gameData->selectedToken = noToken;
 
+            if(gameData->selectedPosition.colour == blackToken)
+            {
+                if(gameData->selectedPosition.mlinStatus < 1)
+                    gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMap));
+                else
+                    gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
+            }
+            else if(gameData->selectedPosition.colour == whiteToken)
+            {
+                if(gameData->selectedPosition.mlinStatus < 1)
+                    gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMap));
+                else
+                    gameData->selectedPosition.locImg->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
+            }
+            gameData->selectedPosition = gameData->board[1][1][1];
+        }
     }
 }
 
 void squareGraphic::enterEvent(QEvent *)
 {
-    if(tokenCheck == true)
+    if(gameData->currentMoveNode == gameData->selectedMoveNode)
     {
-        if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
+        if(tokenCheck == true)
         {
-            this->setPixmap(*hoverImg);
-        }
-        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && ((thisPosition->colour == gameData->currentTurn) && (gameData->checkForMove(thisPosition->arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord) == true)))
-        {
-            if(thisPosition->colour == blackToken)
-            {
-                this->setPixmap(*(gameData->tokenImage.blackTokenHoverMap));
-            }
-            else if(thisPosition->colour == whiteToken)
-            {
-                this->setPixmap(*(gameData->tokenImage.whiteTokenHoverMap));
-            }
-        }
-        else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
-        {
-            if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+            if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
             {
                 this->setPixmap(*hoverImg);
             }
-        }
-        else if(gameData->gameStatus == taking)
-        {
-            if((thisPosition->colour == blackToken) && ((gameData->currentTurn == whiteToken) && (thisPosition->mlinStatus < 1)))
+            else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && ((thisPosition->colour == gameData->currentTurn) && (gameData->checkForMove(thisPosition->arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord) == true)))
             {
-                this->setPixmap(*gameData->tokenImage.blackTokenDeleteMap);
+                if(thisPosition->colour == blackToken)
+                {
+                    this->setPixmap(*(gameData->tokenImage.blackTokenHoverMap));
+                }
+                else if(thisPosition->colour == whiteToken)
+                {
+                    this->setPixmap(*(gameData->tokenImage.whiteTokenHoverMap));
+                }
             }
-            else if((thisPosition->colour == whiteToken) && ((gameData->currentTurn == blackToken) && (thisPosition->mlinStatus < 1)))
+            else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
             {
-                this->setPixmap(*gameData->tokenImage.whiteTokenDeleteMap);
+                if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+                {
+                    this->setPixmap(*hoverImg);
+                }
+            }
+            else if(gameData->gameStatus == taking)
+            {
+                if((thisPosition->colour == blackToken) && ((gameData->currentTurn == whiteToken) && (thisPosition->mlinStatus < 1)))
+                {
+                    this->setPixmap(*gameData->tokenImage.blackTokenDeleteMap);
+                }
+                else if((thisPosition->colour == whiteToken) && ((gameData->currentTurn == blackToken) && (thisPosition->mlinStatus < 1)))
+                {
+                    this->setPixmap(*gameData->tokenImage.whiteTokenDeleteMap);
+                }
             }
         }
     }
@@ -115,51 +119,54 @@ void squareGraphic::enterEvent(QEvent *)
 
 void squareGraphic::leaveEvent(QEvent *)
 {
-    if(tokenCheck == true)
+    if(gameData->currentMoveNode == gameData->selectedMoveNode)
     {
-        if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
+        if(tokenCheck == true)
         {
-            this->setPixmap(*defaultImg);
-        }
-        else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && (thisPosition->colour == gameData->currentTurn))
-        {
-            if(thisPosition->colour == blackToken)
-            {
-                if(thisPosition->mlinStatus < 1)
-                    this->setPixmap(*(gameData->tokenImage.blackTokenMap));
-                else
-                    this->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
-            }
-            else if(thisPosition->colour == whiteToken)
-            {
-                if(thisPosition->mlinStatus < 1)
-                    this->setPixmap(*(gameData->tokenImage.whiteTokenMap));
-                else
-                    this->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
-            }
-        }
-        else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
-        {
-            if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+            if((thisPosition->colour == noToken) && (gameData->gameStatus == placing))
             {
                 this->setPixmap(*defaultImg);
             }
-        }
-        else if(gameData->gameStatus == taking)
-        {
-            if((thisPosition->colour == blackToken) && ((gameData->currentTurn == whiteToken) && (thisPosition->mlinStatus < 1)))
+            else if(((gameData->gameStatus == moving) && (gameData->selectedToken == noToken)) && (thisPosition->colour == gameData->currentTurn))
             {
-                if(thisPosition->mlinStatus < 1)
-                    this->setPixmap(*(gameData->tokenImage.blackTokenMap));
-                else
-                    this->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
+                if(thisPosition->colour == blackToken)
+                {
+                    if(thisPosition->mlinStatus < 1)
+                        this->setPixmap(*(gameData->tokenImage.blackTokenMap));
+                    else
+                        this->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
+                }
+                else if(thisPosition->colour == whiteToken)
+                {
+                    if(thisPosition->mlinStatus < 1)
+                        this->setPixmap(*(gameData->tokenImage.whiteTokenMap));
+                    else
+                        this->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
+                }
             }
-            else if((thisPosition->colour == whiteToken) && ((gameData->currentTurn == blackToken) && (thisPosition->mlinStatus < 1)))
+            else if(((gameData->gameStatus == moving) && (gameData->selectedToken != noToken)) && (thisPosition->colour == noToken))
             {
-                if(thisPosition->mlinStatus < 1)
-                    this->setPixmap(*(gameData->tokenImage.whiteTokenMap));
-                else
-                    this->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
+                if(gameData->valMove(gameData->selectedPosition.arrayXCoord, gameData->selectedPosition.arrayYCoord, gameData->selectedPosition.arrayLayNum, thisPosition->arrayXCoord, thisPosition->arrayYCoord, thisPosition->arrayLayNum))
+                {
+                    this->setPixmap(*defaultImg);
+                }
+            }
+            else if(gameData->gameStatus == taking)
+            {
+                if((thisPosition->colour == blackToken) && ((gameData->currentTurn == whiteToken) && (thisPosition->mlinStatus < 1)))
+                {
+                    if(thisPosition->mlinStatus < 1)
+                        this->setPixmap(*(gameData->tokenImage.blackTokenMap));
+                    else
+                        this->setPixmap(*(gameData->tokenImage.blackTokenMlinMap));
+                }
+                else if((thisPosition->colour == whiteToken) && ((gameData->currentTurn == blackToken) && (thisPosition->mlinStatus < 1)))
+                {
+                    if(thisPosition->mlinStatus < 1)
+                        this->setPixmap(*(gameData->tokenImage.whiteTokenMap));
+                    else
+                        this->setPixmap(*(gameData->tokenImage.whiteTokenMlinMap));
+                }
             }
         }
     }

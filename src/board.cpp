@@ -1,4 +1,4 @@
-#include "board.h"
+ #include "board.h"
 
 void position::setCoords(unsigned int layNum, unsigned int XCoord, unsigned int YCoord)
 {
